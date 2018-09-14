@@ -1,3 +1,1 @@
 # Higgs
-
-HAKEJ
