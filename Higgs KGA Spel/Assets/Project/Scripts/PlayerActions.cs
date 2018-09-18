@@ -2,13 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerActions : MonoBehaviour {
+public class PlayerActions : MonoBehaviour
+{
 
-	void Start () {
+	void Start ()
+    {
 		
 	}
 	
-	void FixedUpdate () {
+	void FixedUpdate ()
+    {
+        PlayerInput();       
+    }
+
+
+    public void PlayerInput()
+    {
         if (Input.GetKey(KeyCode.A))
         {
 
