@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
 		
 	}
 
+
+
     public void PlayerMoveRight()
     {
         PlayerRB.velocity = new Vector2(2, PlayerRB.velocity.y);
@@ -24,4 +26,10 @@ public class PlayerMovement : MonoBehaviour
     {
         PlayerRB.velocity = new Vector2(-2, PlayerRB.velocity.y);
     }
+
+    private void LateUpdate()
+    {
+        PlayerRB.velocity = new Vector2(0, PlayerRB.velocity.y);
+    }
+
 }
