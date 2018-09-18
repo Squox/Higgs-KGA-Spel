@@ -5,13 +5,19 @@ using UnityEngine;
 public class PlayerActions : MonoBehaviour
 {
 
+    private GameObject player;
+    private PlayerMovement MovePlayer;
+
+
 	void Start ()
     {
-		
+        player = GameObject.FindGameObjectWithTag("Player");
+        MovePlayer = player.GetComponent<PlayerMovement>();
 	}
 	
 	void FixedUpdate ()
     {
+        GetComponent<PlayerMovement>();
         PlayerInput();       
     }
 
@@ -20,11 +26,11 @@ public class PlayerActions : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.A))
         {
-
+            MovePlayer.PlayerMoveLeft();
         }
         if (Input.GetKey(KeyCode.D))
         {
-
+            MovePlayer.PlayerMoveRight();
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
