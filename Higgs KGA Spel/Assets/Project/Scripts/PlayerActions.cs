@@ -15,9 +15,8 @@ public class PlayerActions : MonoBehaviour
         MovePlayer = player.GetComponent<PlayerMovement>();
 	}
 	
-	void FixedUpdate ()
+	void Update ()
     {
-        GetComponent<PlayerMovement>();
         PlayerInput();       
     }
 
