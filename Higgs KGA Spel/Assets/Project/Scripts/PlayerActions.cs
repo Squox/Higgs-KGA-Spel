@@ -7,17 +7,18 @@ public class PlayerActions : MonoBehaviour
 
     private GameObject player;
     private PlayerMovement MovePlayer;
+    public GameObject Shot;
 
 
-	void Start ()
+    void Start ()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         MovePlayer = player.GetComponent<PlayerMovement>();
-	}
-	
-	void FixedUpdate ()
-    {
         GetComponent<PlayerMovement>();
+    }
+	
+	void Update ()
+    {
         PlayerInput();       
     }
 
@@ -40,9 +41,9 @@ public class PlayerActions : MonoBehaviour
         {
 
         }
-        if (Input.GetKey(KeyCode.Space))
-        {
-
+        if (Input.GetKeyDown(KeyCode.Space))
+        {           
+            Instantiate(Shot, transform.position, transform.rotation);
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
