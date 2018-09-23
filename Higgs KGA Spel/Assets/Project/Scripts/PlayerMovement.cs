@@ -14,7 +14,8 @@ public class PlayerMovement : MonoBehaviour
     //Floats:
     [SerializeField] private float speed;
     [SerializeField] private float JumpForce;
-
+    [SerializeField] private float fallMultiplier = 2.5f;
+    [SerializeField] private float lowJumpMultiplier = 2f;
     //Ints:
     private int JumpsLeft;
     [SerializeField] private int Jumps;
@@ -55,7 +56,10 @@ public class PlayerMovement : MonoBehaviour
         PlayerRB.velocity = new Vector2(PlayerInputScript.MoveDirection * speed * Time.fixedDeltaTime, PlayerRB.velocity.y);
 
         Jumping();
-	}
+
+        ChangeGravityScale();
+
+    }
 
 
     private void Jumping()
@@ -67,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
             JumpsLeft--;
         }
 
-        if (PlayerInputScript.HasPressedJump == true && IsOnGround)
+        if (PlayerInputScript.HasPressedJump == true && IsOnGround == true)
         {
             PlayerRB.velocity = new Vector2(PlayerRB.velocity.x, JumpForce * Time.fixedDeltaTime);
             PlayerInputScript.HasPressedJump = false;
@@ -81,13 +85,31 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckFacingDirection()
     {
-        if (PlayerInputScript.MoveDirection == -1 && IsFacingRight)
+        if (PlayerInputScript.MoveDirection == -1 && IsFacingRight == true)
         {
             FlipPlayer();
         }else
-        if (PlayerInputScript.MoveDirection == 1 && !IsFacingRight)
+        if (PlayerInputScript.MoveDirection == 1 && IsFacingRight ==false)
         {
             FlipPlayer();
+        }
+    }
+
+    private void ChangeGravityScale()
+    {
+        if (PlayerRB.velocity.y < 0.1f)
+        {
+            PlayerRB.gravityScale = fallMultiplier;
+        }
+
+        else if (PlayerRB.velocity.y > 0.1f && !Input.GetKey(KeyCode.Space))
+        {
+            PlayerRB.gravityScale = lowJumpMultiplier;
+        }
+
+        else
+        {
+            PlayerRB.gravityScale = 1f;
         }
     }
 
