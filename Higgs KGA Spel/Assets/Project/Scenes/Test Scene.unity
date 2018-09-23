@@ -122,7 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 65604857}
   - component: {fileID: 65604858}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Floor(placeholder)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -197,7 +197,7 @@ GameObject:
   m_Component:
   - component: {fileID: 354223961}
   - component: {fileID: 354223960}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,7 +236,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 354223959}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 65604857}
@@ -322,7 +322,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4274083624062424, guid: d6a0169b2f2374d458df0d199a0cee81, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.96
       objectReference: {fileID: 0}
     - target: {fileID: 4274083624062424, guid: d6a0169b2f2374d458df0d199a0cee81, type: 2}
       propertyPath: m_LocalPosition.z
@@ -330,15 +330,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4274083624062424, guid: d6a0169b2f2374d458df0d199a0cee81, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4274083624062424, guid: d6a0169b2f2374d458df0d199a0cee81, type: 2}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4274083624062424, guid: d6a0169b2f2374d458df0d199a0cee81, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4274083624062424, guid: d6a0169b2f2374d458df0d199a0cee81, type: 2}
       propertyPath: m_LocalRotation.w
@@ -346,6 +346,21 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4274083624062424, guid: d6a0169b2f2374d458df0d199a0cee81, type: 2}
       propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114077206214877302, guid: d6a0169b2f2374d458df0d199a0cee81,
+        type: 2}
+      propertyPath: CheckRadius
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 114077206214877302, guid: d6a0169b2f2374d458df0d199a0cee81,
+        type: 2}
+      propertyPath: IsOnGround
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114077206214877302, guid: d6a0169b2f2374d458df0d199a0cee81,
+        type: 2}
+      propertyPath: Jumps
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

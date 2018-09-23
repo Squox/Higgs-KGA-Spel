@@ -11,6 +11,21 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1368115266776336}
   m_IsPrefabAsset: 1
+--- !u!1 &1011627787406532
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4753844573922744}
+  m_Layer: 0
+  m_Name: IsOnground?
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1368115266776336
 GameObject:
   m_ObjectHideFlags: 0
@@ -52,11 +67,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1368115266776336}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.96, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4436221139006658}
+  - {fileID: 4753844573922744}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -72,6 +88,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4274083624062424}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4753844573922744
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1011627787406532}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.2546, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4274083624062424}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &50326523509512668
 Rigidbody2D:
@@ -130,6 +159,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 300
+  JumpForce: 300
+  JumpsLeft: 0
+  IsOnGround: 0
+  CheckRadius: 0.5
+  WhatIsGround:
+    serializedVersion: 2
+    m_Bits: 512
+  GroundCheck: {fileID: 4753844573922744}
 --- !u!114 &114338169466660124
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -142,6 +179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveDirection: 0
+  HasPressedJump: 0
 --- !u!212 &212195098420502340
 SpriteRenderer:
   m_ObjectHideFlags: 1
