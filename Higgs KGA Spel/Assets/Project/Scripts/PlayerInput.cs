@@ -7,6 +7,8 @@ public class PlayerInput : MonoBehaviour
     // Ints:
     public int MoveDirection = 0;
 
+    // Bools:
+    public bool HasPressedJump;
 
 	// Use this for initialization
 	private void Start ()
@@ -40,6 +42,11 @@ public class PlayerInput : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.D))
         {
             MoveDirection = 0;
+        }
+
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))
+        {
+            HasPressedJump = true;
         }
     }
 }

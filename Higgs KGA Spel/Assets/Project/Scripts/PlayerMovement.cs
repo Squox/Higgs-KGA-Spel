@@ -4,15 +4,32 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    //To store PlayerInput script and player in a local variable
     private GameObject Player;
-    private Rigidbody2D PlayerRB;
-
     private PlayerInput PlayerInputScript;
 
-    [SerializeField]private float speed;
 
-	// Use this for initialization
-	void Start ()
+    private Rigidbody2D PlayerRB;
+
+    //Floats:
+    [SerializeField] private float speed;
+    [SerializeField] private float JumpForce;
+    [SerializeField] private float fallMultiplier = 2.5f;
+    [SerializeField] private float lowJumpMultiplier = 2f;
+    //Ints:
+    private int JumpsLeft;
+    [SerializeField] private int Jumps;
+
+    //Bools:
+    private bool IsFacingRight = true;
+
+    //variables used to check if player is on ground
+    private bool IsOnGround;
+    [SerializeField] private float CheckRadius;
+    [SerializeField] private LayerMask WhatIsGround;
+    [SerializeField] private Transform GroundCheck;
+
+    private void Start ()
     {
         PlayerRB = FindObjectOfType<Rigidbody2D>();
 
@@ -23,12 +40,83 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(PlayerRB.velocity.x);
+        CheckFacingDirection();
+        if (IsOnGround)
+        {
+            JumpsLeft = Jumps;
+        }
     }
 
-    // Update is called once per frame
-    void FixedUpdate ()
+    private void FixedUpdate ()
     {
+        // Check if player is on ground
+        IsOnGround = Physics2D.OverlapCircle(GroundCheck.position, CheckRadius, WhatIsGround);
+        
+        // Moving the player on the x axies
         PlayerRB.velocity = new Vector2(PlayerInputScript.MoveDirection * speed * Time.fixedDeltaTime, PlayerRB.velocity.y);
-	}
+
+        Jumping();
+
+        ChangeGravityScale();
+
+    }
+
+
+    private void Jumping()
+    {
+        if (PlayerInputScript.HasPressedJump == true && JumpsLeft > 0)
+        {
+            PlayerRB.velocity = new Vector2(PlayerRB.velocity.x, JumpForce * Time.fixedDeltaTime);
+            PlayerInputScript.HasPressedJump = false;
+            JumpsLeft--;
+        }
+
+        if (PlayerInputScript.HasPressedJump == true && IsOnGround == true)
+        {
+            PlayerRB.velocity = new Vector2(PlayerRB.velocity.x, JumpForce * Time.fixedDeltaTime);
+            PlayerInputScript.HasPressedJump = false;
+        }
+        else
+        {
+            PlayerInputScript.HasPressedJump = false;
+        }
+
+    }
+
+    private void CheckFacingDirection()
+    {
+        if (PlayerInputScript.MoveDirection == -1 && IsFacingRight == true)
+        {
+            FlipPlayer();
+        }else
+        if (PlayerInputScript.MoveDirection == 1 && IsFacingRight ==false)
+        {
+            FlipPlayer();
+        }
+    }
+
+    private void ChangeGravityScale()
+    {
+        if (PlayerRB.velocity.y < 0.1f)
+        {
+            PlayerRB.gravityScale = fallMultiplier;
+        }
+
+        else if (PlayerRB.velocity.y > 0.1f && !Input.GetKey(KeyCode.Space))
+        {
+            PlayerRB.gravityScale = lowJumpMultiplier;
+        }
+
+        else
+        {
+            PlayerRB.gravityScale = 1f;
+        }
+    }
+
+    private void FlipPlayer()
+    {
+        IsFacingRight = !IsFacingRight;
+
+        transform.Rotate(0f, 180f, 0f);
+    }
 }
