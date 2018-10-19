@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
+    //To store PlayerActions script and player in a local variable
+    private GameObject Player;
+    private PlayerActions PlayerActionsScript;
+
     // Ints:
     public int MoveDirection = 0;
 
@@ -19,8 +23,12 @@ public class PlayerInput : MonoBehaviour
 	// Update is called once per frame
 	private void Update ()
     {
-        CheckPlayerInput();	
-	}
+        CheckPlayerInput();
+
+        Player = GameObject.FindGameObjectWithTag("Player");
+
+        PlayerActionsScript = Player.GetComponent<PlayerActions>();
+    }
 
    
 
@@ -47,6 +55,11 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))
         {
             HasPressedJump = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            PlayerActionsScript.shoot();
         }
     }
 }
