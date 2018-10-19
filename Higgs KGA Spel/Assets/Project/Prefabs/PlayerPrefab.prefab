@@ -193,6 +193,7 @@ MonoBehaviour:
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
   Jumps: 0
+  IsFacingRight: 1
   CheckRadius: 0.25
   WhatIsGround:
     serializedVersion: 2
@@ -222,6 +223,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 885499486dfc07d489eb4e4da8673c2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletspeed: 50
+  ShotRB: {fileID: 0}
+  Shootingpoint: {fileID: 0}
 --- !u!212 &212195098420502340
 SpriteRenderer:
   m_ObjectHideFlags: 1

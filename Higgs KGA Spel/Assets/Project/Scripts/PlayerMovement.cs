@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int Jumps;
 
     //Bools:
-    private bool IsFacingRight = true;
+    public bool IsFacingRight = true;
 
     //variables used to check if player is on ground
     private bool IsOnGround;

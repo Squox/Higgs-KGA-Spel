@@ -204,6 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 885499486dfc07d489eb4e4da8673c2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShotRB: {fileID: 50255967415965666, guid: 1c3c6e27e9a1b6d45b2a039152ac6c9b, type: 2}
 --- !u!1 &354223959
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,7 +432,8 @@ Prefab:
       propertyPath: m_LocalPosition.y
       value: -0.42
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114961522409151260, guid: d6a0169b2f2374d458df0d199a0cee81, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: d6a0169b2f2374d458df0d199a0cee81, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &1770909833
