@@ -102,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
             PlayerRB.gravityScale = fallMultiplier;
         }
 
-        else if (PlayerRB.velocity.y > 0.1f && !Input.GetKey(KeyCode.Space))
+        else if (PlayerRB.velocity.y > 0.1f && !Input.GetKey(KeyCode.Space) && !Input.GetKey(KeyCode.W))
         {
             PlayerRB.gravityScale = lowJumpMultiplier;
         }
