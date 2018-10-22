@@ -8,10 +8,10 @@ public class Bullet : MonoBehaviour
     [SerializeField]private float DestroyTime = 10f;
     private float Destroy;
     
-
-
     public float BulletSpeed;
+
     private Rigidbody2D rb;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -25,7 +25,7 @@ public class Bullet : MonoBehaviour
     {
         if (Destroy < Time.time) 
         {
-        Destroy(gameObject);
+            Destroy(gameObject);
         }
 	}
 }
