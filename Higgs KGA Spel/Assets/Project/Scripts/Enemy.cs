@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] private GameObject RatPrefab;
+    [SerializeField] private Transform Shootingpoint;
+
     //To store Bullet BoxCollider2D and Bullet in a local variable
     private PolygonCollider2D BulletBC;
     private GameObject Bullet;
@@ -23,6 +26,8 @@ public class Enemy : MonoBehaviour
 		if (health == 0)
         {
             Destroy(gameObject);
+
+            Instantiate()
         }
 	}
 
