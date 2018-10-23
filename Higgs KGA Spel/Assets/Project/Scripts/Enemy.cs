@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    private BoxCollider2D BulletBC;
+    private GameObject Bullet;
+
 	// Use this for initialization
 	void Start () {
+        Bullet = GameObject.FindGameObjectWithTag("Bullet");
 
+        BulletBC = Bullet.GetComponent<BoxCollider2D>();
 	}
 	
 	// Update is called once per frame
@@ -14,7 +19,7 @@ public class Enemy : MonoBehaviour
 		
 	}
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D BulletBC)
     {
         Destroy(gameObject);
     }
