@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    //To store Bullet BoxCollider2D and Bullet in a local variable
     private BoxCollider2D BulletBC;
     private GameObject Bullet;
+
+    //Integers
+    [SerializeField] private int health;
 
 	// Use this for initialization
 	void Start () {
@@ -16,11 +20,14 @@ public class Enemy : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (health == 0)
+        {
+            Destroy(gameObject);
+        }
 	}
 
     private void OnTriggerEnter2D(Collider2D BulletBC)
     {
-        Destroy(gameObject);
+        health--;
     }
 }
