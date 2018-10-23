@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    //To access the RatPrefab and -Spawnpoint
     [SerializeField] private GameObject RatPrefab;
-    [SerializeField] private Transform Shootingpoint;
+    [SerializeField] private Transform RatSpawnpoint;
 
     //To store Bullet BoxCollider2D and Bullet in a local variable
     private PolygonCollider2D BulletBC;
@@ -15,22 +16,23 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int health;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
         Bullet = GameObject.FindGameObjectWithTag("Bullet");
 
         BulletBC = Bullet.GetComponent<PolygonCollider2D>();
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 		if (health == 0)
         {
             Destroy(gameObject);
-
-            Instantiate()
         }
-	}
+    }
 
+    //Decreasing health
     private void OnTriggerEnter2D(Collider2D BulletBC)
     {
         health--;

@@ -119,6 +119,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7363e51bfd955ea41b07b9d37e18e289, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RatPrefab: {fileID: 0}
+  RatSpawnpoint: {fileID: 0}
   health: 3
 --- !u!212 &212372699147067180
 SpriteRenderer:
