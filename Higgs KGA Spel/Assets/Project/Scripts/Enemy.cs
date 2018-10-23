@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     //To store Bullet BoxCollider2D and Bullet in a local variable
-    private BoxCollider2D BulletBC;
+    private PolygonCollider2D BulletBC;
     private GameObject Bullet;
 
     //Integers
@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
 	void Start () {
         Bullet = GameObject.FindGameObjectWithTag("Bullet");
 
-        BulletBC = Bullet.GetComponent<BoxCollider2D>();
+        BulletBC = Bullet.GetComponent<PolygonCollider2D>();
 	}
 	
 	// Update is called once per frame
