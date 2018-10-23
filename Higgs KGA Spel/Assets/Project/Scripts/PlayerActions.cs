@@ -22,7 +22,6 @@ public class PlayerActions : MonoBehaviour
 
     public void shoot()
     {
-        Debug.Log("Shoot");
         Instantiate(Bulletprefab, Shootingpoint.position, Shootingpoint.rotation);
     }
 }
