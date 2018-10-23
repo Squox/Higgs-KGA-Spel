@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start ()
     {
-        PlayerRB = FindObjectOfType<Rigidbody2D>();
+        PlayerRB = GetComponent<Rigidbody2D>();
 
         Player = GameObject.FindGameObjectWithTag("Player");
 
