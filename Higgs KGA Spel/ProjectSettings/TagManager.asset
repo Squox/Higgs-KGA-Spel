@@ -7,6 +7,7 @@ TagManager:
   - RatSpawnpoint
   - Rat
   - Bullet
+  - Enemy
   layers:
   - Default
   - TransparentFX

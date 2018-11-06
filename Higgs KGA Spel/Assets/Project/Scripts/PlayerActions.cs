@@ -8,10 +8,10 @@ public class PlayerActions : MonoBehaviour
     [SerializeField]private GameObject Bulletprefab;
     [SerializeField]private Transform Shootingpoint;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
-          
+
     }
 	
 	// Update is called once per frame
