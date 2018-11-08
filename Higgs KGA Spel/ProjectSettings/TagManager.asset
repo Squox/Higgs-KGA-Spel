@@ -8,6 +8,7 @@ TagManager:
   - Rat
   - Bullet
   - Enemy
+  - DeathWall
   layers:
   - Default
   - TransparentFX
