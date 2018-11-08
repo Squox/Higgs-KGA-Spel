@@ -22,8 +22,8 @@ public class DeathWallScript : MonoBehaviour
     {
         if (Reload < Time.time && isDead)
         {
-            restartCurrentScene();
             isDead = false;
+            restartCurrentScene();        
         }
     }
 
