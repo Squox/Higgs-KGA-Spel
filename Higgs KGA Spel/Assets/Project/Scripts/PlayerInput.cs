@@ -26,7 +26,6 @@ public class PlayerInput : MonoBehaviour
         CheckPlayerInput();
 
         Player = GameObject.FindGameObjectWithTag("Player");
-
         PlayerActionsScript = Player.GetComponent<PlayerActions>();
     }
 
@@ -60,6 +59,6 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))
         {
             PlayerActionsScript.shoot();
-        }
+        }    
     }
 }

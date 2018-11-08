@@ -44,7 +44,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -130,7 +130,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4176983725389226, guid: 371d9d3317d81cd40981711804edcae7, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -0.11430165
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4176983725389226, guid: 371d9d3317d81cd40981711804edcae7, type: 2}
       propertyPath: m_LocalRotation.x
@@ -784,7 +784,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4176983725389226, guid: 371d9d3317d81cd40981711804edcae7, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -0.11430165
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4176983725389226, guid: 371d9d3317d81cd40981711804edcae7, type: 2}
       propertyPath: m_LocalRotation.x
@@ -848,7 +848,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 0
-  DeathScreenprefab: {fileID: 0}
+  DeathScreenprefab: {fileID: 1887317794767636, guid: 817ea0759b8e56745b72840df4f73b9c,
+    type: 2}
   ReloadTime: 10
 --- !u!1001 &285032543
 Prefab:
@@ -1549,7 +1550,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4176983725389226, guid: 371d9d3317d81cd40981711804edcae7, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -0.11430165
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4176983725389226, guid: 371d9d3317d81cd40981711804edcae7, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1822,7 +1823,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 0
-  DeathScreenprefab: {fileID: 0}
+  DeathScreenprefab: {fileID: 1887317794767636, guid: 817ea0759b8e56745b72840df4f73b9c,
+    type: 2}
   ReloadTime: 10
 --- !u!4 &639282349 stripped
 Transform:
@@ -2593,7 +2595,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4176983725389226, guid: 371d9d3317d81cd40981711804edcae7, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -0.11430165
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4176983725389226, guid: 371d9d3317d81cd40981711804edcae7, type: 2}
       propertyPath: m_LocalRotation.x
@@ -2652,7 +2654,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 0
-  DeathScreenprefab: {fileID: 0}
+  DeathScreenprefab: {fileID: 1887317794767636, guid: 817ea0759b8e56745b72840df4f73b9c,
+    type: 2}
   ReloadTime: 10
 --- !u!4 &897852846 stripped
 Transform:
@@ -3586,7 +3589,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4176983725389226, guid: 371d9d3317d81cd40981711804edcae7, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -0.11430165
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4176983725389226, guid: 371d9d3317d81cd40981711804edcae7, type: 2}
       propertyPath: m_LocalRotation.x
@@ -3650,7 +3653,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 0
-  DeathScreenprefab: {fileID: 0}
+  DeathScreenprefab: {fileID: 1887317794767636, guid: 817ea0759b8e56745b72840df4f73b9c,
+    type: 2}
   ReloadTime: 10
 --- !u!1 &1283501000
 GameObject:
@@ -6474,7 +6478,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4176983725389226, guid: 371d9d3317d81cd40981711804edcae7, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -0.11430165
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4176983725389226, guid: 371d9d3317d81cd40981711804edcae7, type: 2}
       propertyPath: m_LocalRotation.x
@@ -6538,7 +6542,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 0
-  DeathScreenprefab: {fileID: 0}
+  DeathScreenprefab: {fileID: 1887317794767636, guid: 817ea0759b8e56745b72840df4f73b9c,
+    type: 2}
   ReloadTime: 10
 --- !u!1 &2040334446
 GameObject:
