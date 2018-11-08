@@ -847,6 +847,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b700f5a1028294e91f709bea73c9b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
+  DeathScreenprefab: {fileID: 0}
+  ReloadTime: 10
 --- !u!1001 &285032543
 Prefab:
   m_ObjectHideFlags: 0
@@ -1818,6 +1821,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b700f5a1028294e91f709bea73c9b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
+  DeathScreenprefab: {fileID: 0}
+  ReloadTime: 10
 --- !u!4 &639282349 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4176983725389226, guid: 371d9d3317d81cd40981711804edcae7,
@@ -2231,8 +2237,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 668920383}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.35115, y: 1.4268, z: 0}
-  m_LocalScale: {x: 0.30023274, y: 3.871955, z: 1}
+  m_LocalPosition: {x: 0.35389, y: 1.4268, z: 0}
+  m_LocalScale: {x: 0.30570295, y: 3.871955, z: 1}
   m_Children: []
   m_Father: {fileID: 2129774229}
   m_RootOrder: 0
@@ -2645,6 +2651,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b700f5a1028294e91f709bea73c9b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
+  DeathScreenprefab: {fileID: 0}
+  ReloadTime: 10
 --- !u!4 &897852846 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4176983725389226, guid: 371d9d3317d81cd40981711804edcae7,
@@ -3640,6 +3649,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b700f5a1028294e91f709bea73c9b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
+  DeathScreenprefab: {fileID: 0}
+  ReloadTime: 10
 --- !u!1 &1283501000
 GameObject:
   m_ObjectHideFlags: 0
@@ -6525,6 +6537,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b700f5a1028294e91f709bea73c9b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
+  DeathScreenprefab: {fileID: 0}
+  ReloadTime: 10
 --- !u!1 &2040334446
 GameObject:
   m_ObjectHideFlags: 0
@@ -6898,6 +6913,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b700f5a1028294e91f709bea73c9b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
+  DeathScreenprefab: {fileID: 1887317794767636, guid: 817ea0759b8e56745b72840df4f73b9c,
+    type: 2}
+  ReloadTime: 5
 --- !u!1 &2129774228
 GameObject:
   m_ObjectHideFlags: 0

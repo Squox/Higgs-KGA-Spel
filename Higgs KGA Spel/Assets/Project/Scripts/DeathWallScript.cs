@@ -5,16 +5,24 @@ using UnityEngine.SceneManagement;
 
 public class DeathWallScript : MonoBehaviour
 {
+    private PolygonCollider2D PlayerBC;
+    private GameObject Player;
 
-    bool isDead = false;
+    public bool isDead = false;
 
+    [SerializeField] private GameObject DeathScreenprefab;
     [SerializeField] private float ReloadTime = 10f;
+
     private float Reload;
 
     // Use this for initialization
     void Start ()
     {
         Reload = ReloadTime + Time.time;
+
+        Player = GameObject.FindGameObjectWithTag("Player");
+
+        PlayerBC = Player.GetComponent<PolygonCollider2D>();
     }
 	
 	// Update is called once per frame
@@ -27,10 +35,13 @@ public class DeathWallScript : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D PlayerBC)
     {
-        Destroy(other);
-        Reload = ReloadTime + Time.time;
+        Instantiate(DeathScreenprefab, transform.position, transform.rotation);
+        if (isDead == false)
+        {
+            Reload = ReloadTime + Time.time;
+        }
         isDead = true;
     }
 
