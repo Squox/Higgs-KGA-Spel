@@ -13,15 +13,8 @@ public class DeathWall : MonoBehaviour
     private PlayerMovement playerMovementScript;
 
 
+
     public bool DeathScreenInstantiated = false;
-
-
-    public bool IsDead = false;
-
-
-    [SerializeField] private GameObject deathScreenprefab;
-    [SerializeField] private float reloadTime = 10f;
-
     public bool IsDead = false;
 
     [SerializeField] private GameObject deathScreenprefab;
@@ -48,6 +41,7 @@ public class DeathWall : MonoBehaviour
 
         if (IsDead)
 
+
         {
             Vector3 DeathScreenPos = new Vector3(camera.transform.position.x, camera.transform.position.y, camera.transform.position.z + 10);
             Instantiate(deathScreenprefab, DeathScreenPos, transform.rotation);
@@ -69,12 +63,6 @@ public class DeathWall : MonoBehaviour
         playerInputScript.MoveDirection = 0;
         playerRB.constraints = RigidbodyConstraints2D.FreezeAll;
         IsDead = true;
-        
-        playerInputScript.enabled = false;
-        playerInputScript.MoveDirection = 0;
-        playerRB.constraints = RigidbodyConstraints2D.FreezeAll;
-        IsDead = true;
-        
 
     }
 

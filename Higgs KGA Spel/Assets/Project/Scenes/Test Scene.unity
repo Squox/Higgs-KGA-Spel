@@ -837,10 +837,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
 <<<<<<< HEAD
+<<<<<<< HEAD
   isDead: 0
   DeathScreenprefab: {fileID: 1683749113747096, guid: 67ffd79e41668e64094e72446bd3bee9,
+=======
   IsDead: 0
   deathScreenprefab: {fileID: 1887317794767636, guid: 817ea0759b8e56745b72840df4f73b9c,
+>>>>>>> ed43175c82e73603ede03747462fb74267181f3c
 =======
   IsDead: 0
   deathScreenprefab: {fileID: 1887317794767636, guid: 817ea0759b8e56745b72840df4f73b9c,
@@ -1861,10 +1864,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
 <<<<<<< HEAD
+<<<<<<< HEAD
   isDead: 0
   DeathScreenprefab: {fileID: 1683749113747096, guid: 67ffd79e41668e64094e72446bd3bee9,
+=======
   IsDead: 0
   deathScreenprefab: {fileID: 1887317794767636, guid: 817ea0759b8e56745b72840df4f73b9c,
+>>>>>>> ed43175c82e73603ede03747462fb74267181f3c
 =======
   IsDead: 0
   deathScreenprefab: {fileID: 1887317794767636, guid: 817ea0759b8e56745b72840df4f73b9c,
@@ -2699,10 +2705,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
 <<<<<<< HEAD
+<<<<<<< HEAD
   isDead: 0
   DeathScreenprefab: {fileID: 1683749113747096, guid: 67ffd79e41668e64094e72446bd3bee9,
+=======
   IsDead: 0
   deathScreenprefab: {fileID: 1887317794767636, guid: 817ea0759b8e56745b72840df4f73b9c,
+>>>>>>> ed43175c82e73603ede03747462fb74267181f3c
 =======
   IsDead: 0
   deathScreenprefab: {fileID: 1887317794767636, guid: 817ea0759b8e56745b72840df4f73b9c,
@@ -3705,10 +3714,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
 <<<<<<< HEAD
+<<<<<<< HEAD
   isDead: 0
   DeathScreenprefab: {fileID: 1683749113747096, guid: 67ffd79e41668e64094e72446bd3bee9,
+=======
   IsDead: 0
   deathScreenprefab: {fileID: 1667622491154300, guid: 371d9d3317d81cd40981711804edcae7,
+>>>>>>> ed43175c82e73603ede03747462fb74267181f3c
 =======
   IsDead: 0
   deathScreenprefab: {fileID: 1667622491154300, guid: 371d9d3317d81cd40981711804edcae7,
@@ -6627,10 +6639,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
 <<<<<<< HEAD
+<<<<<<< HEAD
   isDead: 0
   DeathScreenprefab: {fileID: 1683749113747096, guid: 67ffd79e41668e64094e72446bd3bee9,
+=======
   IsDead: 0
   deathScreenprefab: {fileID: 1887317794767636, guid: 817ea0759b8e56745b72840df4f73b9c,
+>>>>>>> ed43175c82e73603ede03747462fb74267181f3c
 =======
   IsDead: 0
   deathScreenprefab: {fileID: 1887317794767636, guid: 817ea0759b8e56745b72840df4f73b9c,
@@ -7011,10 +7026,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
 <<<<<<< HEAD
+<<<<<<< HEAD
   isDead: 0
   DeathScreenprefab: {fileID: 1683749113747096, guid: 67ffd79e41668e64094e72446bd3bee9,
+=======
   IsDead: 0
   deathScreenprefab: {fileID: 1887317794767636, guid: 817ea0759b8e56745b72840df4f73b9c,
+>>>>>>> ed43175c82e73603ede03747462fb74267181f3c
 =======
   IsDead: 0
   deathScreenprefab: {fileID: 1887317794767636, guid: 817ea0759b8e56745b72840df4f73b9c,
