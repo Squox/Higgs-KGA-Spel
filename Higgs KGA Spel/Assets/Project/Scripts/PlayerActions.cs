@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerActions : MonoBehaviour
 {
 
-    [SerializeField]private GameObject Bulletprefab;
-    [SerializeField]private Transform Shootingpoint;
+    [SerializeField]private GameObject bulletprefab;
+    [SerializeField]private Transform shootingpoint;
 
     // Use this for initialization
     void Start ()
@@ -22,6 +22,6 @@ public class PlayerActions : MonoBehaviour
 
     public void shoot()
     {
-        Instantiate(Bulletprefab, Shootingpoint.position, Shootingpoint.rotation);
+        Instantiate(bulletprefab, shootingpoint.position, shootingpoint.rotation);
     }
 }

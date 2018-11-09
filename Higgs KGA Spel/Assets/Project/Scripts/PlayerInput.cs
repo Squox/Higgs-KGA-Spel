@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
     //To store PlayerActions script and player in a local variable
-    private GameObject Player;
-    private PlayerActions PlayerActionsScript;
+    private GameObject player;
+    private PlayerActions playerActionsScript;
 
     // Ints:
     public int MoveDirection = 0;
@@ -25,8 +25,8 @@ public class PlayerInput : MonoBehaviour
     {
         CheckPlayerInput();
 
-        Player = GameObject.FindGameObjectWithTag("Player");
-        PlayerActionsScript = Player.GetComponent<PlayerActions>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerActionsScript = player.GetComponent<PlayerActions>();
     }
 
    
@@ -58,7 +58,7 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.I))
         {
-            PlayerActionsScript.shoot();
+            playerActionsScript.shoot();
         }    
     }
 }
