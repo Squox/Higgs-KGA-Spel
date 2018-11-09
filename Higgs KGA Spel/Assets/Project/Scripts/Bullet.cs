@@ -5,8 +5,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
 
-    [SerializeField]private float DestroyTime = 10f;
-    private float Destroy;
+    [SerializeField]private float destroyTime = 10f;
+    private float destroy;
     
     public float BulletSpeed;
 
@@ -17,13 +17,13 @@ public class Bullet : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = transform.right * BulletSpeed;
-        Destroy = DestroyTime + Time.time;
+        destroy = destroyTime + Time.time;
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if (Destroy < Time.time) 
+        if (destroy < Time.time) 
         {
             Destroy(gameObject);
         }
