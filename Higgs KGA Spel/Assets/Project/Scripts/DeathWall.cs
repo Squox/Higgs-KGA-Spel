@@ -22,6 +22,11 @@ public class DeathWall : MonoBehaviour
     [SerializeField] private GameObject deathScreenprefab;
     [SerializeField] private float reloadTime = 10f;
 
+    public bool IsDead = false;
+
+    [SerializeField] private GameObject deathScreenprefab;
+    [SerializeField] private float reloadTime = 10f;
+
     private float reload;
 
     // Use this for initialization
@@ -60,6 +65,10 @@ public class DeathWall : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D PlayerBC)
     {        
 
+        playerInputScript.enabled = false;
+        playerInputScript.MoveDirection = 0;
+        playerRB.constraints = RigidbodyConstraints2D.FreezeAll;
+        IsDead = true;
         
         playerInputScript.enabled = false;
         playerInputScript.MoveDirection = 0;
