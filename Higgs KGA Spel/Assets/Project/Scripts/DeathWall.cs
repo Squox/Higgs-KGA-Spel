@@ -31,8 +31,7 @@ public class DeathWall : MonoBehaviour
         playerBC = player.GetComponent<PolygonCollider2D>();
         playerRB = player.GetComponent<Rigidbody2D>();
         playerInputScript = player.GetComponent<PlayerInput>();
-        playerMovementScript = player.GetComponent<PlayerMovement>();
-        
+        playerMovementScript = player.GetComponent<PlayerMovement>();     
     }
 	
 	// Update is called once per frame
@@ -40,8 +39,6 @@ public class DeathWall : MonoBehaviour
     {
 
         if (IsDead)
-
-
         {
             Vector3 DeathScreenPos = new Vector3(camera.transform.position.x, camera.transform.position.y, camera.transform.position.z + 10);
             Instantiate(deathScreenprefab, DeathScreenPos, transform.rotation);
@@ -56,7 +53,7 @@ public class DeathWall : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D PlayerBC)
+    private void OnTriggerEnter2D(Collider2D collision)
     {        
 
         playerInputScript.enabled = false;
