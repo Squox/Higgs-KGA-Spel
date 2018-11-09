@@ -8,6 +8,7 @@ public class DeathWall : MonoBehaviour
     private PolygonCollider2D PlayerBC;
     private Rigidbody2D PlayerRB;
     private GameObject Player;
+    private GameObject camera;
     private PlayerInput PlayerInputScript;
     private PlayerMovement PlayerMovementScript;
 
@@ -22,6 +23,7 @@ public class DeathWall : MonoBehaviour
     void Start ()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
+        camera = GameObject.FindGameObjectWithTag("Camera");
 
         PlayerBC = Player.GetComponent<PolygonCollider2D>();
         PlayerRB = Player.GetComponent<Rigidbody2D>();
@@ -35,8 +37,12 @@ public class DeathWall : MonoBehaviour
     {
         if (isDead == true)
         {
+            Vector3 DeathScreenPos = new Vector3(camera.transform.position.x, camera.transform.position.y, camera.transform.position.z + 10);
+            Instantiate(DeathScreenprefab, DeathScreenPos, transform.rotation);
+
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                
                 isDead = false;
                 PlayerInputScript.enabled = true;
                 restartCurrentScene();
@@ -45,12 +51,11 @@ public class DeathWall : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D PlayerBC)
-    {
+    {        
+        Vector3 DeathScreenPos = new Vector3(camera.transform.position.x, camera.transform.position.y, camera.transform.position.z + 10);
         PlayerInputScript.enabled = false;
-        PlayerInputScript.MoveDirection = 0;      
+        PlayerInputScript.MoveDirection = 0;
         PlayerRB.constraints = RigidbodyConstraints2D.FreezeAll;
-        Player.transform.position = new Vector2(25, 0);
-        Instantiate(DeathScreenprefab, Player.transform.position, transform.rotation);
         isDead = true;
         
     }
