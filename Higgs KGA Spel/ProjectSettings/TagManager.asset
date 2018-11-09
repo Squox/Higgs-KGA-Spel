@@ -9,6 +9,7 @@ TagManager:
   - Bullet
   - Enemy
   - DeathWall
+  - Camera
   layers:
   - Default
   - TransparentFX

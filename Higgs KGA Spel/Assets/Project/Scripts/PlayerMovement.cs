@@ -6,6 +6,9 @@ public class PlayerMovement : MonoBehaviour
 {
     //To store PlayerInput script and player in a local variable
     private GameObject Player;
+    private DeathWall DeathWallScript;
+
+    private GameObject DeathWall;
     private PlayerInput PlayerInputScript;
 
 
@@ -34,9 +37,11 @@ public class PlayerMovement : MonoBehaviour
         PlayerRB = GetComponent<Rigidbody2D>();
 
         Player = GameObject.FindGameObjectWithTag("Player");
-
         PlayerInputScript = Player.GetComponent<PlayerInput>();
-	}
+
+        DeathWall = GameObject.FindGameObjectWithTag("DeathWall");
+        DeathWallScript = DeathWall.GetComponent<DeathWall>();
+    }
 
     private void Update()
     {
@@ -44,6 +49,12 @@ public class PlayerMovement : MonoBehaviour
         if (IsOnGround)
         {
             JumpsLeft = Jumps;
+        }
+
+        if (DeathWallScript.isDead)
+        {
+            Debug.Log("hello");
+            transform.position = new Vector2(0, 0);
         }
     }
 
