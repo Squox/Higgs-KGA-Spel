@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -89,7 +89,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000002, guid: bb828a37cbc18774da2be882e62273f3,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -765,11 +766,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4176983725389226, guid: 371d9d3317d81cd40981711804edcae7, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -13.76
+      value: -13.176525
       objectReference: {fileID: 0}
     - target: {fileID: 4176983725389226, guid: 371d9d3317d81cd40981711804edcae7, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 5.266
+      value: 5.270487
       objectReference: {fileID: 0}
     - target: {fileID: 4176983725389226, guid: 371d9d3317d81cd40981711804edcae7, type: 2}
       propertyPath: m_LocalPosition.z
@@ -836,18 +837,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b700f5a1028294e91f709bea73c9b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-<<<<<<< HEAD
-  isDead: 0
-  DeathScreenprefab: {fileID: 1683749113747096, guid: 67ffd79e41668e64094e72446bd3bee9,
-=======
+  DeathScreenInstantiated: 0
   IsDead: 0
   deathScreenprefab: {fileID: 1887317794767636, guid: 817ea0759b8e56745b72840df4f73b9c,
->>>>>>> ed43175c82e73603ede03747462fb74267181f3c
-=======
-  IsDead: 0
-  deathScreenprefab: {fileID: 1887317794767636, guid: 817ea0759b8e56745b72840df4f73b9c,
->>>>>>> ed43175c82e73603ede03747462fb74267181f3c
     type: 2}
   reloadTime: 10
 --- !u!1001 &285032543
@@ -1863,18 +1855,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b700f5a1028294e91f709bea73c9b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-<<<<<<< HEAD
-  isDead: 0
-  DeathScreenprefab: {fileID: 1683749113747096, guid: 67ffd79e41668e64094e72446bd3bee9,
-=======
+  DeathScreenInstantiated: 0
   IsDead: 0
   deathScreenprefab: {fileID: 1887317794767636, guid: 817ea0759b8e56745b72840df4f73b9c,
->>>>>>> ed43175c82e73603ede03747462fb74267181f3c
-=======
-  IsDead: 0
-  deathScreenprefab: {fileID: 1887317794767636, guid: 817ea0759b8e56745b72840df4f73b9c,
->>>>>>> ed43175c82e73603ede03747462fb74267181f3c
     type: 2}
   reloadTime: 10
 --- !u!4 &639282349 stripped
@@ -2704,18 +2687,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b700f5a1028294e91f709bea73c9b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-<<<<<<< HEAD
-  isDead: 0
-  DeathScreenprefab: {fileID: 1683749113747096, guid: 67ffd79e41668e64094e72446bd3bee9,
-=======
+  DeathScreenInstantiated: 0
   IsDead: 0
   deathScreenprefab: {fileID: 1887317794767636, guid: 817ea0759b8e56745b72840df4f73b9c,
->>>>>>> ed43175c82e73603ede03747462fb74267181f3c
-=======
-  IsDead: 0
-  deathScreenprefab: {fileID: 1887317794767636, guid: 817ea0759b8e56745b72840df4f73b9c,
->>>>>>> ed43175c82e73603ede03747462fb74267181f3c
     type: 2}
   reloadTime: 10
 --- !u!4 &897852846 stripped
@@ -3642,11 +3616,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4176983725389226, guid: 371d9d3317d81cd40981711804edcae7, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -14.52
+      value: -13.959943
       objectReference: {fileID: 0}
     - target: {fileID: 4176983725389226, guid: 371d9d3317d81cd40981711804edcae7, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 5.076
+      value: 5.0799265
       objectReference: {fileID: 0}
     - target: {fileID: 4176983725389226, guid: 371d9d3317d81cd40981711804edcae7, type: 2}
       propertyPath: m_LocalPosition.z
@@ -3713,18 +3687,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b700f5a1028294e91f709bea73c9b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-<<<<<<< HEAD
-  isDead: 0
-  DeathScreenprefab: {fileID: 1683749113747096, guid: 67ffd79e41668e64094e72446bd3bee9,
-=======
+  DeathScreenInstantiated: 0
   IsDead: 0
   deathScreenprefab: {fileID: 1667622491154300, guid: 371d9d3317d81cd40981711804edcae7,
->>>>>>> ed43175c82e73603ede03747462fb74267181f3c
-=======
-  IsDead: 0
-  deathScreenprefab: {fileID: 1667622491154300, guid: 371d9d3317d81cd40981711804edcae7,
->>>>>>> ed43175c82e73603ede03747462fb74267181f3c
     type: 2}
   reloadTime: 10
 --- !u!1 &1283501000
@@ -6638,18 +6603,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b700f5a1028294e91f709bea73c9b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-<<<<<<< HEAD
-  isDead: 0
-  DeathScreenprefab: {fileID: 1683749113747096, guid: 67ffd79e41668e64094e72446bd3bee9,
-=======
+  DeathScreenInstantiated: 0
   IsDead: 0
   deathScreenprefab: {fileID: 1887317794767636, guid: 817ea0759b8e56745b72840df4f73b9c,
->>>>>>> ed43175c82e73603ede03747462fb74267181f3c
-=======
-  IsDead: 0
-  deathScreenprefab: {fileID: 1887317794767636, guid: 817ea0759b8e56745b72840df4f73b9c,
->>>>>>> ed43175c82e73603ede03747462fb74267181f3c
     type: 2}
   reloadTime: 10
 --- !u!1 &2040334446
@@ -7025,18 +6981,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b700f5a1028294e91f709bea73c9b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-<<<<<<< HEAD
-  isDead: 0
-  DeathScreenprefab: {fileID: 1683749113747096, guid: 67ffd79e41668e64094e72446bd3bee9,
-=======
+  DeathScreenInstantiated: 0
   IsDead: 0
   deathScreenprefab: {fileID: 1887317794767636, guid: 817ea0759b8e56745b72840df4f73b9c,
->>>>>>> ed43175c82e73603ede03747462fb74267181f3c
-=======
-  IsDead: 0
-  deathScreenprefab: {fileID: 1887317794767636, guid: 817ea0759b8e56745b72840df4f73b9c,
->>>>>>> ed43175c82e73603ede03747462fb74267181f3c
     type: 2}
   reloadTime: 10
 --- !u!1 &2086013940
