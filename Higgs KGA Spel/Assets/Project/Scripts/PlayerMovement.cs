@@ -50,12 +50,6 @@ public class PlayerMovement : MonoBehaviour
         {
             JumpsLeft = Jumps;
         }
-
-        if (DeathWallScript.isDead)
-        {
-            Debug.Log("hello");
-            transform.position = new Vector2(0, 0);
-        }
     }
 
     private void FixedUpdate ()
