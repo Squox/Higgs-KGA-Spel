@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     public bool IsFacingRight = true;
 
     //variables used to check if player is on ground
-    private bool IsOnGround;
+    private bool isOnGround;
     [SerializeField] private float checkRadius;
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private Transform groundCheck;
@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         CheckFacingDirection();
-        if (IsOnGround)
+        if (isOnGround)
         {
             jumpsLeft = jumps;
         }
@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate ()
     {
         // Check if player is on ground
-        IsOnGround = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
+        isOnGround = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
         
         // Moving the player on the x axies
         playerRB.velocity = new Vector2(playerInputScript.MoveDirection * speed * Time.fixedDeltaTime, playerRB.velocity.y);
@@ -76,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
             jumpsLeft--;
         }
 
-        if (playerInputScript.HasPressedJump == true && IsOnGround == true)
+        if (playerInputScript.HasPressedJump == true && isOnGround == true)
         {
             playerRB.velocity = new Vector2(playerRB.velocity.x, jumpForce * Time.fixedDeltaTime);
             playerInputScript.HasPressedJump = false;
