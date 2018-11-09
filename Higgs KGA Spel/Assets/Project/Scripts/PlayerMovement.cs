@@ -5,60 +5,60 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     //To store PlayerInput script and player in a local variable
-    private GameObject Player;
-    private DeathWall DeathWallScript;
+    private GameObject player;
+    private DeathWall deathWallScript;
 
-    private GameObject DeathWall;
-    private PlayerInput PlayerInputScript;
+    private GameObject deathWall;
+    private PlayerInput playerInputScript;
 
 
-    private Rigidbody2D PlayerRB;
+    private Rigidbody2D playerRB;
 
     //Floats:
     [SerializeField] private float speed;
-    [SerializeField] private float JumpForce;
+    [SerializeField] private float jumpForce;
     [SerializeField] private float fallMultiplier = 2.5f;
     [SerializeField] private float lowJumpMultiplier = 2f;
     //Ints:
-    private int JumpsLeft;
-    [SerializeField] private int Jumps;
+    private int jumpsLeft;
+    [SerializeField] private int jumps;
 
     //Bools:
     public bool IsFacingRight = true;
 
     //variables used to check if player is on ground
-    private bool IsOnGround;
-    [SerializeField] private float CheckRadius;
-    [SerializeField] private LayerMask WhatIsGround;
-    [SerializeField] private Transform GroundCheck;
+    private bool isOnGround;
+    [SerializeField] private float checkRadius;
+    [SerializeField] private LayerMask whatIsGround;
+    [SerializeField] private Transform groundCheck;
 
     private void Start ()
     {
-        PlayerRB = GetComponent<Rigidbody2D>();
+        playerRB = GetComponent<Rigidbody2D>();
 
-        Player = GameObject.FindGameObjectWithTag("Player");
-        PlayerInputScript = Player.GetComponent<PlayerInput>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerInputScript = player.GetComponent<PlayerInput>();
 
-        DeathWall = GameObject.FindGameObjectWithTag("DeathWall");
-        DeathWallScript = DeathWall.GetComponent<DeathWall>();
+        deathWall = GameObject.FindGameObjectWithTag("DeathWall");
+        deathWallScript = deathWall.GetComponent<DeathWall>();
     }
 
     private void Update()
     {
         CheckFacingDirection();
-        if (IsOnGround)
+        if (isOnGround)
         {
-            JumpsLeft = Jumps;
+            jumpsLeft = jumps;
         }
     }
 
     private void FixedUpdate ()
     {
         // Check if player is on ground
-        IsOnGround = Physics2D.OverlapCircle(GroundCheck.position, CheckRadius, WhatIsGround);
+        isOnGround = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
         
         // Moving the player on the x axies
-        PlayerRB.velocity = new Vector2(PlayerInputScript.MoveDirection * speed * Time.fixedDeltaTime, PlayerRB.velocity.y);
+        playerRB.velocity = new Vector2(playerInputScript.MoveDirection * speed * Time.fixedDeltaTime, playerRB.velocity.y);
 
         Jumping();
 
@@ -69,32 +69,32 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jumping()
     {
-        if (PlayerInputScript.HasPressedJump == true && JumpsLeft > 0)
+        if (playerInputScript.HasPressedJump == true && jumpsLeft > 0)
         {
-            PlayerRB.velocity = new Vector2(PlayerRB.velocity.x, JumpForce * Time.fixedDeltaTime);
-            PlayerInputScript.HasPressedJump = false;
-            JumpsLeft--;
+            playerRB.velocity = new Vector2(playerRB.velocity.x, jumpForce * Time.fixedDeltaTime);
+            playerInputScript.HasPressedJump = false;
+            jumpsLeft--;
         }
 
-        if (PlayerInputScript.HasPressedJump == true && IsOnGround == true)
+        if (playerInputScript.HasPressedJump == true && isOnGround == true)
         {
-            PlayerRB.velocity = new Vector2(PlayerRB.velocity.x, JumpForce * Time.fixedDeltaTime);
-            PlayerInputScript.HasPressedJump = false;
+            playerRB.velocity = new Vector2(playerRB.velocity.x, jumpForce * Time.fixedDeltaTime);
+            playerInputScript.HasPressedJump = false;
         }
         else
         {
-            PlayerInputScript.HasPressedJump = false;
+            playerInputScript.HasPressedJump = false;
         }
 
     }
 
     private void CheckFacingDirection()
     {
-        if (PlayerInputScript.MoveDirection == -1 && IsFacingRight == true)
+        if (playerInputScript.MoveDirection == -1 && IsFacingRight == true)
         {
             FlipPlayer();
         }else
-        if (PlayerInputScript.MoveDirection == 1 && IsFacingRight ==false)
+        if (playerInputScript.MoveDirection == 1 && IsFacingRight ==false)
         {
             FlipPlayer();
         }
@@ -102,19 +102,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void ChangeGravityScale()
     {
-        if (PlayerRB.velocity.y < 0.1f)
+        if (playerRB.velocity.y < 0.1f)
         {
-            PlayerRB.gravityScale = fallMultiplier;
+            playerRB.gravityScale = fallMultiplier;
         }
 
-        else if (PlayerRB.velocity.y > 0.1f && !Input.GetKey(KeyCode.Space) && !Input.GetKey(KeyCode.W))
+        else if (playerRB.velocity.y > 0.1f && !Input.GetKey(KeyCode.Space) && !Input.GetKey(KeyCode.W))
         {
-            PlayerRB.gravityScale = lowJumpMultiplier;
+            playerRB.gravityScale = lowJumpMultiplier;
         }
 
         else
         {
-            PlayerRB.gravityScale = 1f;
+            playerRB.gravityScale = 1f;
         }
     }
 

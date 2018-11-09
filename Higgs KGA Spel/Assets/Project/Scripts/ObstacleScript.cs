@@ -5,14 +5,14 @@ using UnityEngine;
 public class ObstacleScript : MonoBehaviour
 {
     //To store Bullet BoxCollider2D and Bullet in a local variable
-    private BoxCollider2D BulletBC;
-    private GameObject Bullet;
+    private BoxCollider2D bulletBC;
+    private GameObject bullet;
 
     // Use this for initialization
     void Start () {
-        Bullet = GameObject.FindGameObjectWithTag("Bullet");
+        bullet = GameObject.FindGameObjectWithTag("Bullet");
 
-        BulletBC = Bullet.GetComponent<BoxCollider2D>();
+        bulletBC = bullet.GetComponent<BoxCollider2D>();
     }
 	
 	// Update is called once per frame

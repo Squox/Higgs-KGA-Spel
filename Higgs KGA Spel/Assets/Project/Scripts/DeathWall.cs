@@ -5,46 +5,53 @@ using UnityEngine.SceneManagement;
 
 public class DeathWall : MonoBehaviour
 {
-    private PolygonCollider2D PlayerBC;
-    private Rigidbody2D PlayerRB;
-    private GameObject Player;
+    private PolygonCollider2D playerBC;
+    private Rigidbody2D playerRB;
+    private GameObject player;
     private GameObject camera;
-    private PlayerInput PlayerInputScript;
-    private PlayerMovement PlayerMovementScript;
+    private PlayerInput playerInputScript;
+    private PlayerMovement playerMovementScript;
 
-    public bool isDead = false;
 
-    [SerializeField] private GameObject DeathScreenprefab;
-    [SerializeField] private float ReloadTime = 10f;
+    public bool DeathScreenInstantiated = false;
 
-    private float Reload;
+
+    public bool IsDead = false;
+
+
+    [SerializeField] private GameObject deathScreenprefab;
+    [SerializeField] private float reloadTime = 10f;
+
+    private float reload;
 
     // Use this for initialization
     void Start ()
     {
-        Player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
         camera = GameObject.FindGameObjectWithTag("Camera");
 
-        PlayerBC = Player.GetComponent<PolygonCollider2D>();
-        PlayerRB = Player.GetComponent<Rigidbody2D>();
-        PlayerInputScript = Player.GetComponent<PlayerInput>();
-        PlayerMovementScript = Player.GetComponent<PlayerMovement>();
+        playerBC = player.GetComponent<PolygonCollider2D>();
+        playerRB = player.GetComponent<Rigidbody2D>();
+        playerInputScript = player.GetComponent<PlayerInput>();
+        playerMovementScript = player.GetComponent<PlayerMovement>();
         
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if (isDead == true)
+
+        if (IsDead)
+
         {
             Vector3 DeathScreenPos = new Vector3(camera.transform.position.x, camera.transform.position.y, camera.transform.position.z + 10);
-            Instantiate(DeathScreenprefab, DeathScreenPos, transform.rotation);
+            Instantiate(deathScreenprefab, DeathScreenPos, transform.rotation);
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 
-                isDead = false;
-                PlayerInputScript.enabled = true;
+                IsDead = false;
+                playerInputScript.enabled = true;
                 restartCurrentScene();
             }
         }
@@ -52,12 +59,14 @@ public class DeathWall : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D PlayerBC)
     {        
-        Vector3 DeathScreenPos = new Vector3(camera.transform.position.x, camera.transform.position.y, camera.transform.position.z + 10);
-        PlayerInputScript.enabled = false;
-        PlayerInputScript.MoveDirection = 0;
-        PlayerRB.constraints = RigidbodyConstraints2D.FreezeAll;
-        isDead = true;
+
         
+        playerInputScript.enabled = false;
+        playerInputScript.MoveDirection = 0;
+        playerRB.constraints = RigidbodyConstraints2D.FreezeAll;
+        IsDead = true;
+        
+
     }
 
     public void restartCurrentScene()
