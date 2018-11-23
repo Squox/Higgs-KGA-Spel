@@ -6,9 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     //To store PlayerInput script and player in a local variable
     private GameObject player;
-    private DeathWall deathWallScript;
 
-    private GameObject deathWall;
     private PlayerInput playerInputScript;
 
 
@@ -38,9 +36,6 @@ public class PlayerMovement : MonoBehaviour
 
         player = GameObject.FindGameObjectWithTag("Player");
         playerInputScript = player.GetComponent<PlayerInput>();
-
-        deathWall = GameObject.FindGameObjectWithTag("DeathWall");
-        deathWallScript = deathWall.GetComponent<DeathWall>();
     }
 
     private void Update()
