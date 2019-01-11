@@ -15,10 +15,11 @@ public class PlayerInput : MonoBehaviour
     public bool HasPressedJump;
 
 	// Use this for initialization
-	private void Start ()
+	private void Awake ()
     {
-		
-	}
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerActionsScript = player.GetComponent<PlayerActions>();
+    }
 	
 	// Update is called once per frame
 	private void Update ()
@@ -29,9 +30,6 @@ public class PlayerInput : MonoBehaviour
             FindObjectOfType<Gamemanager>().RestartGame();
         }
         CheckPlayerInput();
-
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerActionsScript = player.GetComponent<PlayerActions>();
     }
 
    
