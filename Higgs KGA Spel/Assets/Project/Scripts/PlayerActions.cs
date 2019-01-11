@@ -74,6 +74,11 @@ public class PlayerActions : MonoBehaviour
     }
 
 
+    public void Doge()
+    {
+
+    }
+
     private void Jumping()
     {
         if (playerInputScript.HasPressedJump == true && jumpsLeft > 0)
