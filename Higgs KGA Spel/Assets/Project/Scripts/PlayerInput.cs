@@ -27,7 +27,7 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetKey(KeyCode.G))
         {
-            FindObjectOfType<Gamemanager>().RestartGame();
+            FindObjectOfType<Gamemanager>().KillPlayer();
         }
         CheckPlayerInput();
     }

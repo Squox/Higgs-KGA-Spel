@@ -5,8 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class Gamemanager : MonoBehaviour
 {
-    private bool a = true;
     public static Gamemanager instance;
+
+    private GameObject player;
+    private GameObject deathScreen;
+    public bool IsDead = false;
     
     private void MakeSingelton()
     {
@@ -22,28 +25,31 @@ public class Gamemanager : MonoBehaviour
 
     }
 
-
-    public void RestartGame()
+    private void Awake()
     {
-         do 
-          {
-            Debug.Log("1");
-             if (Input.GetKey(KeyCode.Escape))
-             {
-                Debug.Log("2");
-                a = false;
-             }
+        player = GameObject.FindGameObjectWithTag("Player");
 
-
-             if (Input.GetKey(KeyCode.R))
-             {
-                Debug.Log("3");
-                a = false;
-                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-             }
-          } while (a == true);
-
+        deathScreen = GameObject.FindGameObjectWithTag("DeathScreen");
     }
 
 
+    private void Update()
+    {
+        if (IsDead && Input.GetKey(KeyCode.Space))
+        {
+            RestartGame();
+        }
+    }
+
+    public void KillPlayer()
+    {
+        player.SetActive(false);
+        deathScreen.GetComponent<SpriteRenderer>().enabled = true;
+        IsDead = true;
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }

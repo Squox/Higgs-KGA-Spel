@@ -12,6 +12,7 @@ TagManager:
   - Camera
   - Floor
   - Slope
+  - DeathScreen
   layers:
   - Default
   - TransparentFX
