@@ -23,6 +23,11 @@ public class PlayerInput : MonoBehaviour
 	// Update is called once per frame
 	private void Update ()
     {
+
+        if (Input.GetKey(KeyCode.G))
+        {
+            FindObjectOfType<Gamemanager>().RestartGame();
+        }
         CheckPlayerInput();
 
         player = GameObject.FindGameObjectWithTag("Player");
@@ -33,22 +38,16 @@ public class PlayerInput : MonoBehaviour
 
     private void CheckPlayerInput()
     {
+        MoveDirection = 0;
+
         if (Input.GetKey(KeyCode.A))
         {
             MoveDirection = -1;
-        }
-        else if (Input.GetKeyUp(KeyCode.A))
-        {
-            MoveDirection = 0;
         }
 
         if (Input.GetKey(KeyCode.D))
         {
             MoveDirection = 1;
-        }
-        else if (Input.GetKeyUp(KeyCode.D))
-        {
-            MoveDirection = 0;
         }
 
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))
