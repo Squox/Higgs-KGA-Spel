@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerActions : MonoBehaviour
 {
-
+    [SerializeField] private Animator animator;
 
     [SerializeField] private GameObject bulletprefab;
     [SerializeField] private Transform shootingpoint;
@@ -30,6 +30,8 @@ public class PlayerActions : MonoBehaviour
 
     //Bools:
     public bool IsFacingRight = true;
+
+    private bool isDoged = false;
 
     //variables used to check if player is on ground
     private bool isOnGround;
@@ -76,8 +78,12 @@ public class PlayerActions : MonoBehaviour
 
     public void Doge()
     {
+        isDoged = !isDoged;
 
+        animator.SetBool("IsDoge", isDoged);
     }
+
+
 
     private void Jumping()
     {

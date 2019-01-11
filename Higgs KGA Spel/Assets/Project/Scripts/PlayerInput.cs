@@ -58,7 +58,12 @@ public class PlayerInput : MonoBehaviour
             playerActionsScript.shoot();
         }    
 
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            playerActionsScript.Doge();
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             playerActionsScript.Doge();
         }
