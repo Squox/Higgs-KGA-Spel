@@ -7,15 +7,17 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private Animator animator;
 
     [SerializeField] private GameObject bulletprefab;
-    [SerializeField] private Transform shootingpoint;
+    [SerializeField] private Transform idleShootingpoint;
+    [SerializeField] private Transform dogedShootingpoint;
+    private Transform currentShootingpoint;
 
-
+    [SerializeField] private BoxCollider2D idle;
+    [SerializeField] private BoxCollider2D doged;
 
     //To store PlayerInput script and player in a local variable
     private GameObject player;
 
     private PlayerInput playerInputScript;
-
 
     private Rigidbody2D playerRB;
 
@@ -24,6 +26,7 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private float jumpForce;
     [SerializeField] private float fallMultiplier = 2.5f;
     [SerializeField] private float lowJumpMultiplier = 2f;
+
     //Ints:
     private int jumpsLeft;
     public int Jumps = 1;
@@ -45,6 +48,8 @@ public class PlayerActions : MonoBehaviour
 
         player = GameObject.FindGameObjectWithTag("Player");
         playerInputScript = player.GetComponent<PlayerInput>();
+
+        currentShootingpoint = idleShootingpoint;
     }
 
     private void Start()
@@ -81,6 +86,20 @@ public class PlayerActions : MonoBehaviour
         isDoged = !isDoged;
 
         animator.SetBool("IsDoge", isDoged);
+
+        if(idle.enabled == false)
+        {
+            idle.enabled = true;
+            doged.enabled = false;
+            currentShootingpoint = idleShootingpoint;
+        }
+        else
+        {
+            idle.enabled = false;
+            doged.enabled = true;
+            currentShootingpoint = dogedShootingpoint;
+        }
+        
     }
 
 
@@ -138,7 +157,7 @@ public class PlayerActions : MonoBehaviour
 
     public void shoot()
     {
-        Instantiate(bulletprefab, shootingpoint.position, shootingpoint.rotation);
+        Instantiate(bulletprefab, currentShootingpoint.position, currentShootingpoint.rotation);
     }
 
     private void FlipPlayer()
