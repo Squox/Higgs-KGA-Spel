@@ -15,40 +15,37 @@ public class PlayerInput : MonoBehaviour
     public bool HasPressedJump;
 
 	// Use this for initialization
-	private void Start ()
+	private void Awake ()
     {
-		
-	}
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerActionsScript = player.GetComponent<PlayerActions>();
+    }
 	
 	// Update is called once per frame
 	private void Update ()
     {
-        CheckPlayerInput();
 
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerActionsScript = player.GetComponent<PlayerActions>();
+        if (Input.GetKey(KeyCode.G))
+        {
+            FindObjectOfType<Gamemanager>().KillPlayer();
+        }
+        CheckPlayerInput();
     }
 
    
 
     private void CheckPlayerInput()
     {
+        MoveDirection = 0;
+
         if (Input.GetKey(KeyCode.A))
         {
             MoveDirection = -1;
-        }
-        else if (Input.GetKeyUp(KeyCode.A))
-        {
-            MoveDirection = 0;
         }
 
         if (Input.GetKey(KeyCode.D))
         {
             MoveDirection = 1;
-        }
-        else if (Input.GetKeyUp(KeyCode.D))
-        {
-            MoveDirection = 0;
         }
 
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))
@@ -60,5 +57,15 @@ public class PlayerInput : MonoBehaviour
         {
             playerActionsScript.shoot();
         }    
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            playerActionsScript.Doge();
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            playerActionsScript.Doge();
+        }
     }
 }

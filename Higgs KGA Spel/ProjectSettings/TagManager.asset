@@ -12,6 +12,7 @@ TagManager:
   - Camera
   - Floor
   - Slope
+  - DeathScreen
   layers:
   - Default
   - TransparentFX
@@ -48,4 +49,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Backgrounds
+    uniqueID: 3506951271
+    locked: 0
+  - name: Doors
+    uniqueID: 400689805
+    locked: 0
+  - name: Player
+    uniqueID: 2846717823
+    locked: 0
+  - name: UI
+    uniqueID: 543743209
     locked: 0
