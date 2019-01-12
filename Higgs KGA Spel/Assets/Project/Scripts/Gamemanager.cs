@@ -7,6 +7,8 @@ public class Gamemanager : MonoBehaviour
 {
     public static Gamemanager instance;
 
+    
+
     private GameObject player;
     private GameObject deathScreen;
     public bool IsDead = false;
@@ -30,6 +32,8 @@ public class Gamemanager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
 
         deathScreen = GameObject.FindGameObjectWithTag("DeathScreen");
+
+        Time.timeScale = 1;
     }
 
 
