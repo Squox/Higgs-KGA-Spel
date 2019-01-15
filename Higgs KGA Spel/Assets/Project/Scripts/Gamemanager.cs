@@ -11,8 +11,10 @@ public class Gamemanager : MonoBehaviour
 
     private GameObject player;
     private GameObject deathScreen;
+    private GameObject pauseScreen;
     public bool IsDead = false;
-    
+    public bool Paused = false;
+
     private void MakeSingelton()
     {
         if (instance != null)
@@ -32,6 +34,7 @@ public class Gamemanager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
 
         deathScreen = GameObject.FindGameObjectWithTag("DeathScreen");
+        pauseScreen = GameObject.FindGameObjectWithTag("PauseScreen");
 
         Time.timeScale = 1;
     }
@@ -39,9 +42,28 @@ public class Gamemanager : MonoBehaviour
 
     private void Update()
     {
-        if (IsDead && Input.GetKey(KeyCode.Space))
+        if (IsDead)
         {
-            RestartGame();
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                RestartGame();
+            }
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                SceneManager.LoadScene("Start menu");
+            }
+        }
+
+        if (Paused)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                ResumeGame();
+            }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                RestartGame();
+            }
         }
     }
 
@@ -55,5 +77,19 @@ public class Gamemanager : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void PauseGame()
+    {
+        player.SetActive(false);
+        pauseScreen.GetComponent<SpriteRenderer>().enabled = true;
+        Paused = true;
+    }
+
+    public void ResumeGame()
+    {
+        player.SetActive(true);
+        pauseScreen.GetComponent<SpriteRenderer>().enabled = false;
+        Paused = false;
     }
 }

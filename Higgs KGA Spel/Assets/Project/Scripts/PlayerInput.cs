@@ -7,7 +7,7 @@ public class PlayerInput : MonoBehaviour
     //To store PlayerActions script and player in a local variable
     private GameObject player;
     private PlayerActions playerActionsScript;
-
+    private Gamemanager GamemanagerScript;
     // Ints:
     public int MoveDirection = 0;
 
@@ -20,19 +20,24 @@ public class PlayerInput : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerActionsScript = player.GetComponent<PlayerActions>();
     }
-	
-	// Update is called once per frame
-	private void Update ()
+
+    private void Start()
+    {
+        GamemanagerScript = FindObjectOfType<Gamemanager>();
+    }
+
+    // Update is called once per frame
+    private void Update ()
     {
 
         if (Input.GetKey(KeyCode.G))
         {
-            FindObjectOfType<Gamemanager>().KillPlayer();
+            GamemanagerScript.KillPlayer();
         }
         CheckPlayerInput();
     }
 
-   
+
 
     private void CheckPlayerInput()
     {
@@ -66,6 +71,11 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             playerActionsScript.Doge();
+        }
+
+        if (GamemanagerScript.IsDead == false && GamemanagerScript.Paused == false && Input.GetKeyDown(KeyCode.Escape))
+        {
+            GamemanagerScript.PauseGame();
         }
     }
 }
