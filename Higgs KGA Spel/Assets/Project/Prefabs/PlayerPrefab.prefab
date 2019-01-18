@@ -78,6 +78,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1368450381005566
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4712816194991610}
+  m_Layer: 10
+  m_Name: DogedShootingPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &4171995036575904
 Transform:
   m_ObjectHideFlags: 1
@@ -103,6 +118,7 @@ Transform:
   m_Children:
   - {fileID: 4171995036575904}
   - {fileID: 4753844573922744}
+  - {fileID: 4712816194991610}
   - {fileID: 4366186929537338}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -113,6 +129,19 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1188529496481468}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.907, y: -0.22, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4274083624062424}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4712816194991610
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1368450381005566}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.907, y: -0.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -165,7 +194,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.067977905, y: 0.0056610107}
+  m_Offset: {x: 0.065841675, y: 0.037750244}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -176,7 +205,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8381653, y: 1.1780701}
+  m_Size: {x: 0.54293823, y: 0.97698975}
   m_EdgeRadius: 0
 --- !u!61 &61721860967019496
 BoxCollider2D:
@@ -190,7 +219,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.05381775, y: -0.26341248}
+  m_Offset: {x: 0.07093811, y: -0.19709778}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -201,7 +230,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.04776, y: 0.6399231}
+  m_Size: {x: 0.79104614, y: 0.5072937}
   m_EdgeRadius: 0
 --- !u!95 &95183654847959484
 Animator:
@@ -236,7 +265,7 @@ MonoBehaviour:
   bulletprefab: {fileID: 1073689333574934, guid: 1c3c6e27e9a1b6d45b2a039152ac6c9b,
     type: 2}
   idleShootingpoint: {fileID: 4171995036575904}
-  dogedShootingpoint: {fileID: 4366186929537338}
+  dogedShootingpoint: {fileID: 4712816194991610}
   idle: {fileID: 61386571729774220}
   doged: {fileID: 61721860967019496}
   speed: 300
@@ -298,7 +327,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 92cde15383edbb24c9c03d977ccf2ce1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8a62e0be3d438f248839b7125a96e054, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
