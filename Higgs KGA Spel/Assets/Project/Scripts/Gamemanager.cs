@@ -50,7 +50,7 @@ public class Gamemanager : MonoBehaviour
             }
             if (Input.GetKey(KeyCode.Escape))
             {
-                SceneManager.LoadScene("Start menu");
+                SceneManager.LoadScene("Selection menue");
             }
         }
 
