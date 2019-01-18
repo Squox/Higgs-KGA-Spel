@@ -236,7 +236,7 @@ MonoBehaviour:
   bulletprefab: {fileID: 1073689333574934, guid: 1c3c6e27e9a1b6d45b2a039152ac6c9b,
     type: 2}
   idleShootingpoint: {fileID: 4171995036575904}
-  dogedShootingpoint: {fileID: 0}
+  dogedShootingpoint: {fileID: 4366186929537338}
   idle: {fileID: 61386571729774220}
   doged: {fileID: 61721860967019496}
   speed: 300
