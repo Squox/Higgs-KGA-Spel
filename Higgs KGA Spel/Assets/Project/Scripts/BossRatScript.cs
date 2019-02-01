@@ -10,15 +10,14 @@ public class BossRatScript : MonoBehaviour {
     int Health = 3;
 
 	// Use this for initialization
-	void Start () {
-        bullet = GameObject.FindGameObjectWithTag("Bullet");
-        bulletCollider = bullet.GetComponent<PolygonCollider2D>();
-	}
-
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collider)
     {
-        Health--;
-        Debug.Log(Health);
+        if (collider.gameObject.tag == "Bullet")
+        {
+            Health--;
+            Debug.Log(Health);
+        }
+       
     }
 
     // Update is called once per frame
