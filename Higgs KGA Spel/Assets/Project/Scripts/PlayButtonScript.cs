@@ -18,7 +18,7 @@ public class PlayButtonScript : MonoBehaviour
 
     public void Continue()
     {
-        SceneManager.LoadScene("Test Scene");
+        SceneManager.LoadScene("First Level");
     }
 
     public void Exit()

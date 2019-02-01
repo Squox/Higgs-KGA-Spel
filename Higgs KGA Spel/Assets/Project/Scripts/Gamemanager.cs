@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Gamemanager : MonoBehaviour
@@ -91,5 +89,10 @@ public class Gamemanager : MonoBehaviour
         player.SetActive(true);
         pauseScreen.GetComponent<SpriteRenderer>().enabled = false;
         Paused = false;
+    }
+
+    public void ExitLevel()
+    {
+        SceneManager.LoadScene("Start menu");
     }
 }
