@@ -21,11 +21,11 @@ GameObject:
   - component: {fileID: 4837635946473776}
   - component: {fileID: 212372699147067180}
   - component: {fileID: 50603457460178562}
-  - component: {fileID: 114255537137988682}
   - component: {fileID: 60448266369254786}
+  - component: {fileID: 114106819177511038}
   m_Layer: 0
   m_Name: rat3
-  m_TagString: Untagged
+  m_TagString: Rat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37,8 +37,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1572359848625778}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.84, y: -3.03, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 489, y: 280.65, z: 0}
+  m_LocalScale: {x: 3.208, y: 2.934, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -108,7 +108,7 @@ PolygonCollider2D:
       - {x: 0.30585432, y: 0.09273124}
       - {x: 0.3072691, y: 0.15475368}
       - {x: 0.30443907, y: 0.20595169}
---- !u!114 &114255537137988682
+--- !u!114 &114106819177511038
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,12 +116,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1572359848625778}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7363e51bfd955ea41b07b9d37e18e289, type: 3}
+  m_Script: {fileID: 11500000, guid: e91bcd193522424488b8341ca730dd79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RatPrefab: {fileID: 0}
-  RatSpawnpoint: {fileID: 0}
-  health: 3
 --- !u!212 &212372699147067180
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -154,8 +151,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1448249473
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 56561c0a1f9cb61489bd7917c5de470e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Project/Scenes/Selection menue.unity
     guid: ac277fa44ab0dca459a7cb810e3c5598
+  - enabled: 1
+    path: Assets/Project/Scenes/First level.unity
+    guid: 5e8c041d730aaa44cb0c8678b93c98b3
   m_configObjects: {}
