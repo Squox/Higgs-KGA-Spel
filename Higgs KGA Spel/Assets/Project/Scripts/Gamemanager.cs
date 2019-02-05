@@ -30,7 +30,6 @@ public class Gamemanager : MonoBehaviour
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-
         deathScreen = GameObject.FindGameObjectWithTag("DeathScreen");
         pauseScreen = GameObject.FindGameObjectWithTag("PauseScreen");
 

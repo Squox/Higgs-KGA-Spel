@@ -9,6 +9,8 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private GameObject bulletprefab;
     [SerializeField] private Transform idleShootingpoint;
     [SerializeField] private Transform dogedShootingpoint;
+
+    private Gamemanager GamemanagerScript;
     private Transform currentShootingpoint;
 
     [SerializeField] private BoxCollider2D idle;
@@ -54,7 +56,7 @@ public class PlayerActions : MonoBehaviour
 
     private void Start()
     {
-
+        GamemanagerScript = FindObjectOfType<Gamemanager>();
     }
 
     private void Update()
@@ -165,5 +167,13 @@ public class PlayerActions : MonoBehaviour
         IsFacingRight = !IsFacingRight;
 
         transform.Rotate(0f, 180f, 0f);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.tag == "MapBorder")
+        {
+            GamemanagerScript.KillPlayer();
+        }
     }
 }
