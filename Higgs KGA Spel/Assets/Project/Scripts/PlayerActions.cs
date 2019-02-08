@@ -9,6 +9,8 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private GameObject bulletprefab;
     [SerializeField] private Transform idleShootingpoint;
     [SerializeField] private Transform dogedShootingpoint;
+
+    private Gamemanager GamemanagerScript;
     private Transform currentShootingpoint;
 
     [SerializeField] private BoxCollider2D idle;
@@ -29,12 +31,16 @@ public class PlayerActions : MonoBehaviour
 
     //Ints:
     private int jumpsLeft;
+    private int health = 3;
+    private int invulnerabilityTimer;
     public int Jumps = 1;
+
 
     //Bools:
     public bool IsFacingRight = true;
 
     private bool isDoged = false;
+    private bool hasBeenHit = false;
 
     //variables used to check if player is on ground
     private bool isOnGround;
@@ -54,7 +60,7 @@ public class PlayerActions : MonoBehaviour
 
     private void Start()
     {
-
+        GamemanagerScript = FindObjectOfType<Gamemanager>();
     }
 
     private void Update()
@@ -63,6 +69,21 @@ public class PlayerActions : MonoBehaviour
         if (isOnGround)
         {
             jumpsLeft = Jumps;
+        }
+
+        if (hasBeenHit)
+        {
+            invulnerabilityTimer++;
+            if (invulnerabilityTimer == 100)
+            {
+                hasBeenHit = false;
+                invulnerabilityTimer = 0;
+            }
+        }
+
+        if (health < 1)
+        {
+            GamemanagerScript.KillPlayer();
         }
     }
 
@@ -130,8 +151,8 @@ public class PlayerActions : MonoBehaviour
         if (playerInputScript.MoveDirection == -1 && IsFacingRight == true)
         {
             FlipPlayer();
-        }else
-        if (playerInputScript.MoveDirection == 1 && IsFacingRight ==false)
+        }
+        else if (playerInputScript.MoveDirection == 1 && IsFacingRight ==false)
         {
             FlipPlayer();
         }
@@ -165,5 +186,21 @@ public class PlayerActions : MonoBehaviour
         IsFacingRight = !IsFacingRight;
 
         transform.Rotate(0f, 180f, 0f);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.tag == "MapBorder")
+        {
+            GamemanagerScript.KillPlayer();
+        }
+
+        if (collider.gameObject.tag == "Rat" && !hasBeenHit)
+        {
+            health --;
+            hasBeenHit = true;
+
+            Debug.Log(health);
+        }
     }
 }
