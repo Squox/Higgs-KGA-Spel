@@ -414,7 +414,7 @@ GameObject:
   m_Component:
   - component: {fileID: 545527909}
   - component: {fileID: 545527910}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Life 2
   m_TagString: Life 2
   m_Icon: {fileID: 0}
@@ -428,8 +428,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 545527908}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 400, y: 209, z: 0}
-  m_LocalScale: {x: 141.25, y: 141.25, z: 141.25}
+  m_LocalPosition: {x: 470, y: -230, z: 0}
+  m_LocalScale: {x: 84.75, y: 84.75, z: 84.75}
   m_Children: []
   m_Father: {fileID: 386199619}
   m_RootOrder: 1
@@ -466,8 +466,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 543743209
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 253e6c9fb0d266c49954ed46a7989cb1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1222,7 +1222,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1108492512}
   - component: {fileID: 1108492513}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Life 1
   m_TagString: Life 1
   m_Icon: {fileID: 0}
@@ -1236,8 +1236,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1108492511}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 278, y: 208, z: 0}
-  m_LocalScale: {x: 141.25, y: 141.25, z: 141.25}
+  m_LocalPosition: {x: 395, y: -230, z: 0}
+  m_LocalScale: {x: 84.75, y: 84.75, z: 84.75}
   m_Children: []
   m_Father: {fileID: 386199619}
   m_RootOrder: 0
@@ -1274,8 +1274,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 543743209
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 253e6c9fb0d266c49954ed46a7989cb1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1405,7 +1405,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1295373287}
   - component: {fileID: 1295373288}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Life 3
   m_TagString: Life 3
   m_Icon: {fileID: 0}
@@ -1419,8 +1419,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1295373286}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 524, y: 209, z: 0}
-  m_LocalScale: {x: 141.25, y: 141.25, z: 141.25}
+  m_LocalPosition: {x: 545, y: -230, z: 0}
+  m_LocalScale: {x: 84.75, y: 84.75, z: 84.75}
   m_Children: []
   m_Father: {fileID: 386199619}
   m_RootOrder: 2
@@ -1457,8 +1457,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 543743209
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 253e6c9fb0d266c49954ed46a7989cb1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
