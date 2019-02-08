@@ -213,5 +213,13 @@ public class PlayerActions : MonoBehaviour
 
             Debug.Log(health);
         }
+
+        if (collider.gameObject.tag == "Acid" && !hasBeenHit)
+        {
+            health--;
+            hasBeenHit = true;
+
+            Debug.Log(health);
+        }
     }
 }

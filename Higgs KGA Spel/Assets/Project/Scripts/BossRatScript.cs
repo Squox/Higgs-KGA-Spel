@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossRatScript : MonoBehaviour {
+public class BossRatScript : MonoBehaviour
+{
+    [SerializeField] private Transform shootingpoint;
+    [SerializeField] private GameObject acidPrefab;
 
     private PolygonCollider2D bulletCollider;
     private GameObject bullet;
@@ -116,6 +119,9 @@ public class BossRatScript : MonoBehaviour {
 
     private void attackTypeTwo()
     {
+
+        Instantiate(acidPrefab, shootingpoint.position, shootingpoint.rotation);
+
         attacking = false;
     }
 

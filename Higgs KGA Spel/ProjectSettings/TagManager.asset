@@ -15,6 +15,7 @@ TagManager:
   - DeathScreen
   - PauseScreen
   - MapBorder
+  - Acid
   layers:
   - Default
   - TransparentFX
