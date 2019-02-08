@@ -21,8 +21,10 @@ GameObject:
   - component: {fileID: 4837635946473776}
   - component: {fileID: 212372699147067180}
   - component: {fileID: 50603457460178562}
-  - component: {fileID: 61139813418006570}
   - component: {fileID: 61836840494797460}
+  - component: {fileID: 114233304847548536}
+  - component: {fileID: 114754572886427040}
+  - component: {fileID: 114466994247160516}
   m_Layer: 0
   m_Name: rat3
   m_TagString: Rat
@@ -37,8 +39,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1572359848625778}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 489, y: 280.65, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 488.169, y: 279.949, z: 0}
+  m_LocalScale: {x: 2.9551804, y: 2.9551804, z: 2.9551804}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -62,32 +64,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 4
---- !u!61 &61139813418006570
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1572359848625778}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.12879556, y: -0.041781373}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.35174167, y: 0.56358707}
-  m_EdgeRadius: 0
+  m_Constraints: 7
 --- !u!61 &61836840494797460
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -113,6 +90,42 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.35174167, y: 0.5635872}
   m_EdgeRadius: 0
+--- !u!114 &114233304847548536
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1572359848625778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e91bcd193522424488b8341ca730dd79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsFacingRight: 1
+--- !u!114 &114466994247160516
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1572359848625778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e91bcd193522424488b8341ca730dd79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsFacingRight: 1
+--- !u!114 &114754572886427040
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1572359848625778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e91bcd193522424488b8341ca730dd79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsFacingRight: 1
 --- !u!212 &212372699147067180
 SpriteRenderer:
   m_ObjectHideFlags: 1

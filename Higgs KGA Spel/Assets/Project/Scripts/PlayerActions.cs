@@ -31,12 +31,16 @@ public class PlayerActions : MonoBehaviour
 
     //Ints:
     private int jumpsLeft;
+    private int health = 3;
+    private int invulnerabilityTimer;
     public int Jumps = 1;
+
 
     //Bools:
     public bool IsFacingRight = true;
 
     private bool isDoged = false;
+    private bool hasBeenHit = false;
 
     //variables used to check if player is on ground
     private bool isOnGround;
@@ -65,6 +69,21 @@ public class PlayerActions : MonoBehaviour
         if (isOnGround)
         {
             jumpsLeft = Jumps;
+        }
+
+        if (hasBeenHit)
+        {
+            invulnerabilityTimer++;
+            if (invulnerabilityTimer == 100)
+            {
+                hasBeenHit = false;
+                invulnerabilityTimer = 0;
+            }
+        }
+
+        if (health < 1)
+        {
+            GamemanagerScript.KillPlayer();
         }
     }
 
@@ -132,8 +151,8 @@ public class PlayerActions : MonoBehaviour
         if (playerInputScript.MoveDirection == -1 && IsFacingRight == true)
         {
             FlipPlayer();
-        }else
-        if (playerInputScript.MoveDirection == 1 && IsFacingRight ==false)
+        }
+        else if (playerInputScript.MoveDirection == 1 && IsFacingRight ==false)
         {
             FlipPlayer();
         }
@@ -174,6 +193,14 @@ public class PlayerActions : MonoBehaviour
         if (collider.gameObject.tag == "MapBorder")
         {
             GamemanagerScript.KillPlayer();
+        }
+
+        if (collider.gameObject.tag == "Rat" && !hasBeenHit)
+        {
+            health --;
+            hasBeenHit = true;
+
+            Debug.Log(health);
         }
     }
 }
