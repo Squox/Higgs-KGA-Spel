@@ -67,7 +67,7 @@ public class BossRatScript : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if(attackTimer > 100)
+        if(attackTimer > 60)
         {
             attack();
             attackTimer = 0;

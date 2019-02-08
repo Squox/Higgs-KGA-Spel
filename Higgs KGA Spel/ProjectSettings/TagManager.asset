@@ -16,6 +16,9 @@ TagManager:
   - PauseScreen
   - MapBorder
   - Acid
+  - Life 1
+  - Life 2
+  - Life 3
   layers:
   - Default
   - TransparentFX

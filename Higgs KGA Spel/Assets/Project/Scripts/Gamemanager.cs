@@ -10,6 +10,12 @@ public class Gamemanager : MonoBehaviour
     private GameObject player;
     private GameObject deathScreen;
     private GameObject pauseScreen;
+    private GameObject life1;
+    private GameObject life2;
+    private GameObject life3;
+
+    private PlayerActions playerActionsScript;
+
     public bool IsDead = false;
     public bool Paused = false;
 
@@ -29,11 +35,23 @@ public class Gamemanager : MonoBehaviour
 
     private void Awake()
     {
+        
+
         player = GameObject.FindGameObjectWithTag("Player");
+        playerActionsScript = player.GetComponent<PlayerActions>();
+
+        life1 = GameObject.FindGameObjectWithTag("Life 1");
+        life2 = GameObject.FindGameObjectWithTag("Life 2");
+        life3 = GameObject.FindGameObjectWithTag("Life 3");
+
         deathScreen = GameObject.FindGameObjectWithTag("DeathScreen");
         pauseScreen = GameObject.FindGameObjectWithTag("PauseScreen");
 
         Time.timeScale = 1;
+
+        life1.SetActive(true);
+        life2.SetActive(true);
+        life3.SetActive(true);
     }
 
 
@@ -60,6 +78,22 @@ public class Gamemanager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 RestartGame();
+            }
+        }
+
+        if (playerActionsScript.HasBeenHit)
+        {
+            if(playerActionsScript.Health == 2)
+            {
+                life1.SetActive(false);
+            }
+            else if (playerActionsScript.Health == 1)
+            {
+                life2.SetActive(false);
+            }
+            else if (playerActionsScript.Health == 0)
+            {
+                life3.SetActive(false);
             }
         }
     }
