@@ -23,11 +23,11 @@ public class PlayerActions : MonoBehaviour
 
     private Rigidbody2D playerRB;
 
-    //Floats:
-    [SerializeField] private float speed;
-    [SerializeField] private float jumpForce;
+    //Floats:   
     [SerializeField] private float fallMultiplier = 2.5f;
     [SerializeField] private float lowJumpMultiplier = 2f;
+    private float speed = 300f;
+    private float jumpForce = 300f;
 
     //Ints:
     private int jumpsLeft;
@@ -65,6 +65,17 @@ public class PlayerActions : MonoBehaviour
 
     private void Update()
     {
+        if (isDoged)
+        {
+            speed = 200f;
+            jumpForce = 200f;
+        }
+        else
+        {
+            speed = 300f;
+            jumpForce = 300f;
+        }
+
         CheckFacingDirection();
         if (isOnGround)
         {
