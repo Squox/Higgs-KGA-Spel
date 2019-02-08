@@ -12,16 +12,28 @@ public class BossRatScript : MonoBehaviour
     private GameObject player;
     private Rigidbody2D RatRB;
     private Animator animator;
+    private Vector2 fallpoint;
+    private Transform priorShootingpoint;
 
-    private int health = 100;
+    private AcidScript acidScript;
+
+    private int health = 50;
     private int attackType;
     private int attackTimer = 0;
+
     private float movementSpeed = 100;
+    private float fallTime = 2f;
+    private float fall;
+    private float acidX;
+    private float acidY;
 
-
+    
 
     //Bools:
     public bool IsFacingRight = true;
+    public bool AcidShot = false;
+    public bool AcidRain = false;
+    public bool AcidFire = false;
     private bool attacking = false;
 
     // Use this for initialization
@@ -39,12 +51,11 @@ public class BossRatScript : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         bullet = GameObject.FindGameObjectWithTag("Bullet");
         animator = gameObject.GetComponent<Animator>();
+        acidScript = acidPrefab.GetComponent<AcidScript>();
 
         animator.enabled = false;
 
         RatRB = gameObject.GetComponent<Rigidbody2D>();
-
-        attack();
     }
 
     // Update is called once per frame
@@ -67,10 +78,43 @@ public class BossRatScript : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if(attackTimer > 60)
+        if(attackTimer > 60 && !AcidFire)
         {
             attack();
             attackTimer = 0;
+            AcidRain = false;
+        }
+
+        if(fall < Time.time && AcidFire)
+        {
+            AcidFire = false;
+
+            if (IsFacingRight)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    acidX = Random.Range(1f, 9f);
+                    acidY = Random.Range(4f, 6f);
+
+                    fallpoint = priorShootingpoint.position + new Vector3(acidX, acidY, 0);
+
+                    Instantiate(acidPrefab, fallpoint, shootingpoint.rotation * Quaternion.Euler(0 ,0, 90));
+                }
+            }
+            else if (!IsFacingRight)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    acidX = Random.Range(1f, 9f);
+                    acidY = Random.Range(4f, 6f);
+
+                    fallpoint = priorShootingpoint.position + new Vector3(-acidX, acidY, 0);
+
+                    Instantiate(acidPrefab, fallpoint, shootingpoint.rotation * Quaternion.Euler(0, 0, 90));
+                }
+            }   
+            
+            AcidRain = true;
         }
     }
 
@@ -83,14 +127,10 @@ public class BossRatScript : MonoBehaviour
 
     private void attack()
     {
-        Debug.Log("attack");
-
-        attackType = Random.Range(0, 3);
+        attackType = Random.Range(1, 4);
 
         if (attackType == 1 && !attacking)
         {
-            Debug.Log("attackType");
-
             attacking = true;
             attackTypeOne();
         }
@@ -103,14 +143,12 @@ public class BossRatScript : MonoBehaviour
         {
             attacking = true;
             attackTypeThree();
-        }
-
-               
+        }             
     }
 
     private void attackTypeOne()
     {
-        Debug.Log("attackTypeOne");
+        AcidShot = false;
 
         transform.Translate(Vector2.right * movementSpeed * Time.deltaTime);
 
@@ -119,14 +157,37 @@ public class BossRatScript : MonoBehaviour
 
     private void attackTypeTwo()
     {
-
         Instantiate(acidPrefab, shootingpoint.position, shootingpoint.rotation);
 
+        AcidShot = true;
         attacking = false;
     }
 
     private void attackTypeThree()
     {
+        AcidShot = false;
+
+        if (IsFacingRight)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Instantiate(acidPrefab, shootingpoint.position + new Vector3(i * i / 10, i * i / 10, 0), shootingpoint.rotation * Quaternion.Euler(0, 0, 45));
+            }
+        }
+        else if (!IsFacingRight)
+        {
+            for (float i = 0; i < 10; i++)
+            {
+                Instantiate(acidPrefab, shootingpoint.position - new Vector3(i * i / 10, -i * i / 10, 0), shootingpoint.rotation * Quaternion.Euler(0, 0, 45));
+            }
+        }
+
+        AcidFire = true;
+
+        priorShootingpoint = shootingpoint;
+
+        fall = fallTime + Time.time;
+
         attacking = false;
     }
 }

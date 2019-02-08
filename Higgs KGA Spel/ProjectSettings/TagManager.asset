@@ -19,6 +19,7 @@ TagManager:
   - Life 1
   - Life 2
   - Life 3
+  - ShootingLimit
   layers:
   - Default
   - TransparentFX

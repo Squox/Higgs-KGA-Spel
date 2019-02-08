@@ -15,27 +15,60 @@ public class AcidScript : MonoBehaviour
 
     private float acidXVelocity;
     private float acidYVelocity;
+    private float acidXPosition;
+
+    private bool falling = false;
 
     // Use this for initialization
     void Start ()
     {
         rat = GameObject.FindGameObjectWithTag("Rat");
         bossRatScript = rat.GetComponent<BossRatScript>();
-        acidRB = GetComponent<Rigidbody2D>();        
+        acidRB = GetComponent<Rigidbody2D>();    
+        
         destroy = destroyTime + Time.time;
 
-        acidXVelocity = Random.Range(7f, 8f);
-        acidYVelocity = Random.Range(-2.5f, -1f);
-
-        if (bossRatScript.IsFacingRight)
+        if (bossRatScript.AcidShot)
         {
-            acidRB.velocity = new Vector2(acidXVelocity, acidYVelocity);
+            Debug.Log("AcidSchot");
+
+            acidXVelocity = Random.Range(5f, 6f);
+            acidYVelocity = Random.Range(-2.5f, -1f);
+
+            if (bossRatScript.IsFacingRight)
+            {
+                acidRB.velocity = new Vector2(acidXVelocity, acidYVelocity);
+            }
+
+            else if (!bossRatScript.IsFacingRight)
+            {
+                acidRB.velocity = new Vector2(-acidXVelocity, acidYVelocity);
+            }
+        }
+        else if (bossRatScript.AcidRain)
+        {
+            Debug.Log("AcidRain");
+
+            acidRB.velocity = new Vector2(0, -2);
+        }
+        else if (bossRatScript.AcidFire)
+        {
+            Debug.Log("AcidFire");
+
+            acidXVelocity = 3;
+            acidYVelocity = 3;
+
+            if (bossRatScript.IsFacingRight)
+            {
+                acidRB.velocity = new Vector2(acidXVelocity, acidYVelocity);
+            }
+
+            else if (!bossRatScript.IsFacingRight)
+            {
+                acidRB.velocity = new Vector2(-acidXVelocity, acidYVelocity);
+            }
         }
 
-        else if (!bossRatScript.IsFacingRight)
-        {
-            acidRB.velocity = new Vector2(-acidXVelocity, acidYVelocity);
-        }
     }
 	
 	// Update is called once per frame
@@ -49,6 +82,9 @@ public class AcidScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Destroy(gameObject);
+        if(collision.gameObject.tag != "Acid" && collision.gameObject.tag != "Bullet" && collision.gameObject.tag != "ShootingLimit")
+        {
+            Destroy(gameObject);
+        }      
     }
 }

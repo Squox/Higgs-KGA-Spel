@@ -11,6 +11,21 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1572359848625778}
   m_IsPrefabAsset: 1
+--- !u!1 &1499451493678896
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4226141521206118}
+  m_Layer: 0
+  m_Name: shootingpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1572359848625778
 GameObject:
   m_ObjectHideFlags: 0
@@ -22,8 +37,6 @@ GameObject:
   - component: {fileID: 212372699147067180}
   - component: {fileID: 50603457460178562}
   - component: {fileID: 61836840494797460}
-  - component: {fileID: 114233304847548536}
-  - component: {fileID: 114754572886427040}
   - component: {fileID: 114466994247160516}
   - component: {fileID: 95309508749595376}
   m_Layer: 0
@@ -33,6 +46,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4226141521206118
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1499451493678896}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.348, y: 0.153, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4837635946473776}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4837635946473776
 Transform:
   m_ObjectHideFlags: 1
@@ -40,9 +66,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1572359848625778}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 488.169, y: 279.949, z: 0}
+  m_LocalPosition: {x: 483.074, y: 279.841, z: 0}
   m_LocalScale: {x: 2.9551804, y: 2.9551804, z: 2.9551804}
-  m_Children: []
+  m_Children:
+  - {fileID: 4226141521206118}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -98,7 +125,7 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1572359848625778}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 65acfb186a3d28543bd27665c99d865d, type: 2}
   m_CullingMode: 0
@@ -109,18 +136,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114233304847548536
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1572359848625778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e91bcd193522424488b8341ca730dd79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsFacingRight: 1
 --- !u!114 &114466994247160516
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -132,19 +147,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e91bcd193522424488b8341ca730dd79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shootingpoint: {fileID: 4226141521206118}
+  acidPrefab: {fileID: 1838518942730356, guid: 49c2c2eac0b8c4347990341dae022b93, type: 2}
   IsFacingRight: 1
---- !u!114 &114754572886427040
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1572359848625778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e91bcd193522424488b8341ca730dd79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsFacingRight: 1
+  AcidShot: 0
+  AcidRain: 0
+  AcidFire: 0
 --- !u!212 &212372699147067180
 SpriteRenderer:
   m_ObjectHideFlags: 1
