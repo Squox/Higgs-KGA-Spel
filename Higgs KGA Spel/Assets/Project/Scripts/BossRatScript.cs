@@ -8,6 +8,7 @@ public class BossRatScript : MonoBehaviour {
     private GameObject bullet;
     private GameObject player;
     private Rigidbody2D RatRB;
+    private Animator animator;
 
     private int health = 100;
     private int attackType;
@@ -34,6 +35,9 @@ public class BossRatScript : MonoBehaviour {
     {
         player = GameObject.FindGameObjectWithTag("Player");
         bullet = GameObject.FindGameObjectWithTag("Bullet");
+        animator = gameObject.GetComponent<Animator>();
+
+        animator.enabled = false;
 
         RatRB = gameObject.GetComponent<Rigidbody2D>();
 
