@@ -20,6 +20,9 @@ TagManager:
   - Life 2
   - Life 3
   - ShootingLimit
+  - Shot 1
+  - Shot 2
+  - Shot 3
   layers:
   - Default
   - TransparentFX

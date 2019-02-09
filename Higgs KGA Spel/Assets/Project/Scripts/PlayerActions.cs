@@ -30,17 +30,22 @@ public class PlayerActions : MonoBehaviour
     private float jumpForce = 300f;
 
     //Ints:
-    private int jumpsLeft;
-    public int Health = 3;
+    private int jumpsLeft;   
     private int invulnerabilityTimer;
-    public int Jumps = 1;
+    private int burstBuffer = 0;
+    private int shotBuffer = 0;
+    private int timeSinceShot = 0;
 
+    public int Health = 3;    
+    public int Jumps = 1;
+    public int ShotCount = 0;
 
     //Bools:
     public bool IsFacingRight = true;
+    public bool HasBeenHit = false;
 
     private bool isDoged = false;
-    public bool HasBeenHit = false;
+    private bool hasShot = false;
 
     //variables used to check if player is on ground
     private bool isOnGround;
@@ -96,6 +101,29 @@ public class PlayerActions : MonoBehaviour
         {
             GamemanagerScript.KillPlayer();
         }
+
+        if(ShotCount > 2)
+        {
+            burstBuffer++;
+            if (burstBuffer > 35)
+            {
+                ShotCount = 0;
+                burstBuffer = 0;
+            }       
+        }
+
+        if (hasShot)
+        {
+            timeSinceShot++;
+
+            if(timeSinceShot > 35)
+            {
+                ShotCount = 0;
+                burstBuffer = 0;
+            }                               
+        }
+
+        Debug.Log(ShotCount);
     }
 
     private void FixedUpdate ()
@@ -188,8 +216,14 @@ public class PlayerActions : MonoBehaviour
     }
 
     public void shoot()
-    {
-        Instantiate(bulletprefab, currentShootingpoint.position, currentShootingpoint.rotation);
+    {      
+        if(burstBuffer < 1 && timeSinceShot > 8 || !hasShot)
+        {
+            Instantiate(bulletprefab, currentShootingpoint.position, currentShootingpoint.rotation);
+            ShotCount++;
+            timeSinceShot = 0;
+            hasShot = true;
+        }     
     }
 
     private void FlipPlayer()
@@ -210,16 +244,12 @@ public class PlayerActions : MonoBehaviour
         {
             Health --;
             HasBeenHit = true;
-
-            Debug.Log(Health);
         }
 
         if (collider.gameObject.tag == "Acid" && !HasBeenHit)
         {
             Health--;
             HasBeenHit = true;
-
-            Debug.Log(Health);
         }
     }
 }

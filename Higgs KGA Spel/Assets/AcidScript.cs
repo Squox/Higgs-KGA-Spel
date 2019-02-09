@@ -30,8 +30,6 @@ public class AcidScript : MonoBehaviour
 
         if (bossRatScript.AcidShot)
         {
-            Debug.Log("AcidSchot");
-
             acidXVelocity = Random.Range(5f, 6f);
             acidYVelocity = Random.Range(-2.5f, -1f);
 
@@ -47,14 +45,10 @@ public class AcidScript : MonoBehaviour
         }
         else if (bossRatScript.AcidRain)
         {
-            Debug.Log("AcidRain");
-
-            acidRB.velocity = new Vector2(0, -2);
+            acidRB.velocity = new Vector2(0, -2.5f);
         }
         else if (bossRatScript.AcidFire)
         {
-            Debug.Log("AcidFire");
-
             acidXVelocity = 3;
             acidYVelocity = 3;
 

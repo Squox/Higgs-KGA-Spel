@@ -42,7 +42,6 @@ public class BossRatScript : MonoBehaviour
         if (collision.gameObject.tag == "Bullet")
         {
             health--;
-            Debug.Log(health);
         }
     }
 
@@ -93,7 +92,7 @@ public class BossRatScript : MonoBehaviour
             {
                 for (int i = 0; i < 10; i++)
                 {
-                    acidX = Random.Range(1f, 9f);
+                    acidX = Random.Range(0.4f, 8f);
                     acidY = Random.Range(4f, 6f);
 
                     fallpoint = priorShootingpoint.position + new Vector3(acidX, acidY, 0);

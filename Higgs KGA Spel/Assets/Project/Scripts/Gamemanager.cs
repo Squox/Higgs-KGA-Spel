@@ -13,6 +13,9 @@ public class Gamemanager : MonoBehaviour
     private GameObject life1;
     private GameObject life2;
     private GameObject life3;
+    private GameObject shot1;
+    private GameObject shot2;
+    private GameObject shot3;
 
     private PlayerActions playerActionsScript;
 
@@ -43,6 +46,9 @@ public class Gamemanager : MonoBehaviour
         life1 = GameObject.FindGameObjectWithTag("Life 1");
         life2 = GameObject.FindGameObjectWithTag("Life 2");
         life3 = GameObject.FindGameObjectWithTag("Life 3");
+        shot1 = GameObject.FindGameObjectWithTag("Shot 1");
+        shot2 = GameObject.FindGameObjectWithTag("Shot 2");
+        shot3 = GameObject.FindGameObjectWithTag("Shot 3");
 
         deathScreen = GameObject.FindGameObjectWithTag("DeathScreen");
         pauseScreen = GameObject.FindGameObjectWithTag("PauseScreen");
@@ -52,6 +58,9 @@ public class Gamemanager : MonoBehaviour
         life1.SetActive(true);
         life2.SetActive(true);
         life3.SetActive(true);
+        shot1.SetActive(true);
+        shot2.SetActive(true);
+        shot3.SetActive(true);
     }
 
 
@@ -95,6 +104,31 @@ public class Gamemanager : MonoBehaviour
             {
                 life3.SetActive(false);
             }
+        }
+
+        if(playerActionsScript.ShotCount == 1)
+        {
+            shot3.SetActive(false);
+            shot2.SetActive(true);
+            shot1.SetActive(true);
+        }
+        else if (playerActionsScript.ShotCount == 2)
+        {
+            shot3.SetActive(false);
+            shot2.SetActive(false);
+            shot1.SetActive(true);
+        }
+        else if (playerActionsScript.ShotCount == 3)
+        {
+            shot3.SetActive(false);
+            shot2.SetActive(false);
+            shot1.SetActive(false);
+        }
+        else
+        {
+            shot1.SetActive(true);
+            shot2.SetActive(true);
+            shot3.SetActive(true);
         }
     }
 
