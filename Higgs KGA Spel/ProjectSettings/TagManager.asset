@@ -23,6 +23,7 @@ TagManager:
   - Shot 1
   - Shot 2
   - Shot 3
+  - VictoryScreen
   layers:
   - Default
   - TransparentFX

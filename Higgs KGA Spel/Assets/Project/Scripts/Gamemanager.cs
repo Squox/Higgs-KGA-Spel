@@ -8,8 +8,10 @@ public class Gamemanager : MonoBehaviour
     
 
     private GameObject player;
+    private GameObject bossRat;
     private GameObject deathScreen;
     private GameObject pauseScreen;
+    private GameObject victoryScreen;
     private GameObject life1;
     private GameObject life2;
     private GameObject life3;
@@ -18,6 +20,7 @@ public class Gamemanager : MonoBehaviour
     private GameObject shot3;
 
     private PlayerActions playerActionsScript;
+    private BossRatScript bossRatScript;
 
     public bool IsDead = false;
     public bool Paused = false;
@@ -38,7 +41,8 @@ public class Gamemanager : MonoBehaviour
 
     private void Awake()
     {
-        
+        bossRat = GameObject.FindGameObjectWithTag("Rat");
+        bossRatScript = bossRat.GetComponent<BossRatScript>();
 
         player = GameObject.FindGameObjectWithTag("Player");
         playerActionsScript = player.GetComponent<PlayerActions>();
@@ -52,6 +56,7 @@ public class Gamemanager : MonoBehaviour
 
         deathScreen = GameObject.FindGameObjectWithTag("DeathScreen");
         pauseScreen = GameObject.FindGameObjectWithTag("PauseScreen");
+        victoryScreen = GameObject.FindGameObjectWithTag("VictoryScreen");
 
         Time.timeScale = 1;
 
@@ -61,6 +66,8 @@ public class Gamemanager : MonoBehaviour
         shot1.SetActive(true);
         shot2.SetActive(true);
         shot3.SetActive(true);
+
+        victoryScreen.GetComponent<SpriteRenderer>().enabled = false;
     }
 
 
@@ -129,6 +136,11 @@ public class Gamemanager : MonoBehaviour
             shot1.SetActive(true);
             shot2.SetActive(true);
             shot3.SetActive(true);
+        }
+
+        if(bossRatScript.Health < 1)
+        {
+            victoryScreen.GetComponent<SpriteRenderer>().enabled = true;
         }
     }
 

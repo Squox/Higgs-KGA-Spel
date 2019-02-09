@@ -17,7 +17,8 @@ public class BossRatScript : MonoBehaviour
 
     private AcidScript acidScript;
 
-    private int health = 50;
+    public int Health = 50;
+
     private int attackType;
     private int attackTimer = 0;
 
@@ -41,7 +42,7 @@ public class BossRatScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Bullet")
         {
-            health--;
+            Health--;
         }
     }
 
@@ -72,7 +73,7 @@ public class BossRatScript : MonoBehaviour
             FlipRat();
         }
 
-        if(health < 1)
+        if(Health < 1)
         {
             Destroy(gameObject);
         }
