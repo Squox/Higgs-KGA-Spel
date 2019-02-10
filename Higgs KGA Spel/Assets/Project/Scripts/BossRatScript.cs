@@ -12,6 +12,7 @@ public class BossRatScript : MonoBehaviour
     private PolygonCollider2D bulletCollider;
     private GameObject bullet;
     private GameObject player;
+    private GameObject ratHealthBar;
     private Rigidbody2D ratRB;
     private Animator animator;
     private Vector2 fallpoint;
@@ -56,7 +57,7 @@ public class BossRatScript : MonoBehaviour
         if (collision.gameObject.tag == "Bullet")
         {
             Health--;
-            Debug.Log(Health);
+            ratHealthBar.transform.localScale = new Vector3(Health * 10, ratHealthBar.transform.localScale.y, ratHealthBar.transform.localScale.z);
         }
     }
 
@@ -64,6 +65,7 @@ public class BossRatScript : MonoBehaviour
     {      
         player = GameObject.FindGameObjectWithTag("Player");
         bullet = GameObject.FindGameObjectWithTag("Bullet");
+        ratHealthBar = GameObject.FindGameObjectWithTag("RatHealthBar");
         animator = gameObject.GetComponent<Animator>();
         acidScript = acidPrefab.GetComponent<AcidScript>();
         playerActionScript = player.GetComponent<PlayerActions>();
@@ -80,6 +82,8 @@ public class BossRatScript : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
+        Debug.Log(Health);
+
         attackTimer++;  
 
 		if (gameObject.transform.position.x < player.transform.position.x && !IsFacingRight)

@@ -26,6 +26,7 @@ TagManager:
   - VictoryScreen
   - Ground
   - Door
+  - RatHealthBar
   layers:
   - Default
   - TransparentFX

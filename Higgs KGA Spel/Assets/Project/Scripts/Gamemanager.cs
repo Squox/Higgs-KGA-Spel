@@ -18,6 +18,7 @@ public class Gamemanager : MonoBehaviour
     private GameObject shot1;
     private GameObject shot2;
     private GameObject shot3;
+    private GameObject ratHealthBar;
 
     private PlayerActions playerActionsScript;
     private BossRatScript bossRatScript;
@@ -56,6 +57,7 @@ public class Gamemanager : MonoBehaviour
 
         deathScreen = GameObject.FindGameObjectWithTag("DeathScreen");
         pauseScreen = GameObject.FindGameObjectWithTag("PauseScreen");
+        ratHealthBar = GameObject.FindGameObjectWithTag("RatHealthBar");
         victoryScreen = GameObject.FindGameObjectWithTag("VictoryScreen");
 
         Time.timeScale = 1;
@@ -140,7 +142,17 @@ public class Gamemanager : MonoBehaviour
 
         if(bossRatScript.Health < 1)
         {
-            victoryScreen.GetComponent<SpriteRenderer>().enabled = true;         
+            victoryScreen.GetComponent<SpriteRenderer>().enabled = true;
+            player.SetActive(false);
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                ExitLevel();
+            }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                RestartGame();
+            }
         }
     }
 
