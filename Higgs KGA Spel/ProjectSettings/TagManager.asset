@@ -24,6 +24,7 @@ TagManager:
   - Shot 2
   - Shot 3
   - VictoryScreen
+  - Ground
   layers:
   - Default
   - TransparentFX

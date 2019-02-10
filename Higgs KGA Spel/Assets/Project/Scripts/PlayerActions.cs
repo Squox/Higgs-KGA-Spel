@@ -13,8 +13,8 @@ public class PlayerActions : MonoBehaviour
     private Gamemanager GamemanagerScript;
     private Transform currentShootingpoint;
 
-    [SerializeField] private BoxCollider2D idle;
-    [SerializeField] private BoxCollider2D doged;
+    [SerializeField] public BoxCollider2D Idle;
+    [SerializeField] public BoxCollider2D Doged;
 
     //To store PlayerInput script and player in a local variable
     private GameObject player;
@@ -122,8 +122,6 @@ public class PlayerActions : MonoBehaviour
                 burstBuffer = 0;
             }                               
         }
-
-        Debug.Log(ShotCount);
     }
 
     private void FixedUpdate ()
@@ -147,16 +145,16 @@ public class PlayerActions : MonoBehaviour
 
         animator.SetBool("IsDoge", isDoged);
 
-        if(idle.enabled == false)
+        if (Idle.enabled == false)
         {
-            idle.enabled = true;
-            doged.enabled = false;
+            Idle.enabled = true;
+            Doged.enabled = false;
             currentShootingpoint = idleShootingpoint;
         }
         else
         {
-            idle.enabled = false;
-            doged.enabled = true;
+            Idle.enabled = false;
+            Doged.enabled = true;
             currentShootingpoint = dogedShootingpoint;
         }
         
@@ -166,12 +164,12 @@ public class PlayerActions : MonoBehaviour
 
     private void Jumping()
     {
-        if (playerInputScript.HasPressedJump == true && jumpsLeft > 0)
-        {
-            playerRB.velocity = new Vector2(playerRB.velocity.x, jumpForce * Time.fixedDeltaTime);
-            playerInputScript.HasPressedJump = false;
-            jumpsLeft--;
-        }
+        //if (playerInputScript.HasPressedJump == true && jumpsLeft > 0)
+        //{
+        //    playerRB.velocity = new Vector2(playerRB.velocity.x, jumpForce * Time.fixedDeltaTime);
+        //    playerInputScript.HasPressedJump = false;
+        //    jumpsLeft--;
+        //}
 
         if (playerInputScript.HasPressedJump == true && isOnGround == true)
         {

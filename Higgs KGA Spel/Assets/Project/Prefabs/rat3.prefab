@@ -11,6 +11,21 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1572359848625778}
   m_IsPrefabAsset: 1
+--- !u!1 &1196906720630610
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4462126873368332}
+  m_Layer: 0
+  m_Name: IsOnground?
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1499451493678896
 GameObject:
   m_ObjectHideFlags: 0
@@ -39,6 +54,7 @@ GameObject:
   - component: {fileID: 61836840494797460}
   - component: {fileID: 114466994247160516}
   - component: {fileID: 95309508749595376}
+  - component: {fileID: 61128749602216016}
   m_Layer: 0
   m_Name: rat3
   m_TagString: Rat
@@ -59,6 +75,19 @@ Transform:
   m_Father: {fileID: 4837635946473776}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4462126873368332
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1196906720630610}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.3383888, y: 0.3383888, z: 0.3383888}
+  m_Children: []
+  m_Father: {fileID: 4837635946473776}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4837635946473776
 Transform:
   m_ObjectHideFlags: 1
@@ -70,6 +99,7 @@ Transform:
   m_LocalScale: {x: 2.9551804, y: 2.9551804, z: 2.9551804}
   m_Children:
   - {fileID: 4226141521206118}
+  - {fileID: 4462126873368332}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -92,8 +122,8 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 7
---- !u!61 &61836840494797460
+  m_Constraints: 4
+--- !u!61 &61128749602216016
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,6 +133,31 @@ BoxCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.07129435, y: -0.0064689517}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.51, y: 0.56}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.37118158, y: 0.5544566}
+  m_EdgeRadius: 0
+--- !u!61 &61836840494797460
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1572359848625778}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.07161783, y: -0.0069267154}
@@ -149,6 +204,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootingpoint: {fileID: 4226141521206118}
   acidPrefab: {fileID: 1838518942730356, guid: 49c2c2eac0b8c4347990341dae022b93, type: 2}
+  Health: 50
+  fallMultiplier: 2
+  lowJumpMultiplier: 2
+  checkRadius: 0.85
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 512
+  groundCheck: {fileID: 4462126873368332}
   IsFacingRight: 1
   AcidShot: 0
   AcidRain: 0

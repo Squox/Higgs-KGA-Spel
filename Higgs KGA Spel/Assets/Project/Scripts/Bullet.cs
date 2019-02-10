@@ -11,6 +11,7 @@ public class Bullet : MonoBehaviour
     public float BulletSpeed;
 
     private Rigidbody2D rb;
+    private GameObject rat;
 
 	// Use this for initialization
 	void Start ()
@@ -18,7 +19,11 @@ public class Bullet : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = transform.right * BulletSpeed;
         destroy = destroyTime + Time.time;
-	}
+
+        rat = GameObject.FindGameObjectWithTag("Rat");
+
+        Physics2D.IgnoreCollision(rat.GetComponent<BoxCollider2D>(), GetComponent<BoxCollider2D>());
+    }
 	
 	// Update is called once per frame
 	void Update ()
