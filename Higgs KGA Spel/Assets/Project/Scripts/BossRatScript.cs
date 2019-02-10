@@ -82,8 +82,6 @@ public class BossRatScript : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        Debug.Log(Health);
-
         attackTimer++;  
 
 		if (gameObject.transform.position.x < player.transform.position.x && !IsFacingRight)

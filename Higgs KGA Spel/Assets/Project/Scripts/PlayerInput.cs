@@ -37,8 +37,6 @@ public class PlayerInput : MonoBehaviour
         CheckPlayerInput();
     }
 
-
-
     private void CheckPlayerInput()
     {
         MoveDirection = 0;

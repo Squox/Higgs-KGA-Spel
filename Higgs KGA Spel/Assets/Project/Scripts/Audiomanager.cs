@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Audiomanager : MonoBehaviour {
+public class Audiomanager : MonoBehaviour
+{
 
     public static Audiomanager instance;
 
@@ -10,7 +11,6 @@ public class Audiomanager : MonoBehaviour {
     {
         MakeSingelton();
     }
-
 
     private void MakeSingelton()
     {
@@ -23,6 +23,5 @@ public class Audiomanager : MonoBehaviour {
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-
     }
 }

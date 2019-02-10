@@ -5,8 +5,6 @@ public class Gamemanager : MonoBehaviour
 {
     public static Gamemanager instance;
 
-    
-
     private GameObject player;
     private GameObject bossRat;
     private GameObject deathScreen;
@@ -18,8 +16,7 @@ public class Gamemanager : MonoBehaviour
     private GameObject shot1;
     private GameObject shot2;
     private GameObject shot3;
-    private GameObject ratHealthBar;
-
+    
     private PlayerActions playerActionsScript;
     private BossRatScript bossRatScript;
 
@@ -44,7 +41,6 @@ public class Gamemanager : MonoBehaviour
     {
         bossRat = GameObject.FindGameObjectWithTag("Rat");
         bossRatScript = bossRat.GetComponent<BossRatScript>();
-
         player = GameObject.FindGameObjectWithTag("Player");
         playerActionsScript = player.GetComponent<PlayerActions>();
 
@@ -56,8 +52,7 @@ public class Gamemanager : MonoBehaviour
         shot3 = GameObject.FindGameObjectWithTag("Shot 3");
 
         deathScreen = GameObject.FindGameObjectWithTag("DeathScreen");
-        pauseScreen = GameObject.FindGameObjectWithTag("PauseScreen");
-        ratHealthBar = GameObject.FindGameObjectWithTag("RatHealthBar");
+        pauseScreen = GameObject.FindGameObjectWithTag("PauseScreen");       
         victoryScreen = GameObject.FindGameObjectWithTag("VictoryScreen");
 
         Time.timeScale = 1;

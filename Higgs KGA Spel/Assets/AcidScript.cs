@@ -76,7 +76,7 @@ public class AcidScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag != "Acid" && collision.gameObject.tag != "Bullet" && collision.gameObject.tag != "ShootingLimit")
+        if (collision.gameObject.tag != "Acid" && collision.gameObject.tag != "Bullet" && collision.gameObject.tag != "ShootingLimit")
         {
             Destroy(gameObject);
         }      

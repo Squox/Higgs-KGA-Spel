@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerActions : MonoBehaviour
 {
     [SerializeField] private Animator animator;
-
     [SerializeField] private GameObject bulletprefab;
     [SerializeField] private Transform idleShootingpoint;
     [SerializeField] private Transform dogedShootingpoint;
@@ -18,9 +17,7 @@ public class PlayerActions : MonoBehaviour
 
     //To store PlayerInput script and player in a local variable
     private GameObject player;
-
     private PlayerInput playerInputScript;
-
     private Rigidbody2D playerRB;
 
     //Floats:   
@@ -55,11 +52,11 @@ public class PlayerActions : MonoBehaviour
 
     private void Awake()
     {
-        playerRB = GetComponent<Rigidbody2D>();
-
         player = GameObject.FindGameObjectWithTag("Player");
-        playerInputScript = player.GetComponent<PlayerInput>();
 
+        playerRB = GetComponent<Rigidbody2D>();
+        playerInputScript = player.GetComponent<PlayerInput>();
+  
         currentShootingpoint = idleShootingpoint;
     }
 
@@ -135,7 +132,6 @@ public class PlayerActions : MonoBehaviour
         Jumping();
 
         ChangeGravityScale();
-
     }
 
 
@@ -156,21 +152,13 @@ public class PlayerActions : MonoBehaviour
             Idle.enabled = false;
             Doged.enabled = true;
             currentShootingpoint = dogedShootingpoint;
-        }
-        
+        }      
     }
 
 
 
     private void Jumping()
     {
-        //if (playerInputScript.HasPressedJump == true && jumpsLeft > 0)
-        //{
-        //    playerRB.velocity = new Vector2(playerRB.velocity.x, jumpForce * Time.fixedDeltaTime);
-        //    playerInputScript.HasPressedJump = false;
-        //    jumpsLeft--;
-        //}
-
         if (playerInputScript.HasPressedJump == true && isOnGround == true)
         {
             playerRB.velocity = new Vector2(playerRB.velocity.x, jumpForce * Time.fixedDeltaTime);
@@ -180,7 +168,6 @@ public class PlayerActions : MonoBehaviour
         {
             playerInputScript.HasPressedJump = false;
         }
-
     }
 
     private void CheckFacingDirection()
