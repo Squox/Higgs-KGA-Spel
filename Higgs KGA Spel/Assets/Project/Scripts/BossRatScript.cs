@@ -24,6 +24,7 @@ public class BossRatScript : MonoBehaviour
     private int attackType;
     private int attackTimer = 0;
     private int lastAttack;
+    private int attackDelay = 120;
 
     [SerializeField] private float fallMultiplier = 1.7f;
     [SerializeField] private float lowJumpMultiplier = 1.7f;
@@ -96,7 +97,7 @@ public class BossRatScript : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if(attackTimer > 100 && !AcidFire)
+        if(attackTimer > attackDelay && !AcidFire)
         {
             attack();
             attackTimer = 0;
