@@ -140,7 +140,7 @@ public class Gamemanager : MonoBehaviour
 
         if(bossRatScript.Health < 1)
         {
-            victoryScreen.GetComponent<SpriteRenderer>().enabled = true;
+            victoryScreen.GetComponent<SpriteRenderer>().enabled = true;         
         }
     }
 

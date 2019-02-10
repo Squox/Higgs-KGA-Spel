@@ -25,6 +25,7 @@ TagManager:
   - Shot 3
   - VictoryScreen
   - Ground
+  - Door
   layers:
   - Default
   - TransparentFX
