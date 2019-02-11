@@ -164,6 +164,12 @@ public class PlayerActions : MonoBehaviour
             playerRB.velocity = new Vector2(playerRB.velocity.x, jumpForce * Time.fixedDeltaTime);
             playerInputScript.HasPressedJump = false;
         }
+        else if (playerInputScript.HasPressedJump == true && jumpsLeft > 0)
+        {
+            playerRB.velocity = new Vector2(playerRB.velocity.x, jumpForce * Time.fixedDeltaTime);
+            playerInputScript.HasPressedJump = false;
+            jumpsLeft--;
+        }
         else
         {
             playerInputScript.HasPressedJump = false;
