@@ -10,14 +10,16 @@ public class Gamemanager : MonoBehaviour
     private GameObject deathScreen;
     private GameObject pauseScreen;
     private GameObject victoryScreen;
+    private Canvas canvas;
     private GameObject life1;
     private GameObject life2;
     private GameObject life3;
-    private GameObject shot1;
-    private GameObject shot2;
-    private GameObject shot3;
+    public GameObject shot1;
+    public GameObject shot2;
+    public GameObject shot3;
     
     private PlayerActions playerActionsScript;
+    private PlayerInput playerInputScript;
     private BossRatScript bossRatScript;
 
     public bool IsDead = false;
@@ -43,6 +45,7 @@ public class Gamemanager : MonoBehaviour
         bossRatScript = bossRat.GetComponent<BossRatScript>();
         player = GameObject.FindGameObjectWithTag("Player");
         playerActionsScript = player.GetComponent<PlayerActions>();
+        playerInputScript = player.GetComponent<PlayerInput>();
 
         life1 = GameObject.FindGameObjectWithTag("Life 1");
         life2 = GameObject.FindGameObjectWithTag("Life 2");
@@ -110,31 +113,6 @@ public class Gamemanager : MonoBehaviour
             }
         }
 
-        if(playerActionsScript.ShotCount == 1)
-        {
-            shot3.SetActive(false);
-            shot2.SetActive(true);
-            shot1.SetActive(true);
-        }
-        else if (playerActionsScript.ShotCount == 2)
-        {
-            shot3.SetActive(false);
-            shot2.SetActive(false);
-            shot1.SetActive(true);
-        }
-        else if (playerActionsScript.ShotCount == 3)
-        {
-            shot3.SetActive(false);
-            shot2.SetActive(false);
-            shot1.SetActive(false);
-        }
-        else
-        {
-            shot1.SetActive(true);
-            shot2.SetActive(true);
-            shot3.SetActive(true);
-        }
-
         if(bossRatScript.Health < 1)
         {
             victoryScreen.GetComponent<SpriteRenderer>().enabled = true;
@@ -180,5 +158,33 @@ public class Gamemanager : MonoBehaviour
     public void ExitLevel()
     {
         SceneManager.LoadScene("Start menu");
+    }
+
+    public void ManageShots()
+    {
+        if (playerActionsScript.ShotCount == 1)
+        {
+            shot3.SetActive(false);
+            shot2.SetActive(true);
+            shot1.SetActive(true);
+        }
+        else if (playerActionsScript.ShotCount == 2)
+        {
+            shot3.SetActive(false);
+            shot2.SetActive(false);
+            shot1.SetActive(true);
+        }
+        else if (playerActionsScript.ShotCount == 3)
+        {
+            shot3.SetActive(false);
+            shot2.SetActive(false);
+            shot1.SetActive(false);
+        }
+        else if (playerActionsScript.ShotCount == 0 && playerInputScript.ChargeTimer < 1)
+        {
+            shot1.SetActive(true);
+            shot2.SetActive(true);
+            shot3.SetActive(true);
+        }
     }
 }

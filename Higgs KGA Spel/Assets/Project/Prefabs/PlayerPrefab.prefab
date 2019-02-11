@@ -241,11 +241,14 @@ MonoBehaviour:
   Doged: {fileID: 61721860967019496}
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
+  fireRate: 8
   Health: 3
   Jumps: 0
   ShotCount: 0
+  burstFire: 0
   IsFacingRight: 1
   HasBeenHit: 0
+  PowerShot: 0
   checkRadius: 0.6
   whatIsGround:
     serializedVersion: 2
@@ -263,6 +266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveDirection: 0
+  ChargeTimer: 0
   HasPressedJump: 0
 --- !u!212 &212832968761438092
 SpriteRenderer:

@@ -56,8 +56,16 @@ public class BossRatScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Bullet")
         {
-            Health--;
-            ratHealthBar.transform.localScale = new Vector3(Health * 10, ratHealthBar.transform.localScale.y, ratHealthBar.transform.localScale.z);
+            if (playerActionScript.PowerShot)
+            {
+                Health -= 10;
+            }
+            else
+            {
+                Health--;
+            }            
+            ratHealthBar.transform.localScale = new Vector3(Health * 7, ratHealthBar.transform.localScale.y, ratHealthBar.transform.localScale.z);
+            playerActionScript.PowerShot = false;
         }
     }
 

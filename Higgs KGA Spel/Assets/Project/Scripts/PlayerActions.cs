@@ -27,6 +27,8 @@ public class PlayerActions : MonoBehaviour
     private float jumpForce = 300f;
 
     //Ints:
+    [SerializeField] private int fireRate;
+
     private int jumpsLeft;   
     private int invulnerabilityTimer;
     private int burstBuffer = 0;
@@ -38,8 +40,11 @@ public class PlayerActions : MonoBehaviour
     public int ShotCount = 0;
 
     //Bools:
+    [SerializeField] private bool burstFire;
+
     public bool IsFacingRight = true;
     public bool HasBeenHit = false;
+    public bool PowerShot = false;
 
     private bool isDoged = false;
     private bool hasShot = false;
@@ -67,10 +72,29 @@ public class PlayerActions : MonoBehaviour
 
     private void Update()
     {
-        if (isDoged)
+        if (burstFire)
+        {
+            GamemanagerScript.ManageShots();
+        }
+
+        if( playerInputScript.ChargeTimer > 10)
         {
             speed = 200f;
             jumpForce = 200f;
+
+            if (isDoged)
+            {
+                speed = 100f;
+                jumpForce = 100f;
+            }
+        }      
+        else if (isDoged)
+        {
+            if(playerInputScript.ChargeTimer < 1)
+            {
+                speed = 200f;
+                jumpForce = 200f;
+            }
         }
         else
         {
@@ -99,24 +123,28 @@ public class PlayerActions : MonoBehaviour
             GamemanagerScript.KillPlayer();
         }
 
-        if(ShotCount > 2)
+        if(burstFire && ShotCount > 2 && playerInputScript.ChargeTimer < 1)
         {
             burstBuffer++;
+
             if (burstBuffer > 35)
             {
                 ShotCount = 0;
-                burstBuffer = 0;
-            }       
+                burstBuffer = 0;              
+            }
         }
 
         if (hasShot)
         {
             timeSinceShot++;
 
-            if(timeSinceShot > 35)
+            if (timeSinceShot > 35)
             {
                 ShotCount = 0;
+                PowerShot = false;
                 burstBuffer = 0;
+
+                GamemanagerScript.ManageShots();
             }                               
         }
     }
@@ -155,20 +183,12 @@ public class PlayerActions : MonoBehaviour
         }      
     }
 
-
-
     private void Jumping()
     {
         if (playerInputScript.HasPressedJump == true && isOnGround == true)
         {
             playerRB.velocity = new Vector2(playerRB.velocity.x, jumpForce * Time.fixedDeltaTime);
             playerInputScript.HasPressedJump = false;
-        }
-        else if (playerInputScript.HasPressedJump == true && jumpsLeft > 0)
-        {
-            playerRB.velocity = new Vector2(playerRB.velocity.x, jumpForce * Time.fixedDeltaTime);
-            playerInputScript.HasPressedJump = false;
-            jumpsLeft--;
         }
         else
         {
@@ -208,13 +228,31 @@ public class PlayerActions : MonoBehaviour
 
     public void shoot()
     {      
-        if(burstBuffer < 1 && timeSinceShot > 8 || !hasShot)
+        if (burstFire && burstBuffer < 1 && timeSinceShot > fireRate || !hasShot)
         {
             Instantiate(bulletprefab, currentShootingpoint.position, currentShootingpoint.rotation);
             ShotCount++;
             timeSinceShot = 0;
             hasShot = true;
-        }     
+        }
+        else if (!burstFire && timeSinceShot > fireRate)
+        {
+            Instantiate(bulletprefab, currentShootingpoint.position, currentShootingpoint.rotation);
+            ShotCount++;
+            timeSinceShot = 0;           
+            hasShot = true;
+        }
+    }
+
+    public void EmpoweredShot()
+    {
+        if (burstBuffer < 1 && timeSinceShot > fireRate || !hasShot)
+        {
+            Instantiate(bulletprefab, currentShootingpoint.position, currentShootingpoint.rotation);
+            timeSinceShot = 0;
+            hasShot = true;
+            PowerShot = true;
+        }
     }
 
     private void FlipPlayer()
