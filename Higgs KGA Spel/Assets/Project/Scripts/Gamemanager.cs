@@ -22,6 +22,12 @@ public class Gamemanager : MonoBehaviour
     private PlayerInput playerInputScript;
     private BossRatScript bossRatScript;
 
+    private float fadeTimer = 0f;
+    private float alphaLevel = 0f;
+    private float deathScreenFadeTime = 60f;
+    private float victoryScreenFadeTime = 40f;
+    private float pauseScreenFadeTime = 10f;
+
     public bool IsDead = false;
     public bool Paused = false;
 
@@ -75,18 +81,25 @@ public class Gamemanager : MonoBehaviour
     {
         if (IsDead)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            FadeIn(deathScreen.GetComponent<SpriteRenderer>(), deathScreenFadeTime);
+
+            if(fadeTimer > deathScreenFadeTime)
             {
-                RestartGame();
-            }
-            if (Input.GetKey(KeyCode.Escape))
-            {
-                SceneManager.LoadScene("Selection menue");
-            }
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    RestartGame();
+                }
+                if (Input.GetKey(KeyCode.Escape))
+                {
+                    SceneManager.LoadScene("Selection menue");
+                }
+            }          
         }
 
         if (Paused)
         {
+            FadeIn(pauseScreen.GetComponent<SpriteRenderer>(), pauseScreenFadeTime);
+
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 ResumeGame();
@@ -95,6 +108,10 @@ public class Gamemanager : MonoBehaviour
             {
                 RestartGame();
             }
+        }
+        else if(!Paused && !IsDead && bossRatScript.Health > 0 && fadeTimer > 0)
+        {
+            FadeOut(pauseScreen.GetComponent<SpriteRenderer>(), pauseScreenFadeTime);
         }
 
         if (playerActionsScript.HasBeenHit)
@@ -113,26 +130,15 @@ public class Gamemanager : MonoBehaviour
             }
         }
 
-        if(bossRatScript.Health < 1)
+        if (playerActionsScript.Exit)
         {
-            victoryScreen.GetComponent<SpriteRenderer>().enabled = true;
-            player.SetActive(false);
-
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                ExitLevel();
-            }
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                RestartGame();
-            }
+            WinLevel();
         }
     }
 
     public void KillPlayer()
     {
         player.SetActive(false);
-        deathScreen.GetComponent<SpriteRenderer>().enabled = true;
         IsDead = true;
     }
 
@@ -144,20 +150,37 @@ public class Gamemanager : MonoBehaviour
     public void PauseGame()
     {
         player.SetActive(false);
-        pauseScreen.GetComponent<SpriteRenderer>().enabled = true;
         Paused = true;
     }
 
     public void ResumeGame()
     {
         player.SetActive(true);
-        pauseScreen.GetComponent<SpriteRenderer>().enabled = false;
         Paused = false;
     }
 
     public void ExitLevel()
     {
-        SceneManager.LoadScene("Start menu");
+        SceneManager.LoadScene("Selection menue");
+    }
+
+    public void WinLevel()
+    {
+        FadeIn(victoryScreen.GetComponent<SpriteRenderer>(), victoryScreenFadeTime);
+
+        player.SetActive(false);
+
+        if (fadeTimer > victoryScreenFadeTime)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                ExitLevel();
+            }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                RestartGame();
+            }
+        }
     }
 
     public void ManageShots()
@@ -185,6 +208,44 @@ public class Gamemanager : MonoBehaviour
             shot1.SetActive(true);
             shot2.SetActive(true);
             shot3.SetActive(true);
+        }
+    }
+
+    public void FadeIn(SpriteRenderer spriteRenderer, float fadeTime)
+    {
+        if(fadeTimer < 1)
+        {
+            spriteRenderer.enabled = true;
+            spriteRenderer.color = new Color(1f, 1f, 1f, 0f);
+        }
+
+        fadeTimer++;
+
+        if (fadeTimer < fadeTime + 1)
+        {
+            alphaLevel = fadeTimer / fadeTime;
+            spriteRenderer.color = new Color(1f, 1f, 1f, alphaLevel);
+        }
+    }
+
+    public void FadeOut(SpriteRenderer spriteRenderer, float fadeTime)
+    {
+        if(fadeTimer < 1)
+        {
+            spriteRenderer.enabled = false;
+        }
+
+        fadeTimer--;
+
+        if (fadeTimer > 0)
+        {
+            if (fadeTimer > fadeTime + 1)
+            {
+                fadeTimer = fadeTime;
+            }
+
+            alphaLevel = fadeTimer / fadeTime;
+            spriteRenderer.color = new Color(1f, 1f, 1f, alphaLevel);
         }
     }
 }

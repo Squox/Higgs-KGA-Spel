@@ -12,7 +12,10 @@ public class Bullet : MonoBehaviour
 
     private Rigidbody2D rb;
     private GameObject rat;
+    private GameObject level;
+
     private BossRatScript bossRatScript;
+    private LevelScript levelScript;
 
 	// Use this for initialization
 	void Start ()
@@ -21,10 +24,16 @@ public class Bullet : MonoBehaviour
         rb.velocity = transform.right * BulletSpeed;
         destroy = destroyTime + Time.time;
 
-        rat = GameObject.FindGameObjectWithTag("Rat");
-        bossRatScript = rat.GetComponent<BossRatScript>();
+        level = GameObject.FindGameObjectWithTag("Level");
+        levelScript = level.GetComponent<LevelScript>();
 
-        Physics2D.IgnoreCollision(rat.GetComponent<BoxCollider2D>(), GetComponent<BoxCollider2D>());      
+        if (levelScript.RatAlive)
+        {
+            rat = GameObject.FindGameObjectWithTag("Rat");
+            bossRatScript = rat.GetComponent<BossRatScript>();
+
+            Physics2D.IgnoreCollision(rat.GetComponent<BoxCollider2D>(), GetComponent<BoxCollider2D>());
+        }          
     }
 	
 	// Update is called once per frame

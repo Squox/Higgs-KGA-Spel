@@ -29,7 +29,7 @@ public class PlayerActions : MonoBehaviour
     //Ints:
     [SerializeField] private int fireRate;
 
-    private int jumpsLeft;   
+    private int jumpsLeft = 0;
     private int invulnerabilityTimer;
     private int burstBuffer = 0;
     private int shotBuffer = 0;
@@ -45,6 +45,7 @@ public class PlayerActions : MonoBehaviour
     public bool IsFacingRight = true;
     public bool HasBeenHit = false;
     public bool PowerShot = false;
+    public bool Exit = false;
 
     private bool isDoged = false;
     private bool hasShot = false;
@@ -279,6 +280,11 @@ public class PlayerActions : MonoBehaviour
         {
             Health--;
             HasBeenHit = true;
+        }
+
+        else if (collider.gameObject.tag == "ExitTrigger")
+        {
+            Exit = true;
         }
     }
 }

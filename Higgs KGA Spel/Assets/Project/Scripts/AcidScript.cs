@@ -17,8 +17,6 @@ public class AcidScript : MonoBehaviour
     private float acidYVelocity;
     private float acidXPosition;
 
-    private bool falling = false;
-
     // Use this for initialization
     void Start ()
     {

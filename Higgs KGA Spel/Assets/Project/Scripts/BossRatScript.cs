@@ -10,8 +10,8 @@ public class BossRatScript : MonoBehaviour
     private BoxCollider2D idleCollider;
     private BoxCollider2D dogedCollider;
     private PolygonCollider2D bulletCollider;
-    private GameObject bullet;
     private GameObject player;
+    private GameObject bullet;
     private GameObject ratHealthBar;
     private Rigidbody2D ratRB;
     private Animator animator;
@@ -83,13 +83,15 @@ public class BossRatScript : MonoBehaviour
         animator.enabled = false;
 
         ratRB = gameObject.GetComponent<Rigidbody2D>();
-        Physics2D.IgnoreCollision(idleCollider, GetComponent<BoxCollider2D>());
-        Physics2D.IgnoreCollision(dogedCollider, GetComponent<BoxCollider2D>());
+        
     }
 
     // Update is called once per frame
     void Update ()
     {
+        Physics2D.IgnoreCollision(idleCollider, GetComponent<BoxCollider2D>());
+        Physics2D.IgnoreCollision(dogedCollider, GetComponent<BoxCollider2D>());
+
         attackTimer++;  
 
 		if (gameObject.transform.position.x < player.transform.position.x && !IsFacingRight)
