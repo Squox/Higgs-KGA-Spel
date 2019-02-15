@@ -30,6 +30,7 @@ TagManager:
   - Level
   - ExitTrigger
   - OpenDoor
+  - SpikeTrigger
   layers:
   - Default
   - TransparentFX

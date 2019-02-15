@@ -49,36 +49,33 @@ public class Gamemanager : MonoBehaviour
 
     private void Awake()
     {
-        if (SceneManager.GetActiveScene().name == "First level")
-        {
-            bossRat = GameObject.FindGameObjectWithTag("Rat");
-            bossRatScript = bossRat.GetComponent<BossRatScript>();
-            player = GameObject.FindGameObjectWithTag("Player");
-            playerActionsScript = player.GetComponent<PlayerActions>();
-            playerInputScript = player.GetComponent<PlayerInput>();
+        bossRat = GameObject.FindGameObjectWithTag("Rat");
+        bossRatScript = bossRat.GetComponent<BossRatScript>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerActionsScript = player.GetComponent<PlayerActions>();
+        playerInputScript = player.GetComponent<PlayerInput>();
 
-            life1 = GameObject.FindGameObjectWithTag("Life 1");
-            life2 = GameObject.FindGameObjectWithTag("Life 2");
-            life3 = GameObject.FindGameObjectWithTag("Life 3");
-            shot1 = GameObject.FindGameObjectWithTag("Shot 1");
-            shot2 = GameObject.FindGameObjectWithTag("Shot 2");
-            shot3 = GameObject.FindGameObjectWithTag("Shot 3");
+        life1 = GameObject.FindGameObjectWithTag("Life 1");
+        life2 = GameObject.FindGameObjectWithTag("Life 2");
+        life3 = GameObject.FindGameObjectWithTag("Life 3");
+        shot1 = GameObject.FindGameObjectWithTag("Shot 1");
+        shot2 = GameObject.FindGameObjectWithTag("Shot 2");
+        shot3 = GameObject.FindGameObjectWithTag("Shot 3");
 
-            deathScreen = GameObject.FindGameObjectWithTag("DeathScreen");
-            pauseScreen = GameObject.FindGameObjectWithTag("PauseScreen");
-            victoryScreen = GameObject.FindGameObjectWithTag("VictoryScreen");
+        deathScreen = GameObject.FindGameObjectWithTag("DeathScreen");
+        pauseScreen = GameObject.FindGameObjectWithTag("PauseScreen");
+        victoryScreen = GameObject.FindGameObjectWithTag("VictoryScreen");
 
-            Time.timeScale = 1;
+        Time.timeScale = 1;
 
-            life1.SetActive(true);
-            life2.SetActive(true);
-            life3.SetActive(true);
-            shot1.SetActive(true);
-            shot2.SetActive(true);
-            shot3.SetActive(true);
+        life1.SetActive(true);
+        life2.SetActive(true);
+        life3.SetActive(true);
+        shot1.SetActive(true);
+        shot2.SetActive(true);
+        shot3.SetActive(true);
 
-            victoryScreen.GetComponent<SpriteRenderer>().enabled = false;
-        }       
+        victoryScreen.GetComponent<SpriteRenderer>().enabled = false;
     }
 
 
@@ -132,12 +129,9 @@ public class Gamemanager : MonoBehaviour
             }
         }
 
-        if (SceneManager.GetActiveScene().name == "First Level")
+        if (!Paused && !IsDead && bossRatScript.Health > 0 && fadeTimer > 0)
         {
-            if (!Paused && !IsDead && bossRatScript.Health > 0 && fadeTimer > 0)
-            {
-                FadeOut(pauseScreen.GetComponent<SpriteRenderer>(), pauseScreenFadeTime);
-            }
+            FadeOut(pauseScreen.GetComponent<SpriteRenderer>(), pauseScreenFadeTime);
         }
 
         if (playerActionsScript.HasBeenHit)

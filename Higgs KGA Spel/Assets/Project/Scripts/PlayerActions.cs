@@ -23,8 +23,8 @@ public class PlayerActions : MonoBehaviour
     //Floats:   
     [SerializeField] private float fallMultiplier = 2.5f;
     [SerializeField] private float lowJumpMultiplier = 2f;
-    private float speed = 300f;
-    private float jumpForce = 300f;
+    private float speed = 330f;
+    private float jumpForce = 330f;
 
     //Ints:
     [SerializeField] private int fireRate;
@@ -81,27 +81,27 @@ public class PlayerActions : MonoBehaviour
 
         if( playerInputScript.ChargeTimer > 10)
         {
-            speed = 200f;
-            jumpForce = 200f;
+            speed = 250f;
+            jumpForce = 250f;
 
             if (isDoged)
             {
-                speed = 100f;
-                jumpForce = 100f;
+                speed = 160f;
+                jumpForce = 160f;
             }
         }      
         else if (isDoged)
         {
             if(playerInputScript.ChargeTimer < 1)
             {
-                speed = 200f;
-                jumpForce = 200f;
+                speed = 250f;
+                jumpForce = 250f;
             }
         }
         else
         {
-            speed = 300f;
-            jumpForce = 300f;
+            speed = 330f;
+            jumpForce = 330f;
         }
 
         CheckFacingDirection();
@@ -267,6 +267,10 @@ public class PlayerActions : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject.tag == "MapBorder")
+        {
+            GamemanagerScript.KillPlayer();
+        }
+        else if (collider.gameObject.tag == "SpikeTrigger")
         {
             GamemanagerScript.KillPlayer();
         }
