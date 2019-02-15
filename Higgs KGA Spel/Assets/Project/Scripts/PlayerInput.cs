@@ -16,6 +16,7 @@ public class PlayerInput : MonoBehaviour
 
     // Bools:
     public bool HasPressedJump;
+    public bool Interact;
 
 	// Use this for initialization
 	private void Awake ()
@@ -104,9 +105,18 @@ public class PlayerInput : MonoBehaviour
             playerActionsScript.Doge();
         }
 
-        if (GamemanagerScript.IsDead == false && GamemanagerScript.Paused == false && Input.GetKeyDown(KeyCode.Escape))
+        if (!GamemanagerScript.IsDead && !GamemanagerScript.Paused && Input.GetKeyDown(KeyCode.Escape))
         {
             GamemanagerScript.PauseGame();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Interact = true;
+        }
+        else if (Input.GetKeyUp(KeyCode.E))
+        {
+            Interact = false;
         }
     }
 }

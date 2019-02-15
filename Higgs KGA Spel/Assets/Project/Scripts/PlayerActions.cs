@@ -46,6 +46,7 @@ public class PlayerActions : MonoBehaviour
     public bool HasBeenHit = false;
     public bool PowerShot = false;
     public bool Exit = false;
+    public bool StandingByDoor = false;
 
     private bool isDoged = false;
     private bool hasShot = false;
@@ -269,22 +270,35 @@ public class PlayerActions : MonoBehaviour
         {
             GamemanagerScript.KillPlayer();
         }
-
-        if (collider.gameObject.tag == "Rat" && !HasBeenHit)
+        else if (collider.gameObject.tag == "ExitTrigger")
         {
-            Health --;
-            HasBeenHit = true;
+            Exit = true;
         }
-
-        if (collider.gameObject.tag == "Acid" && !HasBeenHit)
+        else if (collider.gameObject.tag == "Acid" && !HasBeenHit)
         {
             Health--;
             HasBeenHit = true;
         }
+    }
 
-        else if (collider.gameObject.tag == "ExitTrigger")
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Door")
         {
-            Exit = true;
+            StandingByDoor = true;
+        }
+        else if (collision.gameObject.tag == "Rat" && !HasBeenHit)
+        {
+            Health--;
+            HasBeenHit = true;
+        }       
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Door")
+        {
+            StandingByDoor = false;
         }
     }
 }

@@ -29,6 +29,7 @@ TagManager:
   - RatHealthBar
   - Level
   - ExitTrigger
+  - OpenDoor
   layers:
   - Default
   - TransparentFX

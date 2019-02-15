@@ -35,7 +35,6 @@ public class AcidScript : MonoBehaviour
             {
                 acidRB.velocity = new Vector2(acidXVelocity, acidYVelocity);
             }
-
             else if (!bossRatScript.IsFacingRight)
             {
                 acidRB.velocity = new Vector2(-acidXVelocity, acidYVelocity);
@@ -47,7 +46,7 @@ public class AcidScript : MonoBehaviour
         }
         else if (bossRatScript.AcidFire)
         {
-            acidXVelocity = 3;
+            acidXVelocity = 2;
             acidYVelocity = 3;
 
             if (bossRatScript.IsFacingRight)
@@ -74,7 +73,7 @@ public class AcidScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag != "Acid" && collision.gameObject.tag != "Bullet" && collision.gameObject.tag != "ShootingLimit")
+        if (collision.gameObject.tag != "Acid" && collision.gameObject.tag != "Bullet" && collision.gameObject.tag != "ShootingLimit" && collision.gameObject.tag != "Rat")
         {
             Destroy(gameObject);
         }      

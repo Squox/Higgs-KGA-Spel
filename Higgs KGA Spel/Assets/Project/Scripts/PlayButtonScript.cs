@@ -5,14 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class PlayButtonScript : MonoBehaviour
 {
+    private Gamemanager GamemanagerScript;
 
     // Use this for initialization
-    void Start () {
-		
-	}
+    void Start ()
+    {
+        GamemanagerScript = FindObjectOfType<Gamemanager>();
+    }
 
     // Update is called once per frame
-    void Update () {
+    void Update ()
+    {
 		
 	}
 

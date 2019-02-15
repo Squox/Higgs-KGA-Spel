@@ -63,8 +63,13 @@ public class BossRatScript : MonoBehaviour
             else
             {
                 Health--;
-            }            
-            ratHealthBar.transform.localScale = new Vector3(Health * 7, ratHealthBar.transform.localScale.y, ratHealthBar.transform.localScale.z);
+            }   
+            
+            if(ratHealthBar.transform.localScale.x > 0)
+            {
+                ratHealthBar.transform.localScale = new Vector3(Health * 7, ratHealthBar.transform.localScale.y, ratHealthBar.transform.localScale.z);
+            }
+
             playerActionScript.PowerShot = false;
         }
     }
@@ -89,6 +94,16 @@ public class BossRatScript : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
+        if (ratHealthBar.transform.localScale.x < 0)
+        {
+            ratHealthBar.transform.localScale = new Vector3(0, ratHealthBar.transform.localScale.y, ratHealthBar.transform.localScale.z);
+        }
+
+        if  (Health < 1)
+        {
+            Destroy(gameObject);
+        }
+
         Physics2D.IgnoreCollision(idleCollider, GetComponent<BoxCollider2D>());
         Physics2D.IgnoreCollision(dogedCollider, GetComponent<BoxCollider2D>());
 
@@ -102,11 +117,6 @@ public class BossRatScript : MonoBehaviour
         {
             
             FlipRat();
-        }
-
-        if(Health < 1)
-        {
-            Destroy(gameObject);
         }
 
         if(attackTimer > attackDelay && !AcidFire)
@@ -124,7 +134,7 @@ public class BossRatScript : MonoBehaviour
             {
                 for (int i = 0; i < 10; i++)
                 {
-                    acidX = Random.Range(0.4f, 8f);
+                    acidX = Random.Range(0.1f, 5f);
                     acidY = Random.Range(4f, 6f);
 
                     fallpoint = priorShootingpoint.position + new Vector3(acidX, acidY, 0);
@@ -136,7 +146,7 @@ public class BossRatScript : MonoBehaviour
             {
                 for (int i = 0; i < 10; i++)
                 {
-                    acidX = Random.Range(1f, 9f);
+                    acidX = Random.Range(0.1f, 5f);
                     acidY = Random.Range(4f, 6f);
 
                     fallpoint = priorShootingpoint.position + new Vector3(-acidX, acidY, 0);
@@ -256,14 +266,14 @@ public class BossRatScript : MonoBehaviour
         {
             for (float i = 0; i < 10; i++)
             {
-                Instantiate(acidPrefab, shootingpoint.position + new Vector3(i * i / 10, i * i / 10, 0), shootingpoint.rotation * Quaternion.Euler(0, 0, 45));
+                Instantiate(acidPrefab, shootingpoint.position + new Vector3(i * i / 10, i * i / 6, 0), shootingpoint.rotation * Quaternion.Euler(0, 0, 60));
             }
         }
         else if (!IsFacingRight)
         {
             for (float i = 0; i < 10; i++)
             {
-                Instantiate(acidPrefab, shootingpoint.position - new Vector3(i * i / 10, -i * i / 10, 0), shootingpoint.rotation * Quaternion.Euler(0, 0, 45));
+                Instantiate(acidPrefab, shootingpoint.position - new Vector3(i * i / 10, -i * i / 6, 0), shootingpoint.rotation * Quaternion.Euler(0, 0, 60));
             }
         }
 
