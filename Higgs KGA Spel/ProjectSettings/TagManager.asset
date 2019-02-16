@@ -37,6 +37,7 @@ TagManager:
   - Saw
   - SawLeftBorder
   - SawRightBorder
+  - Music
   layers:
   - Default
   - TransparentFX

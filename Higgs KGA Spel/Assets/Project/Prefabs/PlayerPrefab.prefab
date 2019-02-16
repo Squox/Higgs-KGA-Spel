@@ -241,7 +241,7 @@ MonoBehaviour:
   Doged: {fileID: 61721860967019496}
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
-  fireRate: 8
+  fireRate: 7
   Health: 3
   Jumps: 0
   ShotCount: 0

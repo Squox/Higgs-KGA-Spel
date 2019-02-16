@@ -10,6 +10,7 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private Transform dogedShootingpoint;
 
     private Gamemanager GamemanagerScript;
+    private Audiomanager AudiomanagerScript;
     private Transform currentShootingpoint;
 
     [SerializeField] public BoxCollider2D Idle;
@@ -70,6 +71,9 @@ public class PlayerActions : MonoBehaviour
     private void Start()
     {
         GamemanagerScript = FindObjectOfType<Gamemanager>();
+        AudiomanagerScript = FindObjectOfType<Audiomanager>();
+
+        AudiomanagerScript.PlayerIsDead = false;
     }
 
     private void Update()
@@ -122,6 +126,7 @@ public class PlayerActions : MonoBehaviour
 
         if (Health < 1)
         {
+            AudiomanagerScript.PlayerIsDead = true;
             GamemanagerScript.KillPlayer();
         }
 
@@ -268,10 +273,12 @@ public class PlayerActions : MonoBehaviour
     {
         if (collider.gameObject.tag == "MapBorder")
         {
+            AudiomanagerScript.PlayerIsDead = true;
             GamemanagerScript.KillPlayer();
         }
         else if (collider.gameObject.tag == "Trap")
         {
+            AudiomanagerScript.PlayerIsDead = true;
             GamemanagerScript.KillPlayer();
         }
         else if (collider.gameObject.tag == "ExitTrigger")

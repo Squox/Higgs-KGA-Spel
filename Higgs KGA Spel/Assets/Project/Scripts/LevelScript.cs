@@ -40,17 +40,6 @@ public class LevelScript : MonoBehaviour
                 Destroy(door);
                 playerActionsScript.StandingByDoor = true;
             }
-
-            //if (!hasInstantiatedRats)
-            //{
-            //    for(int i = 0; i < 15; i++)
-            //    {
-            //        Instantiate(ratPrefab, ratShootingPoint.position, transform.rotation * Quaternion.Euler(0, 0, 90));
-            //    }
-
-            //    Destroy(bossRat);
-            //    hasInstantiatedRats = true;
-            //}
         }
 	}
 }

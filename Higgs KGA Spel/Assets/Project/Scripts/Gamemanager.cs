@@ -5,6 +5,8 @@ public class Gamemanager : MonoBehaviour
 {
     public static Gamemanager instance;
 
+    [SerializeField] private GameObject lvl2Music;
+
     private GameObject player;
     private GameObject bossRat;
     private GameObject deathScreen;
@@ -17,7 +19,8 @@ public class Gamemanager : MonoBehaviour
     public GameObject shot1;
     public GameObject shot2;
     public GameObject shot3;
-    
+
+    private Audiomanager audiomanagerScript;
     private PlayerActions playerActionsScript;
     private PlayerInput playerInputScript;
     private BossRatScript bossRatScript;
@@ -49,6 +52,7 @@ public class Gamemanager : MonoBehaviour
 
     private void Awake()
     {
+        audiomanagerScript = FindObjectOfType<Audiomanager>();
         bossRat = GameObject.FindGameObjectWithTag("Rat");
         bossRatScript = bossRat.GetComponent<BossRatScript>();
         player = GameObject.FindGameObjectWithTag("Player");
@@ -88,6 +92,7 @@ public class Gamemanager : MonoBehaviour
         else if (SceneManager.GetActiveScene().name == "Second level")
         {
             LastLevel = 2;
+            audiomanagerScript.GetComponent<AudioSource>().clip = lvl2Music.GetComponent<AudioSource>().clip;
         }
         else if (SceneManager.GetActiveScene().name == "Third level")
         {
@@ -129,7 +134,7 @@ public class Gamemanager : MonoBehaviour
             }
         }
 
-        if (!Paused && !IsDead && bossRatScript.Health > 0 && fadeTimer > 0)
+        if (!Paused && !IsDead && bossRatScript.Health > 0 && fadeTimer > -1)
         {
             FadeOut(pauseScreen.GetComponent<SpriteRenderer>(), pauseScreenFadeTime);
         }
@@ -250,7 +255,7 @@ public class Gamemanager : MonoBehaviour
 
     public void FadeOut(SpriteRenderer spriteRenderer, float fadeTime)
     {
-        if(fadeTimer < 1)
+        if (fadeTimer < 1)
         {
             spriteRenderer.enabled = false;
         }
