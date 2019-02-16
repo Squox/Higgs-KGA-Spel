@@ -13,8 +13,6 @@ public class Bullet : MonoBehaviour
     private Rigidbody2D rb;
     private GameObject rat;
     private GameObject level;
-
-    private BossRatScript bossRatScript;
     private LevelScript levelScript;
 
 	// Use this for initialization
@@ -30,7 +28,6 @@ public class Bullet : MonoBehaviour
         if (levelScript.RatAlive)
         {
             rat = GameObject.FindGameObjectWithTag("Rat");
-            bossRatScript = rat.GetComponent<BossRatScript>();
 
             Physics2D.IgnoreCollision(rat.GetComponent<BoxCollider2D>(), GetComponent<BoxCollider2D>());
         }          
@@ -47,7 +44,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag != "Acid")
+        if (collision.gameObject.tag != "Acid" && collision.gameObject.tag != "CactusDart")
         {
             Destroy(gameObject);
         }

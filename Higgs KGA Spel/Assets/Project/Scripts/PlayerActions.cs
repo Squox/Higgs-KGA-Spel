@@ -270,7 +270,7 @@ public class PlayerActions : MonoBehaviour
         {
             GamemanagerScript.KillPlayer();
         }
-        else if (collider.gameObject.tag == "SpikeTrigger")
+        else if (collider.gameObject.tag == "Trap")
         {
             GamemanagerScript.KillPlayer();
         }
@@ -279,6 +279,11 @@ public class PlayerActions : MonoBehaviour
             Exit = true;
         }
         else if (collider.gameObject.tag == "Acid" && !HasBeenHit)
+        {
+            Health--;
+            HasBeenHit = true;
+        }
+        else if (collider.gameObject.tag == "CactusDart" && !HasBeenHit)
         {
             Health--;
             HasBeenHit = true;
@@ -295,7 +300,12 @@ public class PlayerActions : MonoBehaviour
         {
             Health--;
             HasBeenHit = true;
-        }       
+        }
+        else if (collision.gameObject.tag == "Cactus" && !HasBeenHit)
+        {
+            Health--;
+            HasBeenHit = true;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
