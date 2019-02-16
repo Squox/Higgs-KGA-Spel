@@ -9,6 +9,7 @@ public class CactusScript : MonoBehaviour
     [SerializeField] private GameObject cactusDartPrefab;
 
     private GameObject player;
+    private PlayerActions playerActionsScript;
 
     private int shotTimer;
     private int health = 3;
@@ -19,6 +20,7 @@ public class CactusScript : MonoBehaviour
 	void Start ()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        playerActionsScript = player.GetComponent<PlayerActions>();
 	}
 	
 	// Update is called once per frame
@@ -74,7 +76,16 @@ public class CactusScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Bullet")
         {
-            health--;
+            if (playerActionsScript.PowerShot)
+            {
+                health -= 10;
+            }
+            else
+            {
+                health--;
+            }
+
+            playerActionsScript.PowerShot = false;
         }
     }
 }
