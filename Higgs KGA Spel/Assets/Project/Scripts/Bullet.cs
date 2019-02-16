@@ -13,13 +13,16 @@ public class Bullet : MonoBehaviour
     private Rigidbody2D rb;
     private GameObject rat;
     private GameObject level;
-
-    private BossRatScript bossRatScript;
+    private GameObject player;
     private LevelScript levelScript;
+    private PlayerActions playerActionsScript;
 
 	// Use this for initialization
 	void Start ()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerActionsScript = player.GetComponent<PlayerActions>();
+
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = transform.right * BulletSpeed;
         destroy = destroyTime + Time.time;
@@ -30,7 +33,6 @@ public class Bullet : MonoBehaviour
         if (levelScript.RatAlive)
         {
             rat = GameObject.FindGameObjectWithTag("Rat");
-            bossRatScript = rat.GetComponent<BossRatScript>();
 
             Physics2D.IgnoreCollision(rat.GetComponent<BoxCollider2D>(), GetComponent<BoxCollider2D>());
         }          
@@ -41,13 +43,17 @@ public class Bullet : MonoBehaviour
     {
         if (destroy < Time.time) 
         {
+            if (playerActionsScript.PowerShot)
+            {
+                playerActionsScript.PowerShot = false;
+            }
             Destroy(gameObject);
         }
 	}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag != "Acid")
+        if (collision.gameObject.tag != "Acid" && collision.gameObject.tag != "CactusDart")
         {
             Destroy(gameObject);
         }

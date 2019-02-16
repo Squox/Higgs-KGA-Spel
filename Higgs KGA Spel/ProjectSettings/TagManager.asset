@@ -31,6 +31,9 @@ TagManager:
   - ExitTrigger
   - OpenDoor
   - SpikeTrigger
+  - Cactus
+  - CactusDart
+  - Trap
   layers:
   - Default
   - TransparentFX
