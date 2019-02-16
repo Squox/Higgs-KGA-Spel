@@ -7,8 +7,6 @@ public class CactusDartScript : MonoBehaviour
     [SerializeField] private float destroyTime = 10f;
     private float destroy;
 
-    public float DartSpeed;
-
     private Rigidbody2D rb;
     private GameObject cactus;
     private CactusScript cactusScript;
@@ -16,7 +14,6 @@ public class CactusDartScript : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        DartSpeed = 5;
         cactus = GameObject.FindGameObjectWithTag("Cactus");
         cactusScript = cactus.GetComponent<CactusScript>();
         rb = GetComponent<Rigidbody2D>();       
@@ -24,15 +21,13 @@ public class CactusDartScript : MonoBehaviour
 
         rb.transform.localScale = new Vector3(0.2f, 0.2f, 1);
 
-        if (cactusScript.isPlayerRight())
+        if (transform.rotation.z > 0)
         {
-            Debug.Log("player is right");
-            rb.velocity = new Vector2(DartSpeed, 0);
+            rb.velocity = new Vector2(-5, 0);
         }
-        else if (!cactusScript.isPlayerRight())
+        else if (transform.rotation.z < 0)
         {
-            Debug.Log("player is left");
-            rb.velocity = new Vector2(-DartSpeed, 0);
+            rb.velocity = new Vector2(5, 0);
         }
     }
 	
@@ -42,14 +37,22 @@ public class CactusDartScript : MonoBehaviour
         if (destroy < Time.time)
         {
             Destroy(gameObject);
-        }
-	}
+        }     
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag != "Cactus" && collision.gameObject.tag != "ShootingLimit")
+        if (collision.gameObject.tag != "Cactus")
         {
             Destroy(gameObject);
         }      
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.tag != "Cactus" && collider.gameObject.tag != "SawLeftBorder" && collider.gameObject.tag != "SawRightBorder" && collider.gameObject.tag != "Saw" && collider.gameObject.tag != "ShootingLimit" && collider.gameObject.tag != "Bullet" && collider.gameObject.tag != "CactusDart")
+        {
+            Destroy(gameObject);
+        }
     }
 }

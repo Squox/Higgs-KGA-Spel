@@ -34,6 +34,9 @@ TagManager:
   - Cactus
   - CactusDart
   - Trap
+  - Saw
+  - SawLeftBorder
+  - SawRightBorder
   layers:
   - Default
   - TransparentFX
