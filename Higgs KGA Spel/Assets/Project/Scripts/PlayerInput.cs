@@ -8,6 +8,8 @@ public class PlayerInput : MonoBehaviour
     private GameObject player;
     private PlayerActions playerActionsScript;
     private Gamemanager GamemanagerScript;
+    private UIManager uiManagerScript;
+
     // Ints:
     public int MoveDirection = 0;
     public int ChargeTimer = 0;
@@ -18,8 +20,11 @@ public class PlayerInput : MonoBehaviour
     public bool HasPressedJump;
     public bool Interact;
 
-	// Use this for initialization
-	private void Awake ()
+    private bool canExit = false;
+    private bool canUnpause = false;
+
+    // Use this for initialization
+    private void Awake ()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerActionsScript = player.GetComponent<PlayerActions>();
@@ -28,15 +33,21 @@ public class PlayerInput : MonoBehaviour
     private void Start()
     {
         GamemanagerScript = FindObjectOfType<Gamemanager>();
+        GetComponent<PlayerActions>().enabled = true;
     }
 
     // Update is called once per frame
     private void Update ()
     {
-        if (Input.GetKey(KeyCode.G))
+        if (playerActionsScript.Exit)
         {
-            GamemanagerScript.KillPlayer();
+            canExit = true;
         }
+        if (playerActionsScript.Paused)
+        {
+            canUnpause = true;
+        }
+
         CheckPlayerInput();
     }
 
@@ -59,6 +70,15 @@ public class PlayerInput : MonoBehaviour
             HasPressedJump = true;
         }
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if(canExit || playerActionsScript.Health < 1)
+            {
+                GamemanagerScript.RestartGame();
+                canExit = false;
+            }           
+        }
+
         if (Input.GetKeyUp(KeyCode.I) && ChargeTimer < chargeTime)
         {
             playerActionsScript.shoot();
@@ -67,32 +87,28 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetKey(KeyCode.I))
         {
-            ChargeTimer++;
+            ChargeTimer++;           
 
             if (ChargeTimer == chargeTime * 1/3)
             {
-                playerActionsScript.ShotCount = 1;
-
-                GamemanagerScript.ManageShots();
+                playerActionsScript.PowerShot = true;
+                playerActionsScript.ShotCount = 1;                
             }
             if (ChargeTimer == chargeTime * 2/3)
             {
                 playerActionsScript.ShotCount = 2;
-
-                GamemanagerScript.ManageShots();
             }
             if (ChargeTimer == chargeTime * 3/3)
             {
                 playerActionsScript.ShotCount = 3;
-
-                GamemanagerScript.ManageShots();
             }
         }
 
         if (Input.GetKeyUp(KeyCode.I) && ChargeTimer > chargeTime)
         {
+            playerActionsScript.PowerShot = false;
             ChargeTimer = 0;
-            playerActionsScript.EmpoweredShot();            
+            playerActionsScript.EmpoweredShot();
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -105,9 +121,25 @@ public class PlayerInput : MonoBehaviour
             playerActionsScript.Doge();
         }
 
-        if (!GamemanagerScript.IsDead && !GamemanagerScript.Paused && Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            GamemanagerScript.PauseGame();
+            if (canExit)
+            {
+                GamemanagerScript.ExitLevel();
+            }
+            else if (canUnpause)
+            {
+                playerActionsScript.Unpause = true;
+                canUnpause = false;
+            }
+            else if (playerActionsScript.Health < 1)
+            {
+                GamemanagerScript.ExitLevel();
+            }
+            else if (playerActionsScript.Health > 0 && !playerActionsScript.Paused)
+            {
+                playerActionsScript.Paused = true;
+            }            
         }
 
         if (Input.GetKeyDown(KeyCode.E))

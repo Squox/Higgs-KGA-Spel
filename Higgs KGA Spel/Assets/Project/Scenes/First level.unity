@@ -141,9 +141,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lvl2Music: {fileID: 0}
-  shot1: {fileID: 0}
-  shot2: {fileID: 0}
-  shot3: {fileID: 0}
   LastLevel: 0
   IsDead: 0
   Paused: 0
@@ -543,6 +540,56 @@ Prefab:
     - target: {fileID: 4226141521206118, guid: 0428465377ce16c4bbd8bbde64ef6d31, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 61836840494797460, guid: 0428465377ce16c4bbd8bbde64ef6d31,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 61836840494797460, guid: 0428465377ce16c4bbd8bbde64ef6d31,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 61836840494797460, guid: 0428465377ce16c4bbd8bbde64ef6d31,
+        type: 2}
+      propertyPath: m_Offset.x
+      value: 0.07186481
+      objectReference: {fileID: 0}
+    - target: {fileID: 61836840494797460, guid: 0428465377ce16c4bbd8bbde64ef6d31,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 0.36919367
+      objectReference: {fileID: 0}
+    - target: {fileID: 61836840494797460, guid: 0428465377ce16c4bbd8bbde64ef6d31,
+        type: 2}
+      propertyPath: m_Offset.y
+      value: 0.0001988411
+      objectReference: {fileID: 0}
+    - target: {fileID: 61836840494797460, guid: 0428465377ce16c4bbd8bbde64ef6d31,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 0.55912435
+      objectReference: {fileID: 0}
+    - target: {fileID: 61128749602216016, guid: 0428465377ce16c4bbd8bbde64ef6d31,
+        type: 2}
+      propertyPath: m_Offset.y
+      value: 0.00030213594
+      objectReference: {fileID: 0}
+    - target: {fileID: 61128749602216016, guid: 0428465377ce16c4bbd8bbde64ef6d31,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 0.55920696
+      objectReference: {fileID: 0}
+    - target: {fileID: 61128749602216016, guid: 0428465377ce16c4bbd8bbde64ef6d31,
+        type: 2}
+      propertyPath: m_Offset.x
+      value: 0.072215974
+      objectReference: {fileID: 0}
+    - target: {fileID: 61128749602216016, guid: 0428465377ce16c4bbd8bbde64ef6d31,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 0.36933833
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0428465377ce16c4bbd8bbde64ef6d31, type: 2}
@@ -2794,8 +2841,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1646835953}
-  - component: {fileID: 1646835952}
   - component: {fileID: 1646835954}
+  - component: {fileID: 1646835952}
   m_Layer: 0
   m_Name: Level
   m_TagString: Level
@@ -3072,6 +3119,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1801177995
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1801177997}
+  - component: {fileID: 1801177996}
+  m_Layer: 0
+  m_Name: UIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1801177996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1801177995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1915ee5aab9db43419a2afc853dc841c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shot1: {fileID: 0}
+  shot2: {fileID: 0}
+  shot3: {fileID: 0}
+  FadeTimer: 0
+--- !u!4 &1801177997
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1801177995}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 476.87735, y: 280.47986, z: 2.234516}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1986386762
 Prefab:

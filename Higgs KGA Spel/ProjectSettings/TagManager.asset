@@ -36,6 +36,8 @@ TagManager:
   - Saw
   - SawLeftBorder
   - SawRightBorder
+  - MapBorder
+  - RatTrigger
   layers:
   - Default
   - TransparentFX

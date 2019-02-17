@@ -50,22 +50,30 @@ public class BossRatScript : MonoBehaviour
     public bool AcidFire = false;
     private bool attacking = false;
     private bool jump = false;
+    private bool hasBeenHit = false;
+
+    private int invulnerabilityTimer;
 
     // Use this for initialization
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Bullet")
         {
-            if (playerActionScript.PowerShot)
+            if (!hasBeenHit)
             {
-                Health -= 10;
+                if (playerActionScript.PowerShot)
+                {
+                    Health -= 10;
+                }
+                else
+                {
+                    Health--;
+                }
             }
-            else
-            {
-                Health--;
-            }   
-            
-            if(ratHealthBar.transform.localScale.x > 0)
+
+            hasBeenHit = true;
+
+            if (ratHealthBar.transform.localScale.x > 0)
             {
                 ratHealthBar.transform.localScale = new Vector3(Health * 7, ratHealthBar.transform.localScale.y, ratHealthBar.transform.localScale.z);
             }
@@ -88,12 +96,21 @@ public class BossRatScript : MonoBehaviour
         animator.enabled = false;
 
         ratRB = gameObject.GetComponent<Rigidbody2D>();
-        
     }
 
     // Update is called once per frame
     void Update ()
     {
+        if (hasBeenHit)
+        {
+            invulnerabilityTimer++;
+            if(invulnerabilityTimer > 3)
+            {
+                hasBeenHit = false;
+                invulnerabilityTimer = 0;
+            }
+        }
+
         if (ratHealthBar.transform.localScale.x < 0)
         {
             ratHealthBar.transform.localScale = new Vector3(0, ratHealthBar.transform.localScale.y, ratHealthBar.transform.localScale.z);

@@ -21,7 +21,22 @@ public class PlayButtonScript : MonoBehaviour
 
     public void Continue()
     {
-        SceneManager.LoadScene("First Level");
+        if (GamemanagerScript.LastLevel == 1)
+        {
+            SceneManager.LoadScene("First Level");
+        }
+        else if (GamemanagerScript.LastLevel == 2)
+        {
+            SceneManager.LoadScene("Second Level");
+        }
+        else if (GamemanagerScript.LastLevel == 3)
+        {
+            SceneManager.LoadScene("Third Level");
+        }
+        else if (GamemanagerScript.LastLevel == 4)
+        {
+            SceneManager.LoadScene("Fourth Level");
+        }
     }
 
     public void Exit()
