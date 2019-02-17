@@ -8,7 +8,7 @@ public class Gamemanager : MonoBehaviour
     private Audiomanager audiomanagerScript;
     private UIManager uiManagerScript;
 
-    public int LastLevel = 1;
+    public int LastLevel = 0;
 
     private void MakeSingelton()
     {

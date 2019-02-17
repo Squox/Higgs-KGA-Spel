@@ -125,6 +125,7 @@ public class PlayerInput : MonoBehaviour
         {
             if (canExit)
             {
+                GamemanagerScript.LastLevel++;
                 GamemanagerScript.ExitLevel();
             }
             else if (canUnpause)

@@ -5,9 +5,23 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    private Gamemanager gamemanagerScript;
+
+    private void Awake()
+    {
+        gamemanagerScript = FindObjectOfType<Gamemanager>();
+    }
+
     public void PlayGame()
     {
-        SceneManager.LoadScene("Selection menue");
+        if (gamemanagerScript.LastLevel == 0)
+        {
+            SceneManager.LoadScene("First Level");
+        }
+        else
+        {
+            SceneManager.LoadScene("Selection menue");
+        }       
     }
 
     public void QuitGame()
