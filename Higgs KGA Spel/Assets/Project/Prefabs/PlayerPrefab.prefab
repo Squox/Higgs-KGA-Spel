@@ -98,7 +98,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1368115266776336}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 466.344, y: 280.394, z: 0}
+  m_LocalPosition: {x: 465.74, y: 280.26, z: 0}
   m_LocalScale: {x: 1.335, y: 1.335, z: 1.335}
   m_Children:
   - {fileID: 4171995036575904}
@@ -127,7 +127,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1011627787406532}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.092, y: -0.633, z: 0}
+  m_LocalPosition: {x: 0.074, y: -0.627, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4274083624062424}
@@ -165,7 +165,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.052139282, y: -0.13493347}
+  m_Offset: {x: 0.052139282, y: -0.13609785}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -176,7 +176,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5447693, y: 0.99191284}
+  m_Size: {x: 0.5447693, y: 0.9942416}
   m_EdgeRadius: 0
 --- !u!61 &61721860967019496
 BoxCollider2D:
@@ -241,7 +241,7 @@ MonoBehaviour:
   Doged: {fileID: 61721860967019496}
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
-  fireRate: 8
+  fireRate: 7
   Health: 3
   Jumps: 0
   ShotCount: 0
@@ -251,7 +251,7 @@ MonoBehaviour:
   PowerShot: 0
   Exit: 0
   StandingByDoor: 0
-  checkRadius: 0.01
+  checkRadius: 0.31
   whatIsGround:
     serializedVersion: 2
     m_Bits: 512

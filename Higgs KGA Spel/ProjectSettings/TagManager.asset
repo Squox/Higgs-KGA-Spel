@@ -14,7 +14,6 @@ TagManager:
   - Slope
   - DeathScreen
   - PauseScreen
-  - MapBorder
   - Acid
   - Life 1
   - Life 2
@@ -34,6 +33,9 @@ TagManager:
   - Cactus
   - CactusDart
   - Trap
+  - Saw
+  - SawLeftBorder
+  - SawRightBorder
   layers:
   - Default
   - TransparentFX

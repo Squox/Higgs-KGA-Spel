@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class LevelScript : MonoBehaviour
 {
-    [SerializeField] private GameObject ratPrefab;
-    [SerializeField] private Transform ratShootingPoint;
-
     private GameObject bossRat;
     private GameObject door;
     private GameObject player;   
@@ -15,7 +12,6 @@ public class LevelScript : MonoBehaviour
     private PlayerInput playerInputScript;   
 
     public bool RatAlive = true;
-    private bool hasInstantiatedRats = false;
 
     // Use this for initialization
     void Start ()
@@ -40,17 +36,6 @@ public class LevelScript : MonoBehaviour
                 Destroy(door);
                 playerActionsScript.StandingByDoor = true;
             }
-
-            //if (!hasInstantiatedRats)
-            //{
-            //    for(int i = 0; i < 15; i++)
-            //    {
-            //        Instantiate(ratPrefab, ratShootingPoint.position, transform.rotation * Quaternion.Euler(0, 0, 90));
-            //    }
-
-            //    Destroy(bossRat);
-            //    hasInstantiatedRats = true;
-            //}
         }
 	}
 }
