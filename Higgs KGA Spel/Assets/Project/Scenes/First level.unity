@@ -1666,7 +1666,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerIsDead: 0
-  MusicOn: 0
+  MusicOn: 1
 --- !u!4 &790601346
 Transform:
   m_ObjectHideFlags: 0
