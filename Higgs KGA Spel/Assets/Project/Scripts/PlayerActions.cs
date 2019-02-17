@@ -271,7 +271,7 @@ public class PlayerActions : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "MapBorder")
+        if (collider.gameObject.tag == "Level")
         {
             AudiomanagerScript.PlayerIsDead = true;
             GamemanagerScript.KillPlayer();

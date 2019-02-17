@@ -8,6 +8,7 @@ public class Gamemanager : MonoBehaviour
     [SerializeField] private GameObject lvl2Music;
 
     private GameObject player;
+    private GameObject level;
     private GameObject bossRat;
     private GameObject deathScreen;
     private GameObject pauseScreen;
@@ -53,6 +54,7 @@ public class Gamemanager : MonoBehaviour
     private void Awake()
     {
         audiomanagerScript = FindObjectOfType<Audiomanager>();
+        level = GameObject.FindGameObjectWithTag("Level");
         bossRat = GameObject.FindGameObjectWithTag("Rat");
         bossRatScript = bossRat.GetComponent<BossRatScript>();
         player = GameObject.FindGameObjectWithTag("Player");
@@ -85,14 +87,17 @@ public class Gamemanager : MonoBehaviour
 
     private void Update()
     {
+        level = GameObject.FindGameObjectWithTag("Level");
+
         if (SceneManager.GetActiveScene().name == "First level")
         {
             LastLevel = 1;
+            audiomanagerScript.GetComponent<AudioSource>().clip = level.GetComponent<AudioSource>().clip;
         }
         else if (SceneManager.GetActiveScene().name == "Second level")
         {
             LastLevel = 2;
-            audiomanagerScript.GetComponent<AudioSource>().clip = lvl2Music.GetComponent<AudioSource>().clip;
+            audiomanagerScript.GetComponent<AudioSource>().clip = level.GetComponent<AudioSource>().clip;
         }
         else if (SceneManager.GetActiveScene().name == "Third level")
         {

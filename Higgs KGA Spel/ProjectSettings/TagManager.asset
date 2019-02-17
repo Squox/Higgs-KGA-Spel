@@ -14,7 +14,6 @@ TagManager:
   - Slope
   - DeathScreen
   - PauseScreen
-  - MapBorder
   - Acid
   - Life 1
   - Life 2
@@ -37,7 +36,6 @@ TagManager:
   - Saw
   - SawLeftBorder
   - SawRightBorder
-  - Music
   layers:
   - Default
   - TransparentFX

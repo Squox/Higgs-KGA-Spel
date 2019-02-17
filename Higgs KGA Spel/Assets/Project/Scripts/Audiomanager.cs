@@ -17,7 +17,7 @@ public class Audiomanager : MonoBehaviour
 
     private int fadeTimer = 0;
 
-    public bool MusicOn = true;
+    public bool MusicOn;
 
     private bool playing = false;
 
@@ -29,21 +29,11 @@ public class Audiomanager : MonoBehaviour
 
         MakeSingelton();
 
-        if (MusicOn)
-        {
-            currentMusic = GetComponent<AudioSource>();
-        }         
+        currentMusic = GetComponent<AudioSource>();   
     }
 
     private void Update()
     {
-        if (currentMusic != null)
-        {
-            Debug.Log(currentMusic);
-        }
-
-        Debug.Log(playing);
-
         if (currentMusic != null && MusicOn)
         {
             if (PlayerIsDead)
@@ -64,20 +54,23 @@ public class Audiomanager : MonoBehaviour
             }
         }
 
-        if (!MusicOn)
+        if (currentMusic.clip != null)
         {
-            currentMusic.Stop();
-            playing = false;
-        }
-        else if(MusicOn && !PlayerIsDead)
-        {
-            if (!playing && currentMusic.clip != null)
+            if (!MusicOn)
             {
-                currentMusic.Play(0);
-                currentMusic.volume = 0.025f;
-                playing = true;
-            }           
-        }
+                currentMusic.Stop();
+                playing = false;
+            }
+            else if (MusicOn && !PlayerIsDead)
+            {
+                if (!playing)
+                {
+                    currentMusic.Play(0);
+                    currentMusic.volume = 0.025f;
+                    playing = true;
+                }
+            }
+        }       
     }
 
     private void MakeSingelton()
