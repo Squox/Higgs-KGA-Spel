@@ -61,12 +61,7 @@ public class UIManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-    }
-
-    public void WinLevel()
-    {
-
-    }
+    }  
 
     public void ManageLives(int livesLeft)
     {

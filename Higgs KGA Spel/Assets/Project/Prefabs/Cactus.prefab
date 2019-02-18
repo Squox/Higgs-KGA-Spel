@@ -51,9 +51,9 @@ GameObject:
   - component: {fileID: 4647026009824520}
   - component: {fileID: 212315461449081802}
   - component: {fileID: 95581281990322848}
-  - component: {fileID: 60515657681988176}
-  - component: {fileID: 60736467771685316}
   - component: {fileID: 114457211552635974}
+  - component: {fileID: 61198713487148640}
+  - component: {fileID: 61025700257096408}
   m_Layer: 0
   m_Name: Cactus
   m_TagString: Cactus
@@ -102,40 +102,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &60515657681988176
-PolygonCollider2D:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1837253108814204}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.64}
-    newSize: {x: 1.28, y: 2.56}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.17999999, y: 0.29999998}
-      - {x: -0.19999999, y: 0.22999999}
-      - {x: -0.19999999, y: -0.08}
-      - {x: -0.099999994, y: -0.32}
-      - {x: 0.049999997, y: -0.32}
-      - {x: 0.14999999, y: -0.17}
-      - {x: 0.14999999, y: 0.21}
-      - {x: 0.11, y: 0.29999998}
---- !u!60 &60736467771685316
-PolygonCollider2D:
+--- !u!61 &61025700257096408
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -156,16 +124,34 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.17999999, y: 0.29999998}
-      - {x: -0.19999999, y: 0.22999999}
-      - {x: -0.19999999, y: -0.08}
-      - {x: -0.099999994, y: -0.32}
-      - {x: 0.049999997, y: -0.32}
-      - {x: 0.14999999, y: -0.17}
-      - {x: 0.14999999, y: 0.21}
-      - {x: 0.11, y: 0.29999998}
+  serializedVersion: 2
+  m_Size: {x: 0.64, y: 0.64}
+  m_EdgeRadius: 0
+--- !u!61 &61198713487148640
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1837253108814204}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.64, y: 0.64}
+    newSize: {x: 1.28, y: 2.56}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.64, y: 0.64}
+  m_EdgeRadius: 0
 --- !u!95 &95581281990322848
 Animator:
   serializedVersion: 3

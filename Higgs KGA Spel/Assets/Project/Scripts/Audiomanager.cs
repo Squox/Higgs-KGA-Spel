@@ -86,6 +86,11 @@ public class Audiomanager : MonoBehaviour
         }       
     }
 
+    public void StopMusic()
+    {
+        currentMusic.Stop();
+    }
+
     public void FadeOut(AudioSource audioSource, float startVolume, float fadeTime)
     {
         if (audioSource.volume > 0)

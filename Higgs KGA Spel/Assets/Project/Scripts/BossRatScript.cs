@@ -7,6 +7,7 @@ public class BossRatScript : MonoBehaviour
     [SerializeField] private Transform shootingpoint;
     [SerializeField] private GameObject acidPrefab;
 
+    private Audiomanager audiomanagerScript;
     private BoxCollider2D idleCollider;
     private BoxCollider2D dogedCollider;
     private PolygonCollider2D bulletCollider;
@@ -20,7 +21,7 @@ public class BossRatScript : MonoBehaviour
     private AcidScript acidScript;
     private PlayerActions playerActionScript;
 
-    public int Health = 100;
+    public int Health = 500;
 
     private int attackType;
     private int attackTimer = 0;
@@ -63,7 +64,7 @@ public class BossRatScript : MonoBehaviour
             {
                 if (playerActionScript.PowerShot)
                 {
-                    Health -= 10;
+                    Health -= 100;
                 }
                 else
                 {
@@ -75,7 +76,7 @@ public class BossRatScript : MonoBehaviour
 
             if (ratHealthBar.transform.localScale.x > 0)
             {
-                ratHealthBar.transform.localScale = new Vector3(Health * 7, ratHealthBar.transform.localScale.y, ratHealthBar.transform.localScale.z);
+                ratHealthBar.transform.localScale = new Vector3(Health * 7 / 10, ratHealthBar.transform.localScale.y, ratHealthBar.transform.localScale.z);
             }
 
             playerActionScript.PowerShot = false;
@@ -83,7 +84,10 @@ public class BossRatScript : MonoBehaviour
     }
 
     private void Start()
-    {      
+    {
+        Health = 500;
+
+        audiomanagerScript = FindObjectOfType<Audiomanager>();
         player = GameObject.FindGameObjectWithTag("Player");
         bullet = GameObject.FindGameObjectWithTag("Bullet");
         ratHealthBar = GameObject.FindGameObjectWithTag("RatHealthBar");
@@ -118,6 +122,7 @@ public class BossRatScript : MonoBehaviour
 
         if  (Health < 1)
         {
+            audiomanagerScript.StopMusic();
             Destroy(gameObject);
         }
 
