@@ -33,7 +33,8 @@ public class PlayerActions : MonoBehaviour
     private float deathScreenFadeTime = 60f;
     private float victoryScreenFadeTime = 40f;
     private float pauseScreenFadeTime = 10f;
-    private float lastFadeTime = 0f;
+
+    public float LastFadeTime = 0f;
 
     //Ints:
     [SerializeField] private int fireRate;
@@ -100,20 +101,32 @@ public class PlayerActions : MonoBehaviour
 
     private void Update()
     {
+        if (invulnerabilityTimer > 0 && Health > 0)
+        {
+            if (invulnerabilityTimer%2 == 0)
+            {
+                GetComponent<SpriteRenderer>().enabled = false;
+            }
+            else
+            {
+                GetComponent<SpriteRenderer>().enabled = true;
+            }
+        }
+
         if (Exit)
         {
             GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
 
-            if (uiManagerScript.FadeTimer > lastFadeTime)
+            if (uiManagerScript.FadeTimer > LastFadeTime)
             {
                 uiManagerScript.FadeTimer = 0;
             }
 
-            lastFadeTime = victoryScreenFadeTime;
+            LastFadeTime = victoryScreenFadeTime;
 
-            uiManagerScript.FadeIn(victoryScreen.GetComponent<SpriteRenderer>(), lastFadeTime);
+            uiManagerScript.FadeIn(victoryScreen.GetComponent<SpriteRenderer>(), LastFadeTime);
 
-            if (uiManagerScript.FadeTimer > lastFadeTime)
+            if (uiManagerScript.FadeTimer > LastFadeTime)
             {
                 Time.timeScale = 0;                
                 Exit = false;
@@ -124,16 +137,16 @@ public class PlayerActions : MonoBehaviour
         {
             GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
 
-            if (uiManagerScript.FadeTimer > lastFadeTime)
+            if (uiManagerScript.FadeTimer > LastFadeTime)
             {
                 uiManagerScript.FadeTimer = 0;
             }
 
-            lastFadeTime = pauseScreenFadeTime;
+            LastFadeTime = pauseScreenFadeTime;
 
-            uiManagerScript.FadeIn(pauseScreen.GetComponent<SpriteRenderer>(), lastFadeTime);
+            uiManagerScript.FadeIn(pauseScreen.GetComponent<SpriteRenderer>(), LastFadeTime);
 
-            if (uiManagerScript.FadeTimer > lastFadeTime)
+            if (uiManagerScript.FadeTimer > LastFadeTime)
             {
                 Time.timeScale = 0;               
                 Paused = false;
@@ -142,9 +155,9 @@ public class PlayerActions : MonoBehaviour
 
         if (Unpause)
         {
-            lastFadeTime = pauseScreenFadeTime;
+            LastFadeTime = pauseScreenFadeTime;
 
-            uiManagerScript.FadeOut(pauseScreen.GetComponent<SpriteRenderer>(), lastFadeTime);
+            uiManagerScript.FadeOut(pauseScreen.GetComponent<SpriteRenderer>(), LastFadeTime);
 
             if (uiManagerScript.FadeTimer < 0)
             {
@@ -212,16 +225,16 @@ public class PlayerActions : MonoBehaviour
             AudiomanagerScript.PlayerIsDead = true;
             GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
 
-            if (uiManagerScript.FadeTimer > lastFadeTime)
+            if (uiManagerScript.FadeTimer > LastFadeTime)
             {
                 uiManagerScript.FadeTimer = 0;
             }
 
-            lastFadeTime = deathScreenFadeTime;
+            LastFadeTime = deathScreenFadeTime;
 
             uiManagerScript.FadeIn(deathScreen.GetComponent<SpriteRenderer>(), deathScreenFadeTime);
 
-            if (uiManagerScript.FadeTimer > lastFadeTime)
+            if (uiManagerScript.FadeTimer > LastFadeTime)
             {
                 Time.timeScale = 0;               
                 GetComponent<PlayerActions>().enabled = false;

@@ -140,10 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7e4bb95eceea3f48b322f2f188684dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lvl2Music: {fileID: 0}
   LastLevel: 0
-  IsDead: 0
-  Paused: 0
 --- !u!4 &17876397
 Transform:
   m_ObjectHideFlags: 0
@@ -2889,7 +2886,7 @@ AudioSource:
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
-  Mute: 0
+  Mute: 1
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
