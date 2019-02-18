@@ -73,14 +73,26 @@ public class UIManager : MonoBehaviour
         if (livesLeft == 2)
         {
             life1.SetActive(false);
+            life2.SetActive(true);
+            life3.SetActive(true);
         }
         else if (livesLeft == 1)
         {
+            life1.SetActive(false);
             life2.SetActive(false);
+            life3.SetActive(true);
         }
         else if (livesLeft == 0)
         {
+            life1.SetActive(false);
+            life2.SetActive(false);
             life3.SetActive(false);
+        }
+        else
+        {
+            life1.SetActive(true);
+            life2.SetActive(true);
+            life3.SetActive(true);
         }
     }
 

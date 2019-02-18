@@ -7,7 +7,7 @@ public class SawScript : MonoBehaviour
     private Rigidbody2D rb;
 
     private int sawSpeed = 7;
-    private int spinSpeed = 6;
+    private int spinSpeed = 10;
     private int spinCounter;
 
     private bool movingRight = true;

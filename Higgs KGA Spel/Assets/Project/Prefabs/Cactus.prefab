@@ -50,11 +50,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4647026009824520}
   - component: {fileID: 212315461449081802}
-  - component: {fileID: 60216756692807182}
-  - component: {fileID: 60839745053368060}
-  - component: {fileID: 114353487879676456}
-  - component: {fileID: 60382293453789140}
-  - component: {fileID: 114793510303883286}
+  - component: {fileID: 95581281990322848}
+  - component: {fileID: 60515657681988176}
+  - component: {fileID: 60736467771685316}
+  - component: {fileID: 114457211552635974}
   m_Layer: 0
   m_Name: Cactus
   m_TagString: Cactus
@@ -69,8 +68,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1787792345102776}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.56, y: -0.3, z: 0.06228945}
-  m_LocalScale: {x: 1.25, y: 1.25, z: 1.1792452}
+  m_LocalPosition: {x: 0.31, y: -0.01, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4647026009824520}
   m_RootOrder: 1
@@ -82,7 +81,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1677909305784236}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5, y: -0.3, z: 0}
+  m_LocalPosition: {x: -0.31, y: -0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4647026009824520}
@@ -95,15 +94,15 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1837253108814204}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 485.07, y: 287.91, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.848}
+  m_LocalPosition: {x: 492.68, y: 287.91, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 0.848}
   m_Children:
   - {fileID: 4319357190776416}
   - {fileID: 4294874026084672}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &60216756692807182
+--- !u!60 &60515657681988176
 PolygonCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,7 +118,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 2.56}
+    oldSize: {x: 0.64, y: 0.64}
     newSize: {x: 1.28, y: 2.56}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -127,38 +126,15 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.45, y: -0.47}
-      - {x: 0.51, y: -0.41}
-      - {x: 0.58, y: -0.24}
-      - {x: 0.58, y: 0.48}
-      - {x: 0.55, y: 0.53}
-      - {x: 0.48999998, y: 0.59}
-      - {x: 0.37, y: 0.57}
-      - {x: 0.29, y: 0.48999998}
-      - {x: 0.26, y: 0.16}
-      - {x: 0.14, y: -0.17999999}
-      - {x: 0.17999999, y: 0.44}
-      - {x: 0.19, y: 0.84999996}
-      - {x: 0.16, y: 0.94}
-      - {x: 0.02, y: 1.02}
-      - {x: -0.11, y: 1.02}
-      - {x: -0.17, y: 0.98999995}
-      - {x: -0.24, y: 0.89}
-      - {x: -0.29, y: 0.17}
-      - {x: -0.32999998, y: 0.19}
-      - {x: -0.34, y: 0.76}
-      - {x: -0.37, y: 0.82}
-      - {x: -0.57, y: 0.84999996}
-      - {x: -0.62, y: 0.77}
-      - {x: -0.62, y: 0.01}
-      - {x: -0.45999998, y: -0.17}
-      - {x: -0.26999998, y: -0.19}
-      - {x: -0.26, y: -1.28}
-      - {x: 0.06, y: -1.28}
-      - {x: 0.099999994, y: -0.91999996}
-      - {x: 0.099999994, y: -0.5}
-      - {x: 0.25, y: -0.51}
---- !u!60 &60382293453789140
+    - - {x: -0.17999999, y: 0.29999998}
+      - {x: -0.19999999, y: 0.22999999}
+      - {x: -0.19999999, y: -0.08}
+      - {x: -0.099999994, y: -0.32}
+      - {x: 0.049999997, y: -0.32}
+      - {x: 0.14999999, y: -0.17}
+      - {x: 0.14999999, y: 0.21}
+      - {x: 0.11, y: 0.29999998}
+--- !u!60 &60736467771685316
 PolygonCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -174,7 +150,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 2.56}
+    oldSize: {x: 0.64, y: 0.64}
     newSize: {x: 1.28, y: 2.56}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -182,93 +158,33 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.45, y: -0.47}
-      - {x: 0.51, y: -0.41}
-      - {x: 0.58, y: -0.24}
-      - {x: 0.58, y: 0.48}
-      - {x: 0.55, y: 0.53}
-      - {x: 0.48999998, y: 0.59}
-      - {x: 0.37, y: 0.57}
-      - {x: 0.29, y: 0.48999998}
-      - {x: 0.26, y: 0.16}
-      - {x: 0.14, y: -0.17999999}
-      - {x: 0.17999999, y: 0.44}
-      - {x: 0.19, y: 0.84999996}
-      - {x: 0.16, y: 0.94}
-      - {x: 0.02, y: 1.02}
-      - {x: -0.11, y: 1.02}
-      - {x: -0.17, y: 0.98999995}
-      - {x: -0.24, y: 0.89}
-      - {x: -0.29, y: 0.17}
-      - {x: -0.32999998, y: 0.19}
-      - {x: -0.34, y: 0.76}
-      - {x: -0.37, y: 0.82}
-      - {x: -0.57, y: 0.84999996}
-      - {x: -0.62, y: 0.77}
-      - {x: -0.62, y: 0.01}
-      - {x: -0.45999998, y: -0.17}
-      - {x: -0.26999998, y: -0.19}
-      - {x: -0.26, y: -1.28}
-      - {x: 0.06, y: -1.28}
-      - {x: 0.099999994, y: -0.91999996}
-      - {x: 0.099999994, y: -0.5}
-      - {x: 0.25, y: -0.51}
---- !u!60 &60839745053368060
-PolygonCollider2D:
+    - - {x: -0.17999999, y: 0.29999998}
+      - {x: -0.19999999, y: 0.22999999}
+      - {x: -0.19999999, y: -0.08}
+      - {x: -0.099999994, y: -0.32}
+      - {x: 0.049999997, y: -0.32}
+      - {x: 0.14999999, y: -0.17}
+      - {x: 0.14999999, y: 0.21}
+      - {x: 0.11, y: 0.29999998}
+--- !u!95 &95581281990322848
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1837253108814204}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 2.56}
-    newSize: {x: 1.28, y: 2.56}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.45, y: -0.47}
-      - {x: 0.51, y: -0.41}
-      - {x: 0.58, y: -0.24}
-      - {x: 0.58, y: 0.48}
-      - {x: 0.55, y: 0.53}
-      - {x: 0.48999998, y: 0.59}
-      - {x: 0.37, y: 0.57}
-      - {x: 0.29, y: 0.48999998}
-      - {x: 0.26, y: 0.16}
-      - {x: 0.14, y: -0.17999999}
-      - {x: 0.17999999, y: 0.44}
-      - {x: 0.19, y: 0.84999996}
-      - {x: 0.16, y: 0.94}
-      - {x: 0.02, y: 1.02}
-      - {x: -0.11, y: 1.02}
-      - {x: -0.17, y: 0.98999995}
-      - {x: -0.24, y: 0.89}
-      - {x: -0.29, y: 0.17}
-      - {x: -0.32999998, y: 0.19}
-      - {x: -0.34, y: 0.76}
-      - {x: -0.37, y: 0.82}
-      - {x: -0.57, y: 0.84999996}
-      - {x: -0.62, y: 0.77}
-      - {x: -0.62, y: 0.01}
-      - {x: -0.45999998, y: -0.17}
-      - {x: -0.26999998, y: -0.19}
-      - {x: -0.26, y: -1.28}
-      - {x: 0.06, y: -1.28}
-      - {x: 0.099999994, y: -0.91999996}
-      - {x: 0.099999994, y: -0.5}
-      - {x: 0.25, y: -0.51}
---- !u!114 &114353487879676456
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7a6efc360c06cb14b8feb57e25e9587a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114457211552635974
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -279,31 +195,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4254f0846ec86d5498867a683875335b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftShootingPoint: {fileID: 4139704989336342, guid: 98bb5d2a7534d4d42b5457bdf86c9560,
-    type: 2}
-  rightShootingPoint: {fileID: 4483531269775350, guid: 9abc671c04b053f40b43f0b610fb1ab1,
-    type: 2}
-  cactusDartPrefab: {fileID: 1599802060052250, guid: 7004b9a8fe9a65e46b93e425a379cc62,
-    type: 2}
-  playerCheckRadius: 21
-  DartSpeed: 0
---- !u!114 &114793510303883286
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1837253108814204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4254f0846ec86d5498867a683875335b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  animator: {fileID: 95581281990322848}
   leftShootingPoint: {fileID: 4319357190776416}
   rightShootingPoint: {fileID: 4294874026084672}
   cactusDartPrefab: {fileID: 1599802060052250, guid: 7004b9a8fe9a65e46b93e425a379cc62,
     type: 2}
   playerCheckRadius: 21
-  DartSpeed: 0
+  DartSpeed: 5
 --- !u!212 &212315461449081802
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -339,7 +237,7 @@ SpriteRenderer:
   m_SortingLayerID: -1448249473
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e0fdc212a6836164c8c5a45fbd8d6bb7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 602cbc68b4cabd844b6c9fdaaa5c56e8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

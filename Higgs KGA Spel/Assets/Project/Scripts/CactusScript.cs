@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CactusScript : MonoBehaviour
 {
+    [SerializeField] private Animator animator;
     [SerializeField] private Transform leftShootingPoint;
     [SerializeField] private Transform rightShootingPoint;
     [SerializeField] private GameObject cactusDartPrefab;
@@ -19,9 +20,11 @@ public class CactusScript : MonoBehaviour
     private int shotCounter;
     private int shotBuffer;
     private int invulnerabilityTimer = 0;
+    private int animationPause;
     public int DartSpeed = 5;
 
     private bool hasBeenHit = false;
+    private bool attacking;
 
 	// Use this for initialization
 	void Start ()
@@ -33,6 +36,15 @@ public class CactusScript : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        if (isPlayerRight())
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
+
         if (hasBeenHit)
         {
             invulnerabilityTimer++;
@@ -45,19 +57,29 @@ public class CactusScript : MonoBehaviour
 
         shotTimer++;
 
-        if(shotTimer > 30 && shotBuffer < 1 && isPlayerInRange())
+        if (shotTimer > 22 && shotBuffer < 1 && isPlayerInRange())
         {
-            if (isPlayerRight())
-            {
-                Instantiate(cactusDartPrefab, rightShootingPoint.position, transform.rotation * Quaternion.Euler(0, 0, -90));
-            }
-            else if (!isPlayerRight())
-            {
-                Instantiate(cactusDartPrefab, leftShootingPoint.position, transform.rotation * Quaternion.Euler(0, 0, 90));
-            }
+            attacking = true;
+            animator.SetBool("Attack", attacking);
 
-            shotCounter++;
-            shotTimer = 0;
+            animationPause++;
+
+            if (animationPause > 8)
+            {
+                if (isPlayerRight())
+                {
+                    Instantiate(cactusDartPrefab, rightShootingPoint.position, transform.rotation * Quaternion.Euler(0, 0, 180));
+                }
+                else if (!isPlayerRight())
+                {
+                    Instantiate(cactusDartPrefab, leftShootingPoint.position, transform.rotation);
+                }
+                animationPause = 0;
+                shotTimer = 0;
+                shotCounter++;
+                attacking = false;
+                animator.SetBool("Attack", attacking);
+            }            
         }
 
         if (shotCounter > 2)

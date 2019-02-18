@@ -19,13 +19,13 @@ public class CactusDartScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();       
         destroy = destroyTime + Time.time;
 
-        rb.transform.localScale = new Vector3(0.2f, 0.2f, 1);
+        rb.transform.localScale = new Vector3(2f, 2f, 1);
 
-        if (transform.rotation.z > 0)
+        if (transform.rotation.z == 0)
         {
             rb.velocity = new Vector2(-5, 0);
         }
-        else if (transform.rotation.z < 0)
+        else if (transform.rotation.z > 0)
         {
             rb.velocity = new Vector2(5, 0);
         }

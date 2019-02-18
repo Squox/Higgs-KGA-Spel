@@ -392,6 +392,7 @@ public class PlayerActions : MonoBehaviour
         {
             AudiomanagerScript.PlayerIsDead = true;
             Health = 0;
+            uiManagerScript.ManageLives(Health);
         }
         else if (collider.gameObject.tag == "ExitTrigger")
         {

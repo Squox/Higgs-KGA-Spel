@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212675813874774444}
   - component: {fileID: 114978311029807176}
   - component: {fileID: 50808269413307956}
-  - component: {fileID: 60783361860958278}
+  - component: {fileID: 60295530448587874}
   m_Layer: 0
   m_Name: CactusDart
   m_TagString: CactusDart
@@ -63,7 +63,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!60 &60783361860958278
+--- !u!60 &60295530448587874
 PolygonCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -79,7 +79,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.4, y: 3}
+    oldSize: {x: 0.32, y: 0.32}
     newSize: {x: 3.4, y: 3}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -87,17 +87,14 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.14, y: 0.31}
-      - {x: 0.08, y: 0.53999996}
-      - {x: -0.099999994, y: 0.62}
-      - {x: -0.26999998, y: 0.62}
-      - {x: -0.32999998, y: 0.51}
-      - {x: -0.82, y: -0.5}
-      - {x: -0.82, y: -0.7}
-      - {x: -0.79999995, y: -0.71999997}
-      - {x: 0.5, y: -0.71999997}
-      - {x: 0.52, y: -0.7}
-      - {x: 0.52, y: -0.45}
+    - - {x: -0.06, y: 0.04}
+      - {x: -0.089999996, y: 0.01}
+      - {x: -0.089999996, y: 0}
+      - {x: -0.06, y: -0.03}
+      - {x: -0.02, y: -0.03}
+      - {x: 0, y: -0.01}
+      - {x: 0, y: 0}
+      - {x: -0.04, y: 0.04}
 --- !u!114 &114978311029807176
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -110,7 +107,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyTime: 10
-  DartSpeed: 0
 --- !u!212 &212675813874774444
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -146,7 +142,7 @@ SpriteRenderer:
   m_SortingLayerID: -1448249473
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e448b3dec4fc87d4b8fe894d2393b92d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b531fe19eab51e64c959a9b60f74ee2f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
