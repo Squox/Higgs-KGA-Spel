@@ -388,12 +388,6 @@ public class PlayerActions : MonoBehaviour
             AudiomanagerScript.PlayerIsDead = true;
             Health = 0;
         }
-        else if (collider.gameObject.tag == "Trap")
-        {
-            AudiomanagerScript.PlayerIsDead = true;
-            Health = 0;
-            uiManagerScript.ManageLives(Health);
-        }
         else if (collider.gameObject.tag == "ExitTrigger")
         {
             Exit = true;
@@ -432,6 +426,11 @@ public class PlayerActions : MonoBehaviour
             HasBeenHit = true;
         }
         else if (collision.gameObject.tag == "Cactus" && !HasBeenHit)
+        {
+            Health--;
+            HasBeenHit = true;
+        }
+        else if (collision.gameObject.tag == "Trap" && !HasBeenHit)
         {
             Health--;
             HasBeenHit = true;

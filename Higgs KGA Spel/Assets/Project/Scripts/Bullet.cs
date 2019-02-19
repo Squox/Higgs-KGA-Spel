@@ -31,7 +31,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag != "Acid" && collision.gameObject.tag != "Player" && collision.gameObject.tag != "CactusDart" && collision.gameObject.tag != "SawLeftBorder" && collision.gameObject.tag != "SawRightBorder" && collision.gameObject.tag != "Saw")
+        if (collision.gameObject.tag != "Acid" && collision.gameObject.tag != "Player" && collision.gameObject.tag != "CactusDart" && collision.gameObject.tag != "InvulnerableEnemy")
         {
             Destroy(gameObject);
         }

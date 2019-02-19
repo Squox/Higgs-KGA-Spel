@@ -17,18 +17,18 @@ public class SawScript : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = new Vector2(sawSpeed, 0);
-	}
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
         spinCounter += spinSpeed;
 
-        if (movingRight)
+        if (!movingRight)
         {
             transform.rotation = Quaternion.Euler(0, 0, spinCounter);
         }
-        else if (!movingRight)
+        else if (movingRight)
         {
             transform.rotation = Quaternion.Euler(0, 0, -spinCounter);
         }        
@@ -41,17 +41,11 @@ public class SawScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "SawLeftBorder")
+        if (collision.gameObject.tag == "InvulnerableEnemy")
         {
-            rb.velocity = new Vector2(sawSpeed, 0);
-            GetComponent<SpriteRenderer>().flipX = true;
-            movingRight = false;
-        }
-        else if (collision.gameObject.tag == "SawRightBorder")
-        {
-            rb.velocity = new Vector2(-sawSpeed, 0);
-            GetComponent<SpriteRenderer>().flipX = false;
-            movingRight = true;
+            rb.velocity = new Vector2(rb.velocity.x * -1, 0);
+            GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
+            movingRight = !movingRight;
         }
     }
 }

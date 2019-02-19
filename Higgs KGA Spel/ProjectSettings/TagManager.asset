@@ -36,6 +36,7 @@ TagManager:
   - SawRightBorder
   - MapBorder
   - RatTrigger
+  - InvulnerableEnemy
   layers:
   - Default
   - TransparentFX
