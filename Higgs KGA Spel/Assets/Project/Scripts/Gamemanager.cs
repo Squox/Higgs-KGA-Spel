@@ -8,6 +8,9 @@ public class Gamemanager : MonoBehaviour
     private Audiomanager audiomanagerScript;
     private UIManager uiManagerScript;
 
+    public Transform LastCheckpoint;
+    public Vector3 LastCheckpointPosition;
+
     public int LastLevel = 0;
 
     private void MakeSingelton()
@@ -30,11 +33,18 @@ public class Gamemanager : MonoBehaviour
         audiomanagerScript = FindObjectOfType<Audiomanager>();
         uiManagerScript = FindObjectOfType<UIManager>();
 
+        LastCheckpoint.position = new Vector3(0, 0, 0);
+
         Time.timeScale = 1;
     }
 
     private void Update()
     {
+        if (LastCheckpoint != null)
+        {
+            LastCheckpointPosition = LastCheckpoint.position;
+        }       
+
         if (SceneManager.GetActiveScene().name == "First level")
         {
             LastLevel = 1;
