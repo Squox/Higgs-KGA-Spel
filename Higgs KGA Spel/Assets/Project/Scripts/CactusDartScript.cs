@@ -8,14 +8,10 @@ public class CactusDartScript : MonoBehaviour
     private float destroy;
 
     private Rigidbody2D rb;
-    private GameObject cactus;
-    private CactusScript cactusScript;
 
     // Use this for initialization
     void Start ()
     {
-        cactus = GameObject.FindGameObjectWithTag("Cactus");
-        cactusScript = cactus.GetComponent<CactusScript>();
         rb = GetComponent<Rigidbody2D>();       
         destroy = destroyTime + Time.time;
 
@@ -50,7 +46,7 @@ public class CactusDartScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag != "Cactus" && collider.gameObject.tag != "SawLeftBorder" && collider.gameObject.tag != "SawRightBorder" && collider.gameObject.tag != "Saw" && collider.gameObject.tag != "ShootingLimit" && collider.gameObject.tag != "Bullet" && collider.gameObject.tag != "CactusDart")
+        if (collider.gameObject.tag != "Cactus" && collider.gameObject.tag != "Enemy" && collider.gameObject.tag != "SawLeftBorder" && collider.gameObject.tag != "SawRightBorder" && collider.gameObject.tag != "Saw" && collider.gameObject.tag != "ShootingLimit" && collider.gameObject.tag != "Bullet" && collider.gameObject.tag != "CactusDart")
         {
             Destroy(gameObject);
         }

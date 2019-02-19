@@ -57,14 +57,14 @@ public class CactusScript : MonoBehaviour
 
         shotTimer++;
 
-        if (shotTimer > 22 && shotBuffer < 1 && isPlayerInRange())
+        if (shotTimer > 21 && shotBuffer < 1 && isPlayerInRange())
         {
             attacking = true;
             animator.SetBool("Attack", attacking);
 
             animationPause++;
 
-            if (animationPause > 8)
+            if (animationPause > 9)
             {
                 if (isPlayerRight())
                 {

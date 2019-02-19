@@ -413,6 +413,11 @@ public class PlayerActions : MonoBehaviour
             Health--;
             HasBeenHit = true;
         }
+        else if (collider.gameObject.tag == "Enemy" && !HasBeenHit)
+        {
+            Health--;
+            HasBeenHit = true;
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)

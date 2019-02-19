@@ -8,7 +8,7 @@ public class Audiomanager : MonoBehaviour
     public static Audiomanager instance;
 
     private AudioSource lvlMusic;
-    private AudioSource currentMusic;
+    public AudioSource CurrentMusic;
 
     public bool PlayerIsDead;
 
@@ -29,44 +29,44 @@ public class Audiomanager : MonoBehaviour
 
         MakeSingelton();
 
-        currentMusic = GetComponent<AudioSource>();   
+        CurrentMusic = GetComponent<AudioSource>();   
     }
 
     private void Update()
     {
-        if (currentMusic != null && MusicOn)
+        if (CurrentMusic != null && MusicOn)
         {
             if (PlayerIsDead)
             {
                 if (fadeTimer < 1)
                 {
-                    startVolume = currentMusic.volume;
+                    startVolume = CurrentMusic.volume;
                 }
 
-                FadeOut(currentMusic, startVolume, fadeTime);
+                FadeOut(CurrentMusic, startVolume, fadeTime);
             }
             else
             {
-                if (startVolume > currentMusic.volume)
+                if (startVolume > CurrentMusic.volume)
                 {
-                    currentMusic.volume = startVolume;
+                    CurrentMusic.volume = startVolume;
                 }
             }
         }
 
-        if (currentMusic.clip != null)
+        if (CurrentMusic.clip != null)
         {
             if (!MusicOn)
             {
-                currentMusic.Stop();
+                CurrentMusic.Stop();
                 playing = false;
             }
             else if (MusicOn && !PlayerIsDead)
             {
                 if (!playing)
                 {
-                    currentMusic.Play(0);
-                    currentMusic.volume = 0.025f;
+                    CurrentMusic.Play(0);
+                    CurrentMusic.volume = 0.025f;
                     playing = true;
                 }
             }
@@ -88,7 +88,7 @@ public class Audiomanager : MonoBehaviour
 
     public void StopMusic()
     {
-        currentMusic.Stop();
+        CurrentMusic.Stop();
     }
 
     public void FadeOut(AudioSource audioSource, float startVolume, float fadeTime)
@@ -100,7 +100,7 @@ public class Audiomanager : MonoBehaviour
         }
         else
         {
-            currentMusic.Stop();
+            CurrentMusic.Stop();
             playing = false;
         }
     }
