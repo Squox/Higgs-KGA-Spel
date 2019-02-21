@@ -402,7 +402,7 @@ public class PlayerActions : MonoBehaviour
             Health--;
             HasBeenHit = true;
         }
-        else if (collider.gameObject.tag == "Saw" && !HasBeenHit)
+        else if (collider.gameObject.tag == "InvulnerableEnemy" && !HasBeenHit)
         {
             Health--;
             HasBeenHit = true;
@@ -434,6 +434,13 @@ public class PlayerActions : MonoBehaviour
         {
             Health--;
             HasBeenHit = true;
+        }
+        else if (collision.gameObject.tag == "Water" && !HasBeenHit)
+        {
+            Health--;
+            HasBeenHit = true;
+            Time.timeScale = 0.5f;
+            playerRB.gravityScale = 0.5f;
         }
     }
 

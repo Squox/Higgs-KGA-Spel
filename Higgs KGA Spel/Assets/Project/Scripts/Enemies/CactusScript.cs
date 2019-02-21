@@ -113,11 +113,7 @@ public class CactusScript : MonoBehaviour
 
     private bool isPlayerInRange()
     {
-        if (isPlayerRight() && player.transform.position.x - transform.position.x < playerCheckRadius)
-        {
-            return true;
-        }
-        else if (!isPlayerRight() && transform.position.x - player.transform.position.x < playerCheckRadius)
+        if (Mathf.Abs(player.transform.position.x - transform.position.x) < playerCheckRadius)
         {
             return true;
         }

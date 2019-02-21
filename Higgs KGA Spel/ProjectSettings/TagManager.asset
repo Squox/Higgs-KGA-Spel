@@ -4,14 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - RatSpawnpoint
   - Rat
   - Bullet
   - Enemy
-  - DeathWall
   - Camera
   - Floor
-  - Slope
   - DeathScreen
   - PauseScreen
   - Acid
@@ -29,14 +26,12 @@ TagManager:
   - Level
   - ExitTrigger
   - OpenDoor
-  - SpikeTrigger
   - CactusDart
   - Trap
-  - SawLeftBorder
-  - SawRightBorder
   - MapBorder
   - RatTrigger
   - InvulnerableEnemy
+  - Water
   layers:
   - Default
   - TransparentFX

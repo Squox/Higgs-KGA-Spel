@@ -25,7 +25,8 @@ public class level2Script : MonoBehaviour
 
         if (gamemanagerScript.LastCheckpointPosition == new Vector3(0,0,0))
         {
-            gamemanagerScript.LastCheckpoint = checkPoint0.transform;
+            gamemanagerScript.LastCheckpointPosition = checkPoint0.transform.position;
+            gamemanagerScript.CheckPointCounter = 0;
         }
         else
         {
@@ -36,20 +37,18 @@ public class level2Script : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        Debug.Log(checkPoint0);
-        Debug.Log(checkPoint1);
-        Debug.Log(playerTF.position.x);
-        Debug.Log(playerTF.position.y);
-
         if (playerTF != null && checkPoint0 != null && checkPoint1 != null)
         {
-            if (isInRange(playerTF, checkPoint0.transform, checkRange))
+            if (isInRange(playerTF, checkPoint0.transform, checkRange) && gamemanagerScript.CheckPointCounter < 1)
             {
-                gamemanagerScript.LastCheckpoint = checkPoint0.transform;
+                gamemanagerScript.LastCheckpointPosition = checkPoint0.transform.position;
+                gamemanagerScript.CheckPointCounter = 0;
             }
-            else if (isInRange(playerTF, checkPoint1.transform, checkRange))
+            else if (isInRange(playerTF, checkPoint1.transform, checkRange) && gamemanagerScript.CheckPointCounter < 2)
             {
-                gamemanagerScript.LastCheckpoint = checkPoint1.transform;
+                gamemanagerScript.LastCheckpointPosition = checkPoint1.transform.position;
+                checkPoint1.GetComponent<SpriteRenderer>().color = Color.green;
+                gamemanagerScript.CheckPointCounter = 1;
             }
         }       
     }
