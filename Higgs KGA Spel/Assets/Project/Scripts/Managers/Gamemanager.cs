@@ -12,6 +12,7 @@ public class Gamemanager : MonoBehaviour
 
     public int LastLevel = 0;
     public int CheckPointCounter = 0;
+    public int DeathCounter = 0;
 
     private void MakeSingelton()
     {

@@ -44,6 +44,7 @@ public class PlayerActions : MonoBehaviour
     private int burstBuffer = 0;
     private int shotBuffer = 0;
     private int timeSinceShot = 0;
+    private int deaths = -1;
 
     public int Health = 3;    
     public int Jumps = 1;
@@ -226,6 +227,13 @@ public class PlayerActions : MonoBehaviour
         if (Health < 1)
         {
             AudiomanagerScript.PlayerIsDead = true;
+
+            if (deaths != GamemanagerScript.DeathCounter)
+            {
+                GamemanagerScript.DeathCounter++;
+                deaths = GamemanagerScript.DeathCounter;
+            }
+            
             GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
 
             if (uiManagerScript.FadeTimer > LastFadeTime)
@@ -447,8 +455,6 @@ public class PlayerActions : MonoBehaviour
         {
             Health--;
             HasBeenHit = true;
-            Time.timeScale = 0.5f;
-            playerRB.gravityScale = 0.5f;
         }
     }
 
