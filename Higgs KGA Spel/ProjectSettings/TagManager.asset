@@ -32,6 +32,7 @@ TagManager:
   - RatTrigger
   - InvulnerableEnemy
   - Water
+  - Heart
   layers:
   - Default
   - TransparentFX
@@ -71,6 +72,12 @@ TagManager:
     locked: 0
   - name: Backgrounds
     uniqueID: 3506951271
+    locked: 0
+  - name: BackgroundElements
+    uniqueID: 2540238957
+    locked: 0
+  - name: Collectibles
+    uniqueID: 3207199045
     locked: 0
   - name: Doors
     uniqueID: 400689805

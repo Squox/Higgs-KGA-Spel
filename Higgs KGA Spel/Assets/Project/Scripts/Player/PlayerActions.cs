@@ -97,6 +97,9 @@ public class PlayerActions : MonoBehaviour
 
         AudiomanagerScript.PlayerIsDead = false;
         uiManagerScript.InitializeUI();
+
+        Doge();
+        Doge();
     }
 
     private void Update()
@@ -411,6 +414,11 @@ public class PlayerActions : MonoBehaviour
         {
             Health--;
             HasBeenHit = true;
+        }
+        else if (collider.gameObject.tag == "Heart" && Health < 3)
+        {
+            Health++;
+            uiManagerScript.ManageLives(Health);
         }
     }
 
