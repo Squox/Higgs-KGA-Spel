@@ -113,8 +113,8 @@ public class PlayerInput : MonoBehaviour
 
                 if (ChargeTimer == chargeTime * 1 / 3)
                 {
-                    playerActionsScript.PowerShot = true;
                     playerActionsScript.ShotCount = 1;
+                    playerActionsScript.Charging = true;
                 }
                 if (ChargeTimer == chargeTime * 2 / 3)
                 {

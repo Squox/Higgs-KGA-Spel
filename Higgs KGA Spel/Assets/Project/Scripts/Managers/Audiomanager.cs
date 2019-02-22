@@ -11,13 +11,15 @@ public class Audiomanager : MonoBehaviour
     public AudioSource CurrentMusic;
 
     public bool PlayerIsDead;
+    public bool MusicOn;
+    public bool PlayerHasWon = false;
 
     private float fadeTime = 60f;
     private float startVolume = 0f;
 
     private int fadeTimer = 0;
 
-    public bool MusicOn;
+    
 
     private bool playing = false;
 
@@ -45,6 +47,15 @@ public class Audiomanager : MonoBehaviour
 
                 FadeOut(CurrentMusic, startVolume, fadeTime);
             }
+            else if (PlayerHasWon)
+            {
+                if (fadeTimer < 1)
+                {
+                    startVolume = CurrentMusic.volume;
+                }
+
+                FadeOut(CurrentMusic, startVolume, fadeTime);
+            }
             else
             {
                 if (startVolume > CurrentMusic.volume)
@@ -61,7 +72,7 @@ public class Audiomanager : MonoBehaviour
                 CurrentMusic.Stop();
                 playing = false;
             }
-            else if (MusicOn && !PlayerIsDead)
+            else if (MusicOn && !PlayerIsDead && !PlayerHasWon)
             {
                 if (!playing)
                 {

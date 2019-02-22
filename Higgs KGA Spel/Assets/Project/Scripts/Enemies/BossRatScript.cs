@@ -122,7 +122,7 @@ public class BossRatScript : MonoBehaviour
 
         if  (Health < 1)
         {
-            audiomanagerScript.FadeOut(audiomanagerScript.CurrentMusic, audiomanagerScript.CurrentMusic.volume, 30f);
+            audiomanagerScript.PlayerHasWon = true;
             Destroy(gameObject);
         }
 

@@ -61,6 +61,7 @@ public class PlayerActions : MonoBehaviour
     public bool HasShot = false;
     public bool Paused = false;
     public bool Unpause = false;
+    public bool Charging = false;
 
     private bool isDoged = false;
     private bool fading = false;
@@ -73,6 +74,7 @@ public class PlayerActions : MonoBehaviour
 
     private void Awake()
     {
+        //AudiomanagerScript.PlayerHasWon = false;
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
 
         Exit = false;
@@ -120,6 +122,7 @@ public class PlayerActions : MonoBehaviour
         if (Exit)
         {
             GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+            //AudiomanagerScript.PlayerHasWon = true;
 
             if (uiManagerScript.FadeTimer > LastFadeTime)
             {
@@ -177,6 +180,11 @@ public class PlayerActions : MonoBehaviour
         }
 
         if (PowerShot)
+        {
+            uiManagerScript.ManageShots(ShotCount, PowerShot);
+        }
+
+        if (Charging)
         {
             uiManagerScript.ManageShots(ShotCount, PowerShot);
         }
