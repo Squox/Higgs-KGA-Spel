@@ -122,7 +122,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4647026009824520, guid: fd0cb5556dca109499c2447f362a64fd, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 31.78
+      value: 31.64
       objectReference: {fileID: 0}
     - target: {fileID: 4647026009824520, guid: fd0cb5556dca109499c2447f362a64fd, type: 2}
       propertyPath: m_LocalPosition.y
@@ -3980,6 +3980,7 @@ MonoBehaviour:
   CurrentMusic: {fileID: 0}
   PlayerIsDead: 0
   MusicOn: 1
+  PlayerHasWon: 0
 --- !u!4 &513521059
 Transform:
   m_ObjectHideFlags: 0
@@ -16918,32 +16919,32 @@ Prefab:
     - target: {fileID: 68764516389775870, guid: 697530a159ba5f7438923118cc51bcdb,
         type: 2}
       propertyPath: m_Points.Array.data[1].x
-      value: 0.012878418
+      value: 0.04925537
       objectReference: {fileID: 0}
     - target: {fileID: 68764516389775870, guid: 697530a159ba5f7438923118cc51bcdb,
         type: 2}
       propertyPath: m_Points.Array.data[1].y
-      value: -0.07369995
+      value: -0.17245483
       objectReference: {fileID: 0}
     - target: {fileID: 68764516389775870, guid: 697530a159ba5f7438923118cc51bcdb,
         type: 2}
       propertyPath: m_Points.Array.data[2].x
-      value: 0.37139893
+      value: 0.04925537
       objectReference: {fileID: 0}
     - target: {fileID: 68764516389775870, guid: 697530a159ba5f7438923118cc51bcdb,
         type: 2}
       propertyPath: m_Points.Array.data[2].y
-      value: -0.15106201
+      value: -0.17245483
       objectReference: {fileID: 0}
     - target: {fileID: 68764516389775870, guid: 697530a159ba5f7438923118cc51bcdb,
         type: 2}
       propertyPath: m_Points.Array.data[0].x
-      value: 0.0015563965
+      value: 0.07952881
       objectReference: {fileID: 0}
     - target: {fileID: 68764516389775870, guid: 697530a159ba5f7438923118cc51bcdb,
         type: 2}
       propertyPath: m_Points.Array.data[0].y
-      value: -1.0114136
+      value: -1.1828613
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 697530a159ba5f7438923118cc51bcdb, type: 2}
@@ -17892,7 +17893,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4647026009824520, guid: fd0cb5556dca109499c2447f362a64fd, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 24.32
+      value: 24.46
       objectReference: {fileID: 0}
     - target: {fileID: 4647026009824520, guid: fd0cb5556dca109499c2447f362a64fd, type: 2}
       propertyPath: m_LocalPosition.y

@@ -26,10 +26,6 @@ public class PistonScript : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        Debug.Log(attacking);
-        Debug.Log(startY);
-        Debug.Log(startY - transform.localScale.y - overlap);
-        Debug.Log(transform.position.y);
 
         if (!attacking)
         {

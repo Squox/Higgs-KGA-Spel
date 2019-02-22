@@ -11,6 +11,8 @@ public class level2Script : MonoBehaviour
 
     private float checkRange = 1f;
 
+    private bool lastLife;
+
     [SerializeField] private GameObject checkPoint0;
     [SerializeField] private GameObject checkPoint1;
     [SerializeField] private GameObject checkPoint2;
@@ -43,6 +45,11 @@ public class level2Script : MonoBehaviour
         {
             gamemanagerScript.LastCheckpointPosition = checkPoint0.transform.position;
             gamemanagerScript.CheckPointCounter = 0;
+            lastLife = true;
+        }
+        else
+        {
+            lastLife = false;
         }
 
         checkTakenCheckpoints();
@@ -55,17 +62,19 @@ public class level2Script : MonoBehaviour
 
         if (playerTF != null && checkPoint0 != null && checkPoint1 != null && checkPoint2 != null)
         {
-            if (isInRange(playerTF, checkPoint1.transform, checkRange) && gamemanagerScript.CheckPointCounter < 1 && gamemanagerScript.DeathCounter < 3)
+            if (isInRange(playerTF, checkPoint1.transform, checkRange) && gamemanagerScript.CheckPointCounter < 1 && gamemanagerScript.DeathCounter < 3 && !lastLife)
             {
                 gamemanagerScript.LastCheckpointPosition = checkPoint1.transform.position;
                 checkPoint1.GetComponent<SpriteRenderer>().color = Color.green;
                 gamemanagerScript.CheckPointCounter = 1;
+                gamemanagerScript.DeathCounter = 0;
             }
-            else if (isInRange(playerTF, checkPoint2.transform, checkRange) && gamemanagerScript.CheckPointCounter < 2 && gamemanagerScript.DeathCounter < 3)
+            else if (isInRange(playerTF, checkPoint2.transform, checkRange) && gamemanagerScript.CheckPointCounter < 2 && gamemanagerScript.DeathCounter < 3 && !lastLife)
             {
                 gamemanagerScript.LastCheckpointPosition = checkPoint2.transform.position;
                 checkPoint2.GetComponent<SpriteRenderer>().color = Color.green;
                 gamemanagerScript.CheckPointCounter = 2;
+                gamemanagerScript.DeathCounter = 0;
             }
         }       
     }
