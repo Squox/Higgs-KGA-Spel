@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class level2Script : MonoBehaviour
 {
     private Audiomanager audiomanagerScript;
     private Gamemanager gamemanagerScript;
+    private CameraManager cameraManagerScript;
     private GameObject player;    
-    private Transform playerTF;
+    private Transform playerTF; 
 
     private float checkRange = 1f;
 
@@ -16,8 +18,13 @@ public class level2Script : MonoBehaviour
     private bool addedPress1 = false;
     private bool addedPress2 = false;
     private bool addedPress3 = false;
+    private bool showDoor = false;
 
     private int pyramidPressurePlatePresses = 0;
+    private int doorShowTime = 300;
+    private int showTimer = 0;
+
+    [SerializeField] private CinemachineVirtualCamera pyramidDoorCam;
 
     [SerializeField] private GameObject pyramidDoor;
 
@@ -36,6 +43,7 @@ public class level2Script : MonoBehaviour
         playerTF = player.GetComponent<Transform>();
         audiomanagerScript = FindObjectOfType<Audiomanager>();
         gamemanagerScript = FindObjectOfType<Gamemanager>();
+        cameraManagerScript = FindObjectOfType<CameraManager>();
         audiomanagerScript.GetComponent<AudioSource>().clip = GetComponent<AudioSource>().clip;
 
         if (gamemanagerScript.LastCheckpointPosition == new Vector3(0,0,0))
@@ -86,6 +94,28 @@ public class level2Script : MonoBehaviour
         if (pyramidPressurePlatePresses > 0)
         {
             checkPyramidPressurePlates(pyramidPressurePlate1.GetComponent<PressurePlateScript>().Pressed, pyramidPressurePlate2.GetComponent<PressurePlateScript>().Pressed, pyramidPressurePlate3.GetComponent<PressurePlateScript>().Pressed);
+        }
+
+        if (showDoor)
+        {
+            player.GetComponent<PlayerActions>().enabled = false;
+            player.GetComponent<PlayerInput>().enabled = false;
+            player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+            cameraManagerScript.showEvent(pyramidDoorCam, doorShowTime);
+
+            showTimer++;
+            if (showTimer > doorShowTime/2)
+            {
+                Destroy(pyramidDoor);
+                if (showTimer > doorShowTime)
+                {
+                    showTimer = 0;
+                    player.GetComponent<PlayerInput>().enabled = true;
+                    player.GetComponent<PlayerActions>().enabled = true;                   
+                    player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+                    showDoor = false;
+                }                   
+            }
         }
 
         countPyramidPressurePlatePresses();
@@ -141,7 +171,7 @@ public class level2Script : MonoBehaviour
                 {
                     if (rightCombibation)
                     {
-                        openPyramid();
+                        showDoor = true;
                     }
                     else
                     {                      
@@ -162,11 +192,6 @@ public class level2Script : MonoBehaviour
         {
             rightCombibation = false;
         }
-    }
-
-    private void openPyramid()
-    {
-        Destroy(pyramidDoor);
     }
 
     private void deactivatePyramidPressurePlates()
