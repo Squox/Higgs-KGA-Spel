@@ -13,6 +13,11 @@ public class level2Script : MonoBehaviour
 
     private bool lastLife;
     private bool rightCombibation = true;
+    private bool addedPress1 = false;
+    private bool addedPress2 = false;
+    private bool addedPress3 = false;
+
+    private int pyramidPressurePlatePresses = 0;
 
     [SerializeField] private GameObject pyramidDoor;
 
@@ -58,6 +63,8 @@ public class level2Script : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        Debug.Log(pyramidPressurePlatePresses);
+
         if (playerTF != null && checkPoint0 != null && checkPoint1 != null && checkPoint2 != null)
         {
             if (isInRange(playerTF, checkPoint1.transform, checkRange) && gamemanagerScript.CheckPointCounter < 1)
@@ -76,11 +83,12 @@ public class level2Script : MonoBehaviour
             }
         }    
         
-        if (pressedPyramidPressurePlates() > 0)
+        if (pyramidPressurePlatePresses > 0)
         {
             checkPyramidPressurePlates(pyramidPressurePlate1.GetComponent<PressurePlateScript>().Pressed, pyramidPressurePlate2.GetComponent<PressurePlateScript>().Pressed, pyramidPressurePlate3.GetComponent<PressurePlateScript>().Pressed);
         }
 
+        countPyramidPressurePlatePresses();
         colourCheckpoints();
     }
 
@@ -97,39 +105,29 @@ public class level2Script : MonoBehaviour
         }
     }
 
-    private int pressedPyramidPressurePlates()
+    private void countPyramidPressurePlatePresses()
     {
-        if (pyramidPressurePlate1.GetComponent<PressurePlateScript>().Pressed && !pyramidPressurePlate2.GetComponent<PressurePlateScript>().Pressed && !pyramidPressurePlate3.GetComponent<PressurePlateScript>().Pressed)
+        if (pyramidPressurePlatePresses < 3)
         {
-            return 1;
-        }
-        else if (!pyramidPressurePlate1.GetComponent<PressurePlateScript>().Pressed && pyramidPressurePlate2.GetComponent<PressurePlateScript>().Pressed && !pyramidPressurePlate3.GetComponent<PressurePlateScript>().Pressed)
-        {
-            return 1;
-        }
-        else if (!pyramidPressurePlate1.GetComponent<PressurePlateScript>().Pressed && !pyramidPressurePlate2.GetComponent<PressurePlateScript>().Pressed && pyramidPressurePlate3.GetComponent<PressurePlateScript>().Pressed)
-        {
-            return 1;
-        }
-        else if (pyramidPressurePlate1.GetComponent<PressurePlateScript>().Pressed && pyramidPressurePlate2.GetComponent<PressurePlateScript>().Pressed && !pyramidPressurePlate3.GetComponent<PressurePlateScript>().Pressed)
-        {
-            return 2;
-        }
-        else if (pyramidPressurePlate1.GetComponent<PressurePlateScript>().Pressed && !pyramidPressurePlate2.GetComponent<PressurePlateScript>().Pressed && pyramidPressurePlate3.GetComponent<PressurePlateScript>().Pressed)
-        {
-            return 2;
-        }
-        else if (!pyramidPressurePlate1.GetComponent<PressurePlateScript>().Pressed && pyramidPressurePlate2.GetComponent<PressurePlateScript>().Pressed && pyramidPressurePlate3.GetComponent<PressurePlateScript>().Pressed)
-        {
-            return 2;
-        }
-        else if (pyramidPressurePlate1.GetComponent<PressurePlateScript>().Pressed && pyramidPressurePlate2.GetComponent<PressurePlateScript>().Pressed && pyramidPressurePlate3.GetComponent<PressurePlateScript>().Pressed)
-        {
-            return 3;
+            if (pyramidPressurePlate1.GetComponent<PressurePlateScript>().Pressed && !addedPress1)
+            {
+                pyramidPressurePlatePresses++;
+                addedPress1 = true;
+            }
+            else if (pyramidPressurePlate2.GetComponent<PressurePlateScript>().Pressed && !addedPress2)
+            {
+                pyramidPressurePlatePresses++;
+                addedPress2 = true;
+            }
+            else if (pyramidPressurePlate3.GetComponent<PressurePlateScript>().Pressed && !addedPress3)
+            {
+                pyramidPressurePlatePresses++;
+                addedPress3 = true;
+            }
         }
         else
         {
-            return 0;
+            pyramidPressurePlatePresses = 0;
         }
     }
 
@@ -137,22 +135,25 @@ public class level2Script : MonoBehaviour
     {       
         if (pressed3)
         {
-            if (pressed1 && pressedPyramidPressurePlates() > 1)
+            if (pressed1 && pyramidPressurePlatePresses > 1)
             {
-                if (pressed2 && pressedPyramidPressurePlates() > 2)
+                if (pressed2 && pyramidPressurePlatePresses > 2)
                 {
                     if (rightCombibation)
                     {
                         openPyramid();
                     }
                     else
-                    {
-                        deactivatePyramidPressurePlates();
+                    {                      
                         rightCombibation = true;
+                        addedPress1 = false;
+                        addedPress2 = false;
+                        addedPress3 = false;
+                        deactivatePyramidPressurePlates();
                     }
                 }
             }
-            else if (pressedPyramidPressurePlates() > 1)
+            else if (pyramidPressurePlatePresses > 1)
             {
                 rightCombibation = false;
             }
@@ -172,7 +173,7 @@ public class level2Script : MonoBehaviour
     {
         pyramidPressurePlate1.GetComponent<PressurePlateScript>().Active = false;
         pyramidPressurePlate2.GetComponent<PressurePlateScript>().Active = false;
-        pyramidPressurePlate3.GetComponent<PressurePlateScript>().Active = false;
+        pyramidPressurePlate3.GetComponent<PressurePlateScript>().Active = false;       
     }
 
     private bool isInRange(Transform transform1, Transform transform2, float range)
