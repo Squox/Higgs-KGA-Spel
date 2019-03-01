@@ -100,7 +100,7 @@ public class PlayerActions : MonoBehaviour
         AudiomanagerScript.PlayerIsDead = false;
         uiManagerScript.InitializeUI();
 
-        Health = GamemanagerScript.PlayerHealth;        
+        Health = GamemanagerScript.PlayerMaxHealth;        
 
         Doge();
         Doge();
