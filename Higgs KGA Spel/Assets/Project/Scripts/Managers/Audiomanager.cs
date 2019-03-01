@@ -7,7 +7,10 @@ public class Audiomanager : MonoBehaviour
 {
     public static Audiomanager instance;
 
+    private Gamemanager gamemanagerScript;
+
     private AudioSource lvlMusic;
+
     public AudioSource CurrentMusic;
 
     public bool PlayerIsDead;
@@ -17,26 +20,25 @@ public class Audiomanager : MonoBehaviour
     private float fadeTime = 60f;
     private float startVolume = 0f;
 
-    private int fadeTimer = 0;
-
-    
+    private int fadeTimer = 0;  
 
     private bool playing = false;
 
     private void Awake()
     {
-        playing = false;
-
-        fadeTimer = 0;
-
         MakeSingelton();
 
-        CurrentMusic = GetComponent<AudioSource>();   
+        CurrentMusic = GetComponent<AudioSource>();
+        gamemanagerScript = FindObjectOfType<Gamemanager>();
+
+        playing = false;
+
+        fadeTimer = 0;           
     }
 
     private void Update()
     {
-        if (CurrentMusic != null && MusicOn)
+        if (MusicOn)
         {
             if (PlayerIsDead)
             {
@@ -65,23 +67,19 @@ public class Audiomanager : MonoBehaviour
             }
         }
 
-        if (CurrentMusic.clip != null)
+        if (!MusicOn || !gamemanagerScript.InLevel)
         {
-            if (!MusicOn)
+            StopMusic();
+        }
+        else if (MusicOn && !PlayerIsDead && !PlayerHasWon && gamemanagerScript.InLevel)
+        {
+            if (!playing)
             {
-                CurrentMusic.Stop();
-                playing = false;
+                CurrentMusic.Play(0);
+                CurrentMusic.volume = 0.025f;
+                playing = true;
             }
-            else if (MusicOn && !PlayerIsDead && !PlayerHasWon)
-            {
-                if (!playing)
-                {
-                    CurrentMusic.Play(0);
-                    CurrentMusic.volume = 0.025f;
-                    playing = true;
-                }
-            }
-        }       
+        }    
     }
 
     private void MakeSingelton()
@@ -99,6 +97,7 @@ public class Audiomanager : MonoBehaviour
 
     public void StopMusic()
     {
+        playing = false;
         CurrentMusic.Stop();
     }
 

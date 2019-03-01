@@ -8,6 +8,7 @@ public class PlayerInput : MonoBehaviour
     private GameObject player;
     private PlayerActions playerActionsScript;
     private Gamemanager GamemanagerScript;
+    private Audiomanager audiomanagerScript;
     private UIManager uiManagerScript;
 
     // Ints:
@@ -37,6 +38,7 @@ public class PlayerInput : MonoBehaviour
     private void Start()
     {
         GamemanagerScript = FindObjectOfType<Gamemanager>();
+        audiomanagerScript = FindObjectOfType<Audiomanager>();
         GetComponent<PlayerActions>().enabled = true;
     }
 
@@ -154,6 +156,7 @@ public class PlayerInput : MonoBehaviour
             {
                 GamemanagerScript.LastLevel++;
                 GamemanagerScript.ExitLevel();
+                GamemanagerScript.SavePlayer(playerActionsScript, GamemanagerScript);
             }
             else if (canUnpause && !winning)
             {
@@ -163,11 +166,22 @@ public class PlayerInput : MonoBehaviour
             else if (playerActionsScript.Health < 1 && canRestart && !winning)
             {
                 GamemanagerScript.ExitLevel();
+                GamemanagerScript.SavePlayer(playerActionsScript, GamemanagerScript);
             }
             else if (playerActionsScript.Health > 0 && !playerActionsScript.Paused && !winning)
             {
                 playerActionsScript.Paused = true;
             }            
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            if (playerActionsScript.Paused || canUnpause)
+            {
+                GamemanagerScript.ExitLevel();
+                GamemanagerScript.SavePlayer(playerActionsScript, GamemanagerScript);
+                audiomanagerScript.StopMusic();
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.E))

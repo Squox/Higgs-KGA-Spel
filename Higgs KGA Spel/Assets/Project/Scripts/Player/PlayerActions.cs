@@ -46,7 +46,7 @@ public class PlayerActions : MonoBehaviour
     private int timeSinceShot = 0;
     private int deaths = -1;
 
-    public int Health = 3;    
+    public int Health;    
     public int Jumps = 1;
     public int ShotCount = 0;
 
@@ -74,7 +74,6 @@ public class PlayerActions : MonoBehaviour
 
     private void Awake()
     {
-        //AudiomanagerScript.PlayerHasWon = false;
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
 
         Exit = false;
@@ -101,15 +100,68 @@ public class PlayerActions : MonoBehaviour
         AudiomanagerScript.PlayerIsDead = false;
         uiManagerScript.InitializeUI();
 
+        Health = GamemanagerScript.PlayerHealth;        
+
         Doge();
         Doge();
     }
 
     private void Update()
     {
+        GamemanagerScript.PlayerHealth = Health;
+        uiManagerScript.ManageLives(Health);
+
+        checkPlayerState();
+        changeSpeedAndJumpForce();
+        CheckFacingDirection();
+    }
+
+    private void FixedUpdate ()
+    {
+        // Check if player is on ground
+        isOnGround = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
+        
+        // Moving the player on the x axies
+        playerRB.velocity = new Vector2(playerInputScript.MoveDirection * speed * Time.fixedDeltaTime, playerRB.velocity.y);
+
+        Jumping();
+
+        ChangeGravityScale();
+    }
+
+    private void changeSpeedAndJumpForce()
+    {
+        if (playerInputScript.ChargeTimer > 10)
+        {
+            speed = 250f;
+            jumpForce = 250f;
+
+            if (isDoged)
+            {
+                speed = 160f;
+                jumpForce = 160f;
+            }
+        }
+        else if (isDoged)
+        {
+            if (playerInputScript.ChargeTimer < 1)
+            {
+                speed = 250f;
+                jumpForce = 250f;
+            }
+        }
+        else
+        {
+            speed = 330f;
+            jumpForce = 330f;
+        }
+    }
+
+    private void checkPlayerState()
+    {
         if (invulnerabilityTimer > 0 && Health > 0)
         {
-            if (invulnerabilityTimer%2 == 0)
+            if (invulnerabilityTimer % 2 == 0)
             {
                 GetComponent<SpriteRenderer>().enabled = false;
             }
@@ -122,7 +174,6 @@ public class PlayerActions : MonoBehaviour
         if (Exit)
         {
             GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-            //AudiomanagerScript.PlayerHasWon = true;
 
             if (uiManagerScript.FadeTimer > LastFadeTime)
             {
@@ -135,7 +186,7 @@ public class PlayerActions : MonoBehaviour
 
             if (uiManagerScript.FadeTimer > LastFadeTime)
             {
-                Time.timeScale = 0;                
+                Time.timeScale = 0;
                 Exit = false;
             }
         }
@@ -155,7 +206,7 @@ public class PlayerActions : MonoBehaviour
 
             if (uiManagerScript.FadeTimer > LastFadeTime)
             {
-                Time.timeScale = 0;               
+                Time.timeScale = 0;
                 Paused = false;
             }
         }
@@ -174,47 +225,11 @@ public class PlayerActions : MonoBehaviour
             }
         }
 
-        if (burstFire)
+        if (burstFire || PowerShot || Charging)
         {
             uiManagerScript.ManageShots(ShotCount, PowerShot);
         }
 
-        if (PowerShot)
-        {
-            uiManagerScript.ManageShots(ShotCount, PowerShot);
-        }
-
-        if (Charging)
-        {
-            uiManagerScript.ManageShots(ShotCount, PowerShot);
-        }
-
-        if (playerInputScript.ChargeTimer > 10)
-        {
-            speed = 250f;
-            jumpForce = 250f;
-
-            if (isDoged)
-            {
-                speed = 160f;
-                jumpForce = 160f;
-            }
-        }      
-        else if (isDoged)
-        {
-            if (playerInputScript.ChargeTimer < 1)
-            {
-                speed = 250f;
-                jumpForce = 250f;
-            }
-        }
-        else
-        {
-            speed = 330f;
-            jumpForce = 330f;
-        }
-
-        CheckFacingDirection();
         if (isOnGround)
         {
             jumpsLeft = Jumps;
@@ -222,8 +237,6 @@ public class PlayerActions : MonoBehaviour
 
         if (HasBeenHit)
         {
-            uiManagerScript.ManageLives(Health);
-
             invulnerabilityTimer++;
             if (invulnerabilityTimer == 100)
             {
@@ -241,7 +254,7 @@ public class PlayerActions : MonoBehaviour
                 GamemanagerScript.DeathCounter++;
                 deaths = GamemanagerScript.DeathCounter;
             }
-            
+
             GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
 
             if (uiManagerScript.FadeTimer > LastFadeTime)
@@ -255,19 +268,19 @@ public class PlayerActions : MonoBehaviour
 
             if (uiManagerScript.FadeTimer > LastFadeTime)
             {
-                Time.timeScale = 0;               
+                Time.timeScale = 0;
                 GetComponent<PlayerActions>().enabled = false;
             }
         }
 
-        if(burstFire && ShotCount > 2 && playerInputScript.ChargeTimer < 1)
+        if (burstFire && ShotCount > 2 && playerInputScript.ChargeTimer < 1)
         {
             burstBuffer++;
 
             if (burstBuffer > 35)
             {
                 ShotCount = 0;
-                burstBuffer = 0;              
+                burstBuffer = 0;
             }
         }
 
@@ -283,23 +296,9 @@ public class PlayerActions : MonoBehaviour
                 burstBuffer = 0;
 
                 uiManagerScript.ManageShots(ShotCount, PowerShot);
-            }                               
+            }
         }
     }
-
-    private void FixedUpdate ()
-    {
-        // Check if player is on ground
-        isOnGround = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
-        
-        // Moving the player on the x axies
-        playerRB.velocity = new Vector2(playerInputScript.MoveDirection * speed * Time.fixedDeltaTime, playerRB.velocity.y);
-
-        Jumping();
-
-        ChangeGravityScale();
-    }
-
 
     public void Doge()
     {
@@ -400,6 +399,12 @@ public class PlayerActions : MonoBehaviour
         transform.Rotate(0f, 180f, 0f);
     }
 
+    private void takeDamage(int damage)
+    {
+        Health -= damage;
+        HasBeenHit = true;
+    }
+
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject.tag == "Level")
@@ -413,23 +418,19 @@ public class PlayerActions : MonoBehaviour
         }
         else if (collider.gameObject.tag == "Acid" && !HasBeenHit)
         {
-            Health--;
-            HasBeenHit = true;
+            takeDamage(1);
         }
         else if (collider.gameObject.tag == "CactusDart" && !HasBeenHit)
         {
-            Health--;
-            HasBeenHit = true;
+            takeDamage(1);
         }
         else if (collider.gameObject.tag == "InvulnerableEnemy" && !HasBeenHit)
         {
-            Health--;
-            HasBeenHit = true;
+            takeDamage(1);
         }
         else if (collider.gameObject.tag == "Enemy" && !HasBeenHit)
         {
-            Health--;
-            HasBeenHit = true;
+            takeDamage(1);
         }
         else if (collider.gameObject.tag == "Heart" && Health < 3)
         {
@@ -446,23 +447,19 @@ public class PlayerActions : MonoBehaviour
         }
         else if (collision.gameObject.tag == "Rat" && !HasBeenHit)
         {
-            Health--;
-            HasBeenHit = true;
+            takeDamage(1);
         }
         else if (collision.gameObject.tag == "Cactus" && !HasBeenHit)
         {
-            Health--;
-            HasBeenHit = true;
+            takeDamage(1);
         }
         else if (collision.gameObject.tag == "Trap" && !HasBeenHit)
         {
-            Health--;
-            HasBeenHit = true;
+            takeDamage(1);
         }
         else if (collision.gameObject.tag == "Water" && !HasBeenHit)
         {
-            Health--;
-            HasBeenHit = true;
+            takeDamage(1);
         }
     }
 

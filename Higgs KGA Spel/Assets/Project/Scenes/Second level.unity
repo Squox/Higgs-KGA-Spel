@@ -583,7 +583,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.9, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &112517409
 SpriteRenderer:
@@ -1465,7 +1465,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.9, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &363003468
 SpriteRenderer:
@@ -8699,7 +8699,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.9, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &595664236
 SpriteRenderer:
@@ -23270,7 +23270,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.9, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &741209167
 SpriteRenderer:
@@ -25068,7 +25068,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.9, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &1243737130
 SpriteRenderer:
@@ -25910,9 +25910,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LastCheckpointPosition: {x: 0, y: 0, z: 0}
+  PlayerPosition: {x: 0, y: 0, z: 0}
   LastLevel: 0
+  HighestLevel: 0
   CheckPointCounter: 0
   DeathCounter: 0
+  PlayerHealth: 3
+  PlayerMaxHealth: 3
+  InLevel: 0
+  PlayerDead: 0
 --- !u!4 &1708845852
 Transform:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
-        if (gamemanagerScript.LastLevel == 0)
+        if (gamemanagerScript.HighestLevel == 0)
         {
             SceneManager.LoadScene("First Level");
         }
