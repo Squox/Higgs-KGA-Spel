@@ -248,6 +248,7 @@ public class PlayerActions : MonoBehaviour
         if (Health < 1)
         {
             AudiomanagerScript.PlayerIsDead = true;
+            GamemanagerScript.PlayerDead = true;
 
             if (deaths != GamemanagerScript.DeathCounter)
             {

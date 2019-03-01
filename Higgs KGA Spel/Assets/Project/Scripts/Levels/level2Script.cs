@@ -230,7 +230,7 @@ public class level2Script : MonoBehaviour
         {
             Debug.Log("Hey");
             player.transform.position = gamemanagerScript.LastCheckpointPosition;
-            playerActionScript.Health = gamemanagerScript.PlayerMaxHealth;
+            gamemanagerScript.PlayerHealth = gamemanagerScript.PlayerMaxHealth;
             gamemanagerScript.SavePlayer(playerActionScript, gamemanagerScript);
             gamemanagerScript.PlayerDead = false;
         }
