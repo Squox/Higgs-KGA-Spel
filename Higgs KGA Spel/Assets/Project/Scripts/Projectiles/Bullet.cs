@@ -6,33 +6,32 @@ public class Bullet : MonoBehaviour
 {
 
     [SerializeField]private float destroyTime = 10f;
-    private float destroy;
     
     public float BulletSpeed;
 
+    [SerializeField] private GameObject hitEffect;
+
     private Rigidbody2D rb;
 
-	// Use this for initialization
 	void Start ()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = transform.right * BulletSpeed;
-        destroy = destroyTime + Time.time;      
+        StartCoroutine(destroyBullet());
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    private IEnumerator destroyBullet()
     {
-        if (destroy < Time.time) 
-        {
-            Destroy(gameObject);
-        }
-	}
+        yield return new WaitForSeconds(destroyTime);
+        Destroy(gameObject);
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag != "Acid" && collision.gameObject.tag != "Player" && collision.gameObject.tag != "CactusDart" && collision.gameObject.tag != "InvulnerableEnemy")
         {
+            Instantiate(hitEffect, transform.position, hitEffect.transform.rotation);
+
             Destroy(gameObject);
         }
     }

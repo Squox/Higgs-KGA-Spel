@@ -12,8 +12,8 @@ public class PistonScript : MonoBehaviour
     private float retreatSpeed = 2f;
     private float overlap = .25f;
     private float startY;
+    private float attackPause = 22f / 60f;
 
-    private int attackPause = 22;
     private int pauseTimer;
 
 	// Use this for initialization
@@ -26,13 +26,13 @@ public class PistonScript : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-
         if (!attacking)
         {
             rb.velocity = new Vector2(0, slamSpeed);
             attacking = true;
         }
-        else if (attacking && transform.position.y <= startY - transform.localScale.y + 2 * overlap)
+
+        if (attacking && transform.position.y <= startY - transform.localScale.y + 2 * overlap)
         {
             rb.velocity = new Vector2(0, retreatSpeed);
         }
@@ -41,12 +41,13 @@ public class PistonScript : MonoBehaviour
         {
             transform.position = new Vector2(transform.position.x, startY);
 
-            pauseTimer++;
-            if (pauseTimer > attackPause)
-            {
-                attacking = false;
-                pauseTimer = 0;
-            }
+            StartCoroutine(pause());
         }
 	}
+
+    private IEnumerator pause()
+    {
+        yield return new WaitForSeconds(attackPause);
+        attacking = false;
+    }
 }

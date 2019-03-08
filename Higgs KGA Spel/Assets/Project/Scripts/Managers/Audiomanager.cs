@@ -49,15 +49,6 @@ public class Audiomanager : MonoBehaviour
 
                 FadeOut(CurrentMusic, startVolume, fadeTime);
             }
-            else if (PlayerHasWon)
-            {
-                if (fadeTimer < 1)
-                {
-                    startVolume = CurrentMusic.volume;
-                }
-
-                FadeOut(CurrentMusic, startVolume, fadeTime);
-            }
             else
             {
                 if (startVolume > CurrentMusic.volume)
@@ -71,7 +62,7 @@ public class Audiomanager : MonoBehaviour
         {
             StopMusic();
         }
-        else if (MusicOn && !PlayerIsDead && !PlayerHasWon && gamemanagerScript.InLevel)
+        else if (MusicOn && !PlayerIsDead && gamemanagerScript.InLevel)
         {
             if (!playing)
             {

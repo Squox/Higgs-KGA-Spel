@@ -122,41 +122,39 @@ public class UIManager : MonoBehaviour
         }        
     }
 
-    public void FadeIn(SpriteRenderer spriteRenderer, float fadeTime)
+    public IEnumerator FadeIn(SpriteRenderer spriteRenderer, float fadeTime)
     {
-        if (FadeTimer < 1)
-        {
-            spriteRenderer.enabled = true;
-            spriteRenderer.color = new Color(1f, 1f, 1f, 0f);
-        }
+        spriteRenderer.enabled = true;
+        spriteRenderer.color = new Color(1f, 1f, 1f, 0f);
 
-        FadeTimer++;
-
-        if (FadeTimer < fadeTime + 1)
+        while (alphaLevel < 1)
         {
+            FadeTimer++;
             alphaLevel = FadeTimer / fadeTime;
             spriteRenderer.color = new Color(1f, 1f, 1f, alphaLevel);
+
+            yield return null;
         }
+
+        FadeTimer = 0;
+        alphaLevel = 0;
     }
 
-    public void FadeOut(SpriteRenderer spriteRenderer, float fadeTime)
+    public IEnumerator FadeOut(SpriteRenderer spriteRenderer, float fadeTime)
     {
-        if (FadeTimer < 1)
-        {
-            spriteRenderer.enabled = false;
-        }
+        alphaLevel = spriteRenderer.color.a;
+        FadeTimer = fadeTime;
+        spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
 
-        if (FadeTimer > 0)
+        while (alphaLevel > 0)
         {
-            if (FadeTimer > fadeTime + 1)
-            {
-                FadeTimer = fadeTime;
-            }
-
+            FadeTimer--;
             alphaLevel = FadeTimer / fadeTime;
             spriteRenderer.color = new Color(1f, 1f, 1f, alphaLevel);
+
+            yield return null;
         }
 
-        FadeTimer--;
+        spriteRenderer.enabled = false;
     }
 }

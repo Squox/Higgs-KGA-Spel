@@ -45,35 +45,6 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     private void Update ()
     {       
-        if (playerActionsScript.Exit)
-        {
-            fadeTimer++;
-
-            winning = true;
-
-            if (fadeTimer > playerActionsScript.LastFadeTime - 1)
-            {
-                canExit = true;
-                fadeTimer = 0;
-            }
-        }
-
-        if (playerActionsScript.Paused)
-        {
-            canUnpause = true;
-        }
-
-        if (playerActionsScript.Health < 1)
-        {
-            fadeTimer++;
-
-            if (fadeTimer > playerActionsScript.LastFadeTime)
-            {
-                canRestart = true;
-                fadeTimer = 0;
-            }
-        }
-
         CheckPlayerInput();
     }
 
@@ -81,7 +52,7 @@ public class PlayerInput : MonoBehaviour
     {
         MoveDirection = 0;
 
-        if (playerActionsScript.Health > 0 && !playerActionsScript.Exit)
+        if (playerActionsScript.Health > 0 && !playerActionsScript.CanExit)
         {
             if (Input.GetKey(KeyCode.A))
             {
@@ -143,40 +114,38 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (canExit || playerActionsScript.Health < 1 && canRestart)
+            if (playerActionsScript.CanExit || playerActionsScript.CanRestart)
             {
                 GamemanagerScript.RestartGame();
-                canExit = false;
             }           
         }              
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (canExit)
+            if (playerActionsScript.CanExit)
             {
-                GamemanagerScript.LastLevel++;
-                GamemanagerScript.ExitLevel();
+                GamemanagerScript.LastLevel++;               
                 GamemanagerScript.SavePlayer(playerActionsScript, GamemanagerScript);
+                GamemanagerScript.ExitLevel();
             }
-            else if (canUnpause && !winning)
+            else if (playerActionsScript.CanUnpause && !winning)
             {
-                playerActionsScript.Unpause = true;
-                canUnpause = false;
+                StartCoroutine(playerActionsScript.Unpause());
             }
             else if (playerActionsScript.Health < 1 && canRestart && !winning)
             {
                 GamemanagerScript.ExitLevel();
                 GamemanagerScript.SavePlayer(playerActionsScript, GamemanagerScript);
             }
-            else if (playerActionsScript.Health > 0 && !playerActionsScript.Paused && !winning)
+            else if (playerActionsScript.Health > 0 && !playerActionsScript.CanUnpause && !winning)
             {
-                playerActionsScript.Paused = true;
+                StartCoroutine(playerActionsScript.Pause());
             }            
         }
 
         if (Input.GetKeyDown(KeyCode.S))
         {
-            if (playerActionsScript.Paused || canUnpause)
+            if (playerActionsScript.CanUnpause)
             {
                 GamemanagerScript.ExitLevel();
                 GamemanagerScript.SavePlayer(playerActionsScript, GamemanagerScript);

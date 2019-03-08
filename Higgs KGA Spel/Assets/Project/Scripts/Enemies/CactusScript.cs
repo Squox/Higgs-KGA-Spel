@@ -15,12 +15,16 @@ public class CactusScript : MonoBehaviour
 
     [SerializeField] private float playerCheckRadius = 21;
 
+    private float fireRate = 0.5f;
+    private float animationDuration = 9f/60f;
+
     private int shotTimer;
     private int health = 3;
     private int shotCounter;
-    private int shotBuffer;
+    private int burstBuffer = 2;
     private int invulnerabilityTimer = 0;
     private int animationPause;
+
     public int DartSpeed = 5;
 
     private bool hasBeenHit = false;
@@ -31,6 +35,8 @@ public class CactusScript : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerActionsScript = player.GetComponent<PlayerActions>();
+
+        StartCoroutine(shoot());
 	}
 	
 	// Update is called once per frame
@@ -55,17 +61,24 @@ public class CactusScript : MonoBehaviour
             }
         }
 
-        shotTimer++;
-
-        if (shotTimer > 21 && shotBuffer < 1 && isPlayerInRange())
+        if (health < 1)
         {
-            attacking = true;
-            animator.SetBool("Attack", attacking);
+            Destroy(gameObject);
+        }
+	}
 
-            animationPause++;
+    private IEnumerator shoot()
+    {
+        while (shotCounter < 3)
+        {
+            if (isPlayerInRange())
+            {                
+                animator.SetBool("Attack", true);
 
-            if (animationPause > 9)
-            {
+                yield return new WaitForSeconds(animationDuration);
+
+                animator.SetBool("Attack", false);
+
                 if (isPlayerRight())
                 {
                     Instantiate(cactusDartPrefab, rightShootingPoint.position, transform.rotation * Quaternion.Euler(0, 0, 180));
@@ -73,31 +86,21 @@ public class CactusScript : MonoBehaviour
                 else if (!isPlayerRight())
                 {
                     Instantiate(cactusDartPrefab, leftShootingPoint.position, transform.rotation);
-                }
-                animationPause = 0;
-                shotTimer = 0;
+                }               
+
                 shotCounter++;
-                attacking = false;
-                animator.SetBool("Attack", attacking);
-            }            
+            }
+
+            yield return new WaitForSeconds(fireRate - animationDuration);
+            
         }
 
-        if (shotCounter > 2)
-        {
-            shotBuffer++;
-        }
+        yield return new WaitForSeconds(burstBuffer);
 
-        if (shotBuffer > 120)
-        {
-            shotBuffer = 0;
-            shotCounter = 0;
-        }
+        shotCounter = 0;
 
-        if (health < 1)
-        {
-            Destroy(gameObject);
-        }
-	}
+        StartCoroutine(shoot());
+    }
 
     private bool isPlayerRight()
     {

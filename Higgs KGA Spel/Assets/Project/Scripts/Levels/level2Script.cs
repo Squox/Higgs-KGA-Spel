@@ -19,10 +19,10 @@ public class level2Script : MonoBehaviour
     private bool addedPress1 = false;
     private bool addedPress2 = false;
     private bool addedPress3 = false;
-    private bool showDoor = false;
 
     private int pyramidPressurePlatePresses = 0;
-    private int doorShowTime = 300;
+    private int doorShowTime = 5;
+    private int cameraBlendTime = 2;
     private int showTimer = 0;
 
     [SerializeField] private CinemachineVirtualCamera pyramidDoorCam;
@@ -80,8 +80,6 @@ public class level2Script : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        Debug.Log(gamemanagerScript.DeathCounter);
-
         if (playerTF != null && checkPoint0 != null && checkPoint1 != null && checkPoint2 != null)
         {
             if (isInRange(playerTF, checkPoint1.transform, checkRange) && gamemanagerScript.CheckPointCounter < 1)
@@ -105,28 +103,6 @@ public class level2Script : MonoBehaviour
         if (pyramidPressurePlatePresses > 0)
         {
             checkPyramidPressurePlates(pyramidPressurePlate1.GetComponent<PressurePlateScript>().Pressed, pyramidPressurePlate2.GetComponent<PressurePlateScript>().Pressed, pyramidPressurePlate3.GetComponent<PressurePlateScript>().Pressed);
-        }
-
-        if (showDoor)
-        {
-            player.GetComponent<PlayerActions>().enabled = false;
-            player.GetComponent<PlayerInput>().enabled = false;
-            player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-            cameraManagerScript.showEvent(pyramidDoorCam, doorShowTime);
-
-            showTimer++;
-            if (showTimer > doorShowTime/2)
-            {
-                Destroy(pyramidDoor);
-                if (showTimer > doorShowTime)
-                {
-                    showTimer = 0;
-                    player.GetComponent<PlayerInput>().enabled = true;
-                    player.GetComponent<PlayerActions>().enabled = true;                   
-                    player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
-                    showDoor = false;
-                }                   
-            }
         }
 
         countPyramidPressurePlatePresses();
@@ -182,7 +158,7 @@ public class level2Script : MonoBehaviour
                 {
                     if (rightCombibation)
                     {
-                        showDoor = true;
+                        StartCoroutine(showDoor());
                     }
                     else
                     {                      
@@ -212,6 +188,25 @@ public class level2Script : MonoBehaviour
         pyramidPressurePlate3.GetComponent<PressurePlateScript>().Active = false;       
     }
 
+    private IEnumerator showDoor()
+    {
+        StartCoroutine(cameraManagerScript.showEvent(pyramidDoorCam, doorShowTime));
+
+        player.GetComponent<PlayerActions>().enabled = false;
+        player.GetComponent<PlayerInput>().enabled = false;
+        player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+
+        yield return new WaitForSeconds(doorShowTime / 2);
+
+        Destroy(pyramidDoor);
+
+        yield return new WaitForSeconds(doorShowTime / 2 + cameraBlendTime);
+
+        player.GetComponent<PlayerInput>().enabled = true;
+        player.GetComponent<PlayerActions>().enabled = true;
+        player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
+
     private bool isInRange(Transform transform1, Transform transform2, float range)
     {
         if (Mathf.Abs(transform1.position.x - transform2.position.x) < range && Mathf.Abs(transform1.position.y - transform2.position.y) < range)
@@ -228,7 +223,6 @@ public class level2Script : MonoBehaviour
     {
         if (gamemanagerScript.PlayerDead)
         {
-            Debug.Log("Hey");
             player.transform.position = gamemanagerScript.LastCheckpointPosition;
             gamemanagerScript.PlayerHealth = gamemanagerScript.PlayerMaxHealth;
             gamemanagerScript.SavePlayer(playerActionScript, gamemanagerScript);

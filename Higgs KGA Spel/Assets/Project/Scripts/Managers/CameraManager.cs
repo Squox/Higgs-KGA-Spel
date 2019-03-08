@@ -28,24 +28,16 @@ public class CameraManager : MonoBehaviour
         standardCam = FindObjectOfType<CinemachineVirtualCamera>();
     }
 
-    public void showEvent(CinemachineVirtualCamera CmVCam, float showTime)
+    public IEnumerator showEvent(CinemachineVirtualCamera CmVCam, float showTime)
     {
         int CmVCamPriority = 0;
 
-        if (CmVCam.GetComponent<CinemachineVirtualCamera>().Priority < standardCam.GetComponent<CinemachineVirtualCamera>().Priority)
-        {
-            CmVCamPriority = CmVCam.GetComponent<CinemachineVirtualCamera>().Priority;
-        }       
-
+        CmVCamPriority = CmVCam.GetComponent<CinemachineVirtualCamera>().Priority;  
         CmVCam.GetComponent<CinemachineVirtualCamera>().Priority = standardCam.GetComponent<CinemachineVirtualCamera>().Priority + 1;
 
-        showTimeCounter++;
+        yield return new WaitForSeconds(showTime);
 
-        if (showTimeCounter > showTime)
-        {
-            CmVCam.GetComponent<CinemachineVirtualCamera>().Priority = CmVCamPriority;
-            showTimeCounter = 0;
-        }
+        CmVCam.GetComponent<CinemachineVirtualCamera>().Priority = CmVCamPriority;
     }
 
     private void MakeSingelton()

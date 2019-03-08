@@ -56,11 +56,11 @@ public class PlayerActions : MonoBehaviour
     public bool IsFacingRight = true;
     public bool HasBeenHit = false;
     public bool PowerShot = false;
-    public bool Exit = false;
+    public bool CanExit = false;
     public bool StandingByDoor = false;
     public bool HasShot = false;
-    public bool Paused = false;
-    public bool Unpause = false;
+    public bool CanUnpause = false;
+    public bool CanRestart = false;
     public bool Charging = false;
 
     private bool isDoged = false;
@@ -76,7 +76,9 @@ public class PlayerActions : MonoBehaviour
     {
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
 
-        Exit = false;
+        CanExit = false;
+        CanUnpause = false;
+        CanRestart = false;
         fading = false;
 
         player = GameObject.FindGameObjectWithTag("Player");
@@ -171,60 +173,6 @@ public class PlayerActions : MonoBehaviour
             }
         }
 
-        if (Exit)
-        {
-            GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-
-            if (uiManagerScript.FadeTimer > LastFadeTime)
-            {
-                uiManagerScript.FadeTimer = 0;
-            }
-
-            LastFadeTime = victoryScreenFadeTime;
-
-            uiManagerScript.FadeIn(victoryScreen.GetComponent<SpriteRenderer>(), LastFadeTime);
-
-            if (uiManagerScript.FadeTimer > LastFadeTime)
-            {
-                Time.timeScale = 0;
-                Exit = false;
-            }
-        }
-
-        if (Paused)
-        {
-            GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-
-            if (uiManagerScript.FadeTimer > LastFadeTime)
-            {
-                uiManagerScript.FadeTimer = 0;
-            }
-
-            LastFadeTime = pauseScreenFadeTime;
-
-            uiManagerScript.FadeIn(pauseScreen.GetComponent<SpriteRenderer>(), LastFadeTime);
-
-            if (uiManagerScript.FadeTimer > LastFadeTime)
-            {
-                Time.timeScale = 0;
-                Paused = false;
-            }
-        }
-
-        if (Unpause)
-        {
-            LastFadeTime = pauseScreenFadeTime;
-
-            uiManagerScript.FadeOut(pauseScreen.GetComponent<SpriteRenderer>(), LastFadeTime);
-
-            if (uiManagerScript.FadeTimer < 0)
-            {
-                Time.timeScale = 1;
-                GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
-                Unpause = false;
-            }
-        }
-
         if (burstFire || PowerShot || Charging)
         {
             uiManagerScript.ManageShots(ShotCount, PowerShot);
@@ -242,35 +190,6 @@ public class PlayerActions : MonoBehaviour
             {
                 HasBeenHit = false;
                 invulnerabilityTimer = 0;
-            }
-        }
-
-        if (Health < 1)
-        {
-            AudiomanagerScript.PlayerIsDead = true;
-            GamemanagerScript.PlayerDead = true;
-
-            if (deaths != GamemanagerScript.DeathCounter)
-            {
-                GamemanagerScript.DeathCounter++;
-                deaths = GamemanagerScript.DeathCounter;
-            }
-
-            GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-
-            if (uiManagerScript.FadeTimer > LastFadeTime)
-            {
-                uiManagerScript.FadeTimer = 0;
-            }
-
-            LastFadeTime = deathScreenFadeTime;
-
-            uiManagerScript.FadeIn(deathScreen.GetComponent<SpriteRenderer>(), deathScreenFadeTime);
-
-            if (uiManagerScript.FadeTimer > LastFadeTime)
-            {
-                Time.timeScale = 0;
-                GetComponent<PlayerActions>().enabled = false;
             }
         }
 
@@ -299,6 +218,59 @@ public class PlayerActions : MonoBehaviour
                 uiManagerScript.ManageShots(ShotCount, PowerShot);
             }
         }
+    }
+
+    public IEnumerator Pause()
+    {
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+
+        StartCoroutine(uiManagerScript.FadeIn(pauseScreen.GetComponent<SpriteRenderer>(), pauseScreenFadeTime));
+
+        yield return new WaitForSeconds(pauseScreenFadeTime / 60);
+
+        CanUnpause = true;
+    }
+
+    public IEnumerator Unpause()
+    {
+        CanUnpause = false;
+
+        StartCoroutine(uiManagerScript.FadeOut(pauseScreen.GetComponent<SpriteRenderer>(), pauseScreenFadeTime));
+
+        yield return new WaitForSeconds(pauseScreenFadeTime / 60);
+
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
+
+    private IEnumerator die()
+    {
+        AudiomanagerScript.PlayerIsDead = true;
+        GamemanagerScript.PlayerDead = true;
+
+        if (deaths != GamemanagerScript.DeathCounter)
+        {
+            GamemanagerScript.DeathCounter++;
+            deaths = GamemanagerScript.DeathCounter;
+        }
+
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+
+        StartCoroutine(uiManagerScript.FadeIn(deathScreen.GetComponent<SpriteRenderer>(), deathScreenFadeTime));
+
+        yield return new WaitForSeconds(deathScreenFadeTime / 60);
+
+        CanRestart = true;
+    }
+
+    private IEnumerator win()
+    {
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+
+        StartCoroutine(uiManagerScript.FadeIn(victoryScreen.GetComponent<SpriteRenderer>(), victoryScreenFadeTime));
+
+        yield return new WaitForSeconds(victoryScreenFadeTime / 60);
+
+        CanExit = true;
     }
 
     public void Doge()
@@ -404,6 +376,11 @@ public class PlayerActions : MonoBehaviour
     {
         Health -= damage;
         HasBeenHit = true;
+
+        if (Health < 1)
+        {
+            StartCoroutine(die());
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
@@ -415,7 +392,7 @@ public class PlayerActions : MonoBehaviour
         }
         else if (collider.gameObject.tag == "ExitTrigger")
         {
-            Exit = true;
+            StartCoroutine(win());
         }
         else if (collider.gameObject.tag == "Acid" && !HasBeenHit)
         {
