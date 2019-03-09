@@ -2,13 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SettingsMenueScript : MonoBehaviour
 {
     private Audiomanager audiomanagerScript;
+    private Gamemanager gamemanagerScript;
 
-	// Use this for initialization
-	void Start ()
+    [SerializeField] private GameObject loadingScreen;
+    [SerializeField] private Slider slider;
+    [SerializeField] private Text progressText;
+
+    // Use this for initialization
+    void Start ()
     {
         audiomanagerScript = FindObjectOfType<Audiomanager>();
 	}
@@ -25,6 +31,6 @@ public class SettingsMenueScript : MonoBehaviour
 
     public void Exit()
     {
-        SceneManager.LoadScene("Start menu");
+        StartCoroutine(gamemanagerScript.LoadAsyncronously("Start menu", loadingScreen, slider, progressText));
     }
 }

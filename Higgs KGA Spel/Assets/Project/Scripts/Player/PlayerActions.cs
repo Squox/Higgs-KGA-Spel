@@ -13,9 +13,10 @@ public class PlayerActions : MonoBehaviour
     private Gamemanager GamemanagerScript;
     private Audiomanager AudiomanagerScript;
     private Transform currentShootingpoint;
-    private GameObject deathScreen;
-    private GameObject pauseScreen;
-    private GameObject victoryScreen;
+
+    public GameObject DeathScreen;
+    public GameObject PauseScreen;
+    public GameObject VictoryScreen;
 
     [SerializeField] public BoxCollider2D Idle;
     [SerializeField] public BoxCollider2D Doged;
@@ -88,9 +89,9 @@ public class PlayerActions : MonoBehaviour
   
         currentShootingpoint = idleShootingpoint;
 
-        deathScreen = GameObject.FindGameObjectWithTag("DeathScreen");
-        pauseScreen = GameObject.FindGameObjectWithTag("PauseScreen");
-        victoryScreen = GameObject.FindGameObjectWithTag("VictoryScreen");
+        DeathScreen = GameObject.FindGameObjectWithTag("DeathScreen");
+        PauseScreen = GameObject.FindGameObjectWithTag("PauseScreen");
+        VictoryScreen = GameObject.FindGameObjectWithTag("VictoryScreen");
     }
 
     private void Start()
@@ -224,7 +225,7 @@ public class PlayerActions : MonoBehaviour
     {
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
 
-        StartCoroutine(uiManagerScript.FadeIn(pauseScreen.GetComponent<SpriteRenderer>(), pauseScreenFadeTime));
+        StartCoroutine(uiManagerScript.FadeIn(PauseScreen.GetComponent<SpriteRenderer>(), pauseScreenFadeTime));
 
         yield return new WaitForSeconds(pauseScreenFadeTime / 60);
 
@@ -235,7 +236,7 @@ public class PlayerActions : MonoBehaviour
     {
         CanUnpause = false;
 
-        StartCoroutine(uiManagerScript.FadeOut(pauseScreen.GetComponent<SpriteRenderer>(), pauseScreenFadeTime));
+        StartCoroutine(uiManagerScript.FadeOut(PauseScreen.GetComponent<SpriteRenderer>(), pauseScreenFadeTime));
 
         yield return new WaitForSeconds(pauseScreenFadeTime / 60);
 
@@ -255,7 +256,7 @@ public class PlayerActions : MonoBehaviour
 
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
 
-        StartCoroutine(uiManagerScript.FadeIn(deathScreen.GetComponent<SpriteRenderer>(), deathScreenFadeTime));
+        StartCoroutine(uiManagerScript.FadeIn(DeathScreen.GetComponent<SpriteRenderer>(), deathScreenFadeTime));
 
         yield return new WaitForSeconds(deathScreenFadeTime / 60);
 
@@ -266,7 +267,7 @@ public class PlayerActions : MonoBehaviour
     {
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
 
-        StartCoroutine(uiManagerScript.FadeIn(victoryScreen.GetComponent<SpriteRenderer>(), victoryScreenFadeTime));
+        StartCoroutine(uiManagerScript.FadeIn(VictoryScreen.GetComponent<SpriteRenderer>(), victoryScreenFadeTime));
 
         yield return new WaitForSeconds(victoryScreenFadeTime / 60);
 
@@ -394,19 +395,19 @@ public class PlayerActions : MonoBehaviour
         {
             StartCoroutine(win());
         }
-        else if (collider.gameObject.tag == "Acid" && !HasBeenHit)
+        else if (collider.gameObject.tag == "Acid" && !HasBeenHit && Health > 0)
         {
             takeDamage(1);
         }
-        else if (collider.gameObject.tag == "CactusDart" && !HasBeenHit)
+        else if (collider.gameObject.tag == "CactusDart" && !HasBeenHit && Health > 0)
         {
             takeDamage(1);
         }
-        else if (collider.gameObject.tag == "InvulnerableEnemy" && !HasBeenHit)
+        else if (collider.gameObject.tag == "InvulnerableEnemy" && !HasBeenHit && Health > 0)
         {
             takeDamage(1);
         }
-        else if (collider.gameObject.tag == "Enemy" && !HasBeenHit)
+        else if (collider.gameObject.tag == "Enemy" && !HasBeenHit && Health > 0)
         {
             takeDamage(1);
         }
@@ -423,19 +424,19 @@ public class PlayerActions : MonoBehaviour
         {
             StandingByDoor = true;
         }
-        else if (collision.gameObject.tag == "Rat" && !HasBeenHit)
+        else if (collision.gameObject.tag == "Rat" && !HasBeenHit && Health > 0)
         {
             takeDamage(1);
         }
-        else if (collision.gameObject.tag == "Cactus" && !HasBeenHit)
+        else if (collision.gameObject.tag == "Cactus" && !HasBeenHit && Health > 0)
         {
             takeDamage(1);
         }
-        else if (collision.gameObject.tag == "Trap" && !HasBeenHit)
+        else if (collision.gameObject.tag == "Trap" && !HasBeenHit && Health > 0)
         {
             takeDamage(1);
         }
-        else if (collision.gameObject.tag == "Water" && !HasBeenHit)
+        else if (collision.gameObject.tag == "Water" && !HasBeenHit && Health > 0)
         {
             takeDamage(1);
         }

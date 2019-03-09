@@ -2,13 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class LevelSelectScript : MonoBehaviour {
+public class LevelSelectScript : MonoBehaviour
+{
+    private Gamemanager gamemanagerScript;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    [SerializeField] private GameObject loadingScreen;
+    [SerializeField] private Slider slider;
+    [SerializeField] private Text progressText;
+
+    // Use this for initialization
+    void Start ()
+    {
+        gamemanagerScript = FindObjectOfType<Gamemanager>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -17,23 +25,23 @@ public class LevelSelectScript : MonoBehaviour {
 
     public void Exit()
     {
-        SceneManager.LoadScene("Selection menue");
+        StartCoroutine(gamemanagerScript.LoadAsyncronously("Selection menue", loadingScreen, slider, progressText));
     }
 
     public void LoadFirstLevel()
     {
-        SceneManager.LoadScene("First Level");
+        StartCoroutine(gamemanagerScript.LoadAsyncronously("First Level", loadingScreen, slider, progressText));
     }
     public void LoadSecondLevel()
     {
-        SceneManager.LoadScene("Second Level");
+        StartCoroutine(gamemanagerScript.LoadAsyncronously("Second Level", loadingScreen, slider, progressText));
     }
     public void LoadThirdLevel()
     {
-        SceneManager.LoadScene("Third Level");
+        StartCoroutine(gamemanagerScript.LoadAsyncronously("Third Level", loadingScreen, slider, progressText));
     }
     public void LoadFourthLevel()
     {
-        SceneManager.LoadScene("Fourth Level");
+        StartCoroutine(gamemanagerScript.LoadAsyncronously("Fourth Level", loadingScreen, slider, progressText));
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.UI;
 
 public class level2Script : MonoBehaviour
 {
@@ -24,6 +25,10 @@ public class level2Script : MonoBehaviour
     private int doorShowTime = 5;
     private int cameraBlendTime = 2;
     private int showTimer = 0;
+
+    [SerializeField] private GameObject loadingScreen;
+    [SerializeField] private Slider slider;
+    [SerializeField] private Text progressText;
 
     [SerializeField] private CinemachineVirtualCamera pyramidDoorCam;
 
@@ -48,6 +53,10 @@ public class level2Script : MonoBehaviour
         cameraManagerScript = FindObjectOfType<CameraManager>();
         audiomanagerScript.GetComponent<AudioSource>().clip = GetComponent<AudioSource>().clip;
 
+        gamemanagerScript.LoadingScreen = loadingScreen;
+        gamemanagerScript.Slider = slider;
+        gamemanagerScript.ProgressText = progressText;
+        gamemanagerScript.LastLevel = 2;
         gamemanagerScript.LoadPlayer();
 
         if (gamemanagerScript.LastCheckpointPosition == new Vector3(0,0,0))

@@ -1,9 +1,15 @@
 ﻿using UnityEngine;
+using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Gamemanager : MonoBehaviour
 {
     public static Gamemanager instance;
+
+    public GameObject LoadingScreen;
+    public Slider Slider;
+    public Text ProgressText;
 
     private Audiomanager audiomanagerScript;
     private UIManager uiManagerScript;
@@ -47,7 +53,7 @@ public class Gamemanager : MonoBehaviour
     }
 
     private void Update()
-    {  
+    {
         if (LastLevel > HighestLevel)
         {
             HighestLevel = LastLevel;
@@ -65,22 +71,18 @@ public class Gamemanager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "First level")
         {
-            LastLevel = 1;
             InLevel = true;
         }
         else if (SceneManager.GetActiveScene().name == "Second level")
         {
-            LastLevel = 2;
             InLevel = true;
         }
         else if (SceneManager.GetActiveScene().name == "Third level")
         {
-            LastLevel = 3;
             InLevel = true;
         }
         else if (SceneManager.GetActiveScene().name == "Fourth level")
         {
-            LastLevel = 4;
             InLevel = true;
         }
         else
@@ -106,11 +108,28 @@ public class Gamemanager : MonoBehaviour
 
     public void RestartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        StartCoroutine(LoadAsyncronously(SceneManager.GetActiveScene().name, LoadingScreen, Slider, ProgressText));
     }
 
     public void ExitLevel()
     {
-        SceneManager.LoadScene("Selection menue");
+        StartCoroutine(LoadAsyncronously("Selection menue", LoadingScreen, Slider, ProgressText));
+    }
+
+    public IEnumerator LoadAsyncronously(string level, GameObject loadingScreen, Slider slider, Text progressText)
+    {
+        AsyncOperation load = SceneManager.LoadSceneAsync(level);
+
+        loadingScreen.SetActive(true);
+
+        while (!load.isDone)
+        {
+            float progress = Mathf.Clamp01(load.progress / 0.9f);
+
+            slider.value = progress;
+            progressText.text = Mathf.RoundToInt(progress * 100f) + "%";
+
+            yield return null;
+        }
     }
 }

@@ -25,7 +25,6 @@ public class PlayerInput : MonoBehaviour
     private bool canExit = false;
     private bool canUnpause = false;
     private bool canRestart = false;
-    private bool winning = false;
 
     // Use this for initialization
     private void Awake ()
@@ -44,7 +43,7 @@ public class PlayerInput : MonoBehaviour
 
     // Update is called once per frame
     private void Update ()
-    {       
+    {
         CheckPlayerInput();
     }
 
@@ -116,6 +115,8 @@ public class PlayerInput : MonoBehaviour
         {
             if (playerActionsScript.CanExit || playerActionsScript.CanRestart)
             {
+                playerActionsScript.VictoryScreen.SetActive(false);
+                playerActionsScript.DeathScreen.SetActive(false);
                 GamemanagerScript.RestartGame();
             }           
         }              
@@ -124,20 +125,22 @@ public class PlayerInput : MonoBehaviour
         {
             if (playerActionsScript.CanExit)
             {
+                playerActionsScript.VictoryScreen.SetActive(false);
                 GamemanagerScript.LastLevel++;               
                 GamemanagerScript.SavePlayer(playerActionsScript, GamemanagerScript);
                 GamemanagerScript.ExitLevel();
             }
-            else if (playerActionsScript.CanUnpause && !winning)
+            else if (playerActionsScript.CanUnpause)
             {
                 StartCoroutine(playerActionsScript.Unpause());
             }
-            else if (playerActionsScript.Health < 1 && canRestart && !winning)
+            else if (playerActionsScript.Health < 1 && playerActionsScript.CanRestart)
             {
+                playerActionsScript.DeathScreen.SetActive(false);
                 GamemanagerScript.ExitLevel();
                 GamemanagerScript.SavePlayer(playerActionsScript, GamemanagerScript);
             }
-            else if (playerActionsScript.Health > 0 && !playerActionsScript.CanUnpause && !winning)
+            else if (playerActionsScript.Health > 0 && !playerActionsScript.CanUnpause)
             {
                 StartCoroutine(playerActionsScript.Pause());
             }            
@@ -147,6 +150,7 @@ public class PlayerInput : MonoBehaviour
         {
             if (playerActionsScript.CanUnpause)
             {
+                playerActionsScript.PauseScreen.SetActive(false);
                 GamemanagerScript.ExitLevel();
                 GamemanagerScript.SavePlayer(playerActionsScript, GamemanagerScript);
                 audiomanagerScript.StopMusic();

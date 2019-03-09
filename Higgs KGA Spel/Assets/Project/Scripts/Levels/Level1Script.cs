@@ -1,9 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Level1Script : MonoBehaviour
 {
+    [SerializeField] private GameObject loadingScreen;
+    [SerializeField] private Slider slider;
+    [SerializeField] private Text progressText;
+
+    private Gamemanager gamemanagerScript;
+
     private GameObject bossRat;
     private GameObject door;
     private GameObject player;   
@@ -24,6 +31,13 @@ public class Level1Script : MonoBehaviour
         playerInputScript = player.GetComponent<PlayerInput>();
         bossRatScript = bossRat.GetComponent<BossRatScript>();
         audiomanagerScript = FindObjectOfType<Audiomanager>();
+        gamemanagerScript = FindObjectOfType<Gamemanager>();
+
+        gamemanagerScript.LoadingScreen = loadingScreen;
+        gamemanagerScript.Slider = slider;
+        gamemanagerScript.ProgressText = progressText;
+
+        gamemanagerScript.LastLevel = 1;
 
         audiomanagerScript.GetComponent<AudioSource>().clip = GetComponent<AudioSource>().clip;
     }

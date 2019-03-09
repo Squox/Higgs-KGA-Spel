@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayButtonScript : MonoBehaviour
 {
-    private Gamemanager GamemanagerScript;
+    private Gamemanager gamemanagerScript;
+
+    [SerializeField] private GameObject loadingScreen;
+    [SerializeField] private Slider slider;
+    [SerializeField] private Text progressText;
 
     // Use this for initialization
     void Start ()
     {
-        GamemanagerScript = FindObjectOfType<Gamemanager>();
+        gamemanagerScript = FindObjectOfType<Gamemanager>();
     }
 
     // Update is called once per frame
@@ -21,31 +26,31 @@ public class PlayButtonScript : MonoBehaviour
 
     public void Continue()
     {
-        if (GamemanagerScript.LastLevel == 1)
+        if (gamemanagerScript.LastLevel == 1)
         {
-            SceneManager.LoadScene("First Level");
+            StartCoroutine(gamemanagerScript.LoadAsyncronously("First Level", loadingScreen, slider, progressText));
         }
-        else if (GamemanagerScript.LastLevel == 2)
+        else if (gamemanagerScript.LastLevel == 2)
         {
-            SceneManager.LoadScene("Second Level");
+            StartCoroutine(gamemanagerScript.LoadAsyncronously("Second Level", loadingScreen, slider, progressText));
         }
-        else if (GamemanagerScript.LastLevel == 3)
+        else if (gamemanagerScript.LastLevel == 3)
         {
-            SceneManager.LoadScene("Third Level");
+            StartCoroutine(gamemanagerScript.LoadAsyncronously("Third Level", loadingScreen, slider, progressText));
         }
-        else if (GamemanagerScript.LastLevel == 4)
+        else if (gamemanagerScript.LastLevel == 4)
         {
-            SceneManager.LoadScene("Fourth Level");
+            StartCoroutine(gamemanagerScript.LoadAsyncronously("Fourth Level", loadingScreen, slider, progressText));
         }
     }
 
     public void Exit()
     {
-        SceneManager.LoadScene("Start menu");
+        StartCoroutine(gamemanagerScript.LoadAsyncronously("Start menu", loadingScreen, slider, progressText));
     }
 
     public void SelectLevel()
     {
-        SceneManager.LoadScene("Level select");
+        StartCoroutine(gamemanagerScript.LoadAsyncronously("Level select", loadingScreen, slider, progressText));
     }
 }

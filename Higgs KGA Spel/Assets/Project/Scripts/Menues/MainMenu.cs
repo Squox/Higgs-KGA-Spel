@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
     private Gamemanager gamemanagerScript;
+
+    [SerializeField] private GameObject loadingScreen;
+    [SerializeField] private Slider slider;
+    [SerializeField] private Text progressText;
 
     private void Awake()
     {
@@ -16,11 +21,11 @@ public class MainMenu : MonoBehaviour
     {
         if (gamemanagerScript.HighestLevel == 0)
         {
-            SceneManager.LoadScene("First Level");
+            StartCoroutine(gamemanagerScript.LoadAsyncronously("First Level", loadingScreen, slider, progressText));
         }
         else
         {
-            SceneManager.LoadScene("Selection menue");
+            StartCoroutine(gamemanagerScript.LoadAsyncronously("Selection menue", loadingScreen, slider, progressText));
         }       
     }
 
@@ -31,6 +36,8 @@ public class MainMenu : MonoBehaviour
     
     public void Settings()
     {
-        SceneManager.LoadScene("Settings menue");
+        StartCoroutine(gamemanagerScript.LoadAsyncronously("Settings menue", loadingScreen, slider, progressText));
     }
+
+    
 }
