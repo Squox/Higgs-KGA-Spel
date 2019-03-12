@@ -229,14 +229,7 @@ public class BossRatScript : MonoBehaviour
      
     private void attackTypeOne()
     {
-        if (IsFacingRight)
-        {
-            ratRB.velocity = new Vector2(movementSpeed * Time.fixedDeltaTime, 0);
-        }
-        else if (!IsFacingRight)
-        {
-            ratRB.velocity = new Vector2(-movementSpeed * Time.fixedDeltaTime, 0);
-        }
+        //Rat lays down and charges dash
     }
 
     private IEnumerator attackTypeTwo()
@@ -269,12 +262,12 @@ public class BossRatScript : MonoBehaviour
             yield return new WaitForSeconds(acidFireFireRate);
         }
 
+        animator.SetBool("TiltNeck", false);
+
         yield return new WaitForSeconds(timeTillFall);
 
         AcidFire = false;
-        AcidRain = true;
-
-        animator.SetBool("TiltNeck", false);
+        AcidRain = true;      
 
         for (int i = 0; i < 10; i++)
         {
