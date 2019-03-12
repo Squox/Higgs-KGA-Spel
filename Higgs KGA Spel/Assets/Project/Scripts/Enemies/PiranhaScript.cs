@@ -93,8 +93,6 @@ public class PiranhaScript : MonoBehaviour
 
     private void swim()
     {
-        Debug.Log("Hey");
-
         float currentX = transform.position.x;
 
         if (currentX > startX + swimRange)
@@ -102,7 +100,6 @@ public class PiranhaScript : MonoBehaviour
             if (swimSpeed > 0)
             {
                 swimSpeed = swimSpeed * -1;
-                transform.rotation = Quaternion.Euler(transform.rotation.x, 90, transform.rotation.z);
             }                    
         }
         else if (currentX < startX - swimRange)
@@ -110,13 +107,12 @@ public class PiranhaScript : MonoBehaviour
             if (swimSpeed < 0)
             {
                 swimSpeed = swimSpeed * -1;
-                transform.rotation = Quaternion.Euler(transform.rotation.x, 0, transform.rotation.z);
             }            
         }
 
         if (swimSpeed > 0)
         {
-            transform.rotation = Quaternion.Euler(transform.rotation.x, 90, transform.rotation.z);
+            transform.rotation = Quaternion.Euler(transform.rotation.x, 180, transform.rotation.z);
         }
         else if (swimSpeed < 0)
         {
@@ -132,6 +128,7 @@ public class PiranhaScript : MonoBehaviour
         {
             transform.position = new Vector2(transform.position.x, startY);
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            rb.velocity = new Vector2(rb.velocity.x, 0);
         }
     }
 
