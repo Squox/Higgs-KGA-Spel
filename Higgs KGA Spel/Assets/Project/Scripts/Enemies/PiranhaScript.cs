@@ -12,13 +12,13 @@ public class PiranhaScript : MonoBehaviour
 
     private float startY = 0f;
     private float startX = 0f;
-    private float playerCheckRadius = 2f;
+    private float playerCheckRadius = 2.5f;
     private float jumpForce = 700f;
     private float swimRange = 0.8f;
     private float swimSpeed = 2f;
-        
-    private int jumpTimer = 0;
-    private int jumpPause = 160;
+    private float jumpPause = 160f / 60f;
+
+    private int jumpTimer = 0;    
     private int health = 3;
 
     private bool jumping = false;
@@ -30,27 +30,17 @@ public class PiranhaScript : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         startY = transform.position.y;
         startX = transform.position.x;
+
+        StartCoroutine(jump());
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if (isPlayerInRange() && !jumping)
+        if (transform.position.y <= startY)
         {
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-            rb.velocity = new Vector2(0, jumpForce * Time.fixedDeltaTime);
-            jumping = true;
-        }
-        else if (transform.position.y == startY)
-        {
-            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-            rb.constraints = RigidbodyConstraints2D.FreezePositionY;
             swim();
-        }
-
-        if (jumping)
-        {
-            StartCoroutine(pause());
         }
 
         if (health < 1)
@@ -62,10 +52,19 @@ public class PiranhaScript : MonoBehaviour
         ChangeGravityScale();
 	}
 
-    private IEnumerator pause()
+    private IEnumerator jump()
     {
-        yield return new WaitForSeconds(jumpPause / 60);
-        jumping = false;
+        yield return new WaitUntil(isPlayerInRange);
+
+        rb.velocity = new Vector2(0, jumpForce * Time.fixedDeltaTime);
+
+        yield return null;
+
+        rb.velocity = new Vector2(0, rb.velocity.y);
+
+        yield return new WaitForSeconds(jumpPause);
+
+        StartCoroutine(jump());
     }
 
     private bool isPlayerRight()
@@ -82,11 +81,7 @@ public class PiranhaScript : MonoBehaviour
 
     private bool isPlayerInRange()
     {
-        if (isPlayerRight() && player.transform.position.x - transform.position.x < playerCheckRadius)
-        {
-            return true;
-        }
-        else if (!isPlayerRight() && transform.position.x - player.transform.position.x < playerCheckRadius)
+        if (Mathf.Abs(player.transform.position.x - transform.position.x) < playerCheckRadius)
         {
             return true;
         }
@@ -98,6 +93,8 @@ public class PiranhaScript : MonoBehaviour
 
     private void swim()
     {
+        Debug.Log("Hey");
+
         float currentX = transform.position.x;
 
         if (currentX > startX + swimRange)
@@ -105,6 +102,7 @@ public class PiranhaScript : MonoBehaviour
             if (swimSpeed > 0)
             {
                 swimSpeed = swimSpeed * -1;
+                transform.rotation = Quaternion.Euler(transform.rotation.x, 90, transform.rotation.z);
             }                    
         }
         else if (currentX < startX - swimRange)
@@ -112,19 +110,20 @@ public class PiranhaScript : MonoBehaviour
             if (swimSpeed < 0)
             {
                 swimSpeed = swimSpeed * -1;
+                transform.rotation = Quaternion.Euler(transform.rotation.x, 0, transform.rotation.z);
             }            
         }
 
         if (swimSpeed > 0)
         {
-            transform.rotation = Quaternion.Euler(transform.rotation.x, 180, transform.rotation.z);
+            transform.rotation = Quaternion.Euler(transform.rotation.x, 90, transform.rotation.z);
         }
         else if (swimSpeed < 0)
         {
             transform.rotation = Quaternion.Euler(transform.rotation.x, 0, transform.rotation.z);
         }
 
-        rb.velocity = new Vector2(swimSpeed, 0);
+        rb.velocity = new Vector2(swimSpeed, rb.velocity.y);
     }
 
     private void checkPosition()
@@ -132,7 +131,6 @@ public class PiranhaScript : MonoBehaviour
         if (startY > transform.position.y)
         {
             transform.position = new Vector2(transform.position.x, startY);
-            rb.constraints = RigidbodyConstraints2D.FreezePositionY;
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
     }
@@ -146,7 +144,7 @@ public class PiranhaScript : MonoBehaviour
         }
         else if (rb.velocity.y > 0.1f)
         {
-            rb.gravityScale = lowJumpMultiplier;
+            rb.gravityScale = fallMultiplier;
             transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, -90);
         }
         else if (rb.position.y <= startY)

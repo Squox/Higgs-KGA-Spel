@@ -125,17 +125,16 @@ public class BossRatScript : MonoBehaviour
 
         if (Health < 1)
         {
-            audiomanagerScript.PlayerHasWon = true;
+            playerActionScript.RatDead = true;
             Destroy(gameObject);
         }       
 
-        if (gameObject.transform.position.x < player.transform.position.x && !IsFacingRight)
+        if (gameObject.transform.position.x < player.transform.position.x && !IsFacingRight) 
         {
             FlipRat();
         }
         else if (gameObject.transform.position.x > player.transform.position.x && IsFacingRight)
         {
-
             FlipRat();
         }
 
@@ -187,6 +186,15 @@ public class BossRatScript : MonoBehaviour
             ratRB.velocity = new Vector2(0, 0);
         }
 
+        if (attackType == 3)
+        {
+            yield return new WaitForSeconds(timeTillFall + 1);
+        }
+        else
+        {
+            yield return new WaitForSeconds(attackDelay);
+        }
+
         attackType = Random.Range(1, 5);
 
         if (attackType == 1)
@@ -204,16 +212,7 @@ public class BossRatScript : MonoBehaviour
         else if (attackType == 4)
         {
             attackTypeFour();
-        }
-
-        if (attackType == 3)
-        {
-            yield return new WaitForSeconds(timeTillFall + 1);
-        }
-        else
-        {
-            yield return new WaitForSeconds(attackDelay);
-        }
+        }        
 
         StartCoroutine(attack());
     }

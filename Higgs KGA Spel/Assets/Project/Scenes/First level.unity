@@ -1877,9 +1877,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentMusic: {fileID: 0}
-  PlayerIsDead: 0
   MusicOn: 1
-  PlayerHasWon: 0
 --- !u!4 &790601346
 Transform:
   m_ObjectHideFlags: 0
@@ -3324,7 +3322,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 849641ea66ca8cc4fbd755232c521b47, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.025
   m_Pitch: 1
   Loop: 0
   Mute: 1

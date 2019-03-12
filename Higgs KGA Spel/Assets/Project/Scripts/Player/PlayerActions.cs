@@ -31,11 +31,11 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private float lowJumpMultiplier = 2f;
     private float speed = 330f;
     private float jumpForce = 330f;
-    private float deathScreenFadeTime = 60f;
-    private float victoryScreenFadeTime = 40f;
+    private float deathScreenFadeTime = 60f;   
     private float pauseScreenFadeTime = 10f;
 
     public float LastFadeTime = 0f;
+    public float VictoryScreenFadeTime = 40f;
 
     //Ints:
     [SerializeField] private int fireRate;
@@ -63,6 +63,8 @@ public class PlayerActions : MonoBehaviour
     public bool CanUnpause = false;
     public bool CanRestart = false;
     public bool Charging = false;
+
+    public bool RatDead = false;
 
     private bool isDoged = false;
     private bool fading = false;
@@ -100,7 +102,6 @@ public class PlayerActions : MonoBehaviour
         GamemanagerScript = FindObjectOfType<Gamemanager>();
         AudiomanagerScript = FindObjectOfType<Audiomanager>();
 
-        AudiomanagerScript.PlayerIsDead = false;
         uiManagerScript.InitializeUI();
 
         Health = GamemanagerScript.PlayerMaxHealth;        
@@ -111,6 +112,11 @@ public class PlayerActions : MonoBehaviour
 
     private void Update()
     {
+        if (RatDead)
+        {
+            StartCoroutine(AudiomanagerScript.FadeOut(AudiomanagerScript.CurrentMusic, deathScreenFadeTime));
+        }
+
         GamemanagerScript.PlayerHealth = Health;
         uiManagerScript.ManageLives(Health);
 
@@ -245,7 +251,6 @@ public class PlayerActions : MonoBehaviour
 
     private IEnumerator die()
     {
-        AudiomanagerScript.PlayerIsDead = true;
         GamemanagerScript.PlayerDead = true;
 
         if (deaths != GamemanagerScript.DeathCounter)
@@ -256,6 +261,7 @@ public class PlayerActions : MonoBehaviour
 
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
 
+        StartCoroutine(AudiomanagerScript.FadeOut(AudiomanagerScript.CurrentMusic, deathScreenFadeTime));
         StartCoroutine(uiManagerScript.FadeIn(DeathScreen.GetComponent<SpriteRenderer>(), deathScreenFadeTime));
 
         yield return new WaitForSeconds(deathScreenFadeTime / 60);
@@ -266,10 +272,10 @@ public class PlayerActions : MonoBehaviour
     private IEnumerator win()
     {
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+        
+        StartCoroutine(uiManagerScript.FadeIn(VictoryScreen.GetComponent<SpriteRenderer>(), VictoryScreenFadeTime));
 
-        StartCoroutine(uiManagerScript.FadeIn(VictoryScreen.GetComponent<SpriteRenderer>(), victoryScreenFadeTime));
-
-        yield return new WaitForSeconds(victoryScreenFadeTime / 60);
+        yield return new WaitForSeconds(VictoryScreenFadeTime / 60);
 
         CanExit = true;
     }
@@ -388,7 +394,6 @@ public class PlayerActions : MonoBehaviour
     {
         if (collider.gameObject.tag == "Level")
         {
-            AudiomanagerScript.PlayerIsDead = true;
             Health = 0;
         }
         else if (collider.gameObject.tag == "ExitTrigger")

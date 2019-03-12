@@ -54,11 +54,6 @@ public class Gamemanager : MonoBehaviour
 
     private void Update()
     {
-        if (LastLevel > HighestLevel)
-        {
-            HighestLevel = LastLevel;
-        }
-
         if (PlayerHealth < 1)
         {
             PlayerDead = true;

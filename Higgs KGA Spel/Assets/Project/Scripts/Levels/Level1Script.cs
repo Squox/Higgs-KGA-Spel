@@ -21,6 +21,8 @@ public class Level1Script : MonoBehaviour
 
     public bool RatAlive = true;
 
+    private float musicVolume = 0.5f;
+
     // Use this for initialization
     void Start ()
     {
@@ -40,6 +42,7 @@ public class Level1Script : MonoBehaviour
         gamemanagerScript.LastLevel = 1;
 
         audiomanagerScript.GetComponent<AudioSource>().clip = GetComponent<AudioSource>().clip;
+        audiomanagerScript.PlayMusic(musicVolume);
     }
 	
 	// Update is called once per frame

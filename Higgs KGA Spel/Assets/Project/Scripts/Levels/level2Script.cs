@@ -14,6 +14,7 @@ public class level2Script : MonoBehaviour
     private Transform playerTF; 
 
     private float checkRange = 1f;
+    private float musicVolume = 0.5f;
 
     private bool lastLife;
     private bool rightCombibation = true;
@@ -50,14 +51,16 @@ public class level2Script : MonoBehaviour
         playerTF = player.GetComponent<Transform>();
         audiomanagerScript = FindObjectOfType<Audiomanager>();
         gamemanagerScript = FindObjectOfType<Gamemanager>();
-        cameraManagerScript = FindObjectOfType<CameraManager>();
-        audiomanagerScript.GetComponent<AudioSource>().clip = GetComponent<AudioSource>().clip;
+        cameraManagerScript = FindObjectOfType<CameraManager>();       
 
         gamemanagerScript.LoadingScreen = loadingScreen;
         gamemanagerScript.Slider = slider;
         gamemanagerScript.ProgressText = progressText;
         gamemanagerScript.LastLevel = 2;
         gamemanagerScript.LoadPlayer();
+
+        audiomanagerScript.GetComponent<AudioSource>().clip = GetComponent<AudioSource>().clip;
+        audiomanagerScript.PlayMusic(musicVolume);
 
         if (gamemanagerScript.LastCheckpointPosition == new Vector3(0,0,0))
         {
@@ -236,6 +239,13 @@ public class level2Script : MonoBehaviour
             gamemanagerScript.PlayerHealth = gamemanagerScript.PlayerMaxHealth;
             gamemanagerScript.SavePlayer(playerActionScript, gamemanagerScript);
             gamemanagerScript.PlayerDead = false;
+        }
+        else if (gamemanagerScript.HighestLevel < 2)
+        {
+            player.transform.position = checkPoint0.transform.position;
+            gamemanagerScript.PlayerHealth = gamemanagerScript.PlayerMaxHealth;
+            gamemanagerScript.SavePlayer(playerActionScript, gamemanagerScript);
+            gamemanagerScript.HighestLevel = 2;
         }
         else
         {
