@@ -33,6 +33,7 @@ TagManager:
   - InvulnerableEnemy
   - Water
   - Heart
+  - DeathWall
   layers:
   - Default
   - TransparentFX
@@ -72,6 +73,9 @@ TagManager:
     locked: 0
   - name: Backgrounds
     uniqueID: 3506951271
+    locked: 0
+  - name: BackgroundTiles
+    uniqueID: 4268515515
     locked: 0
   - name: BackgroundElements
     uniqueID: 2540238957
