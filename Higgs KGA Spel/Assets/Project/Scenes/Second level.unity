@@ -5467,9 +5467,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentMusic: {fileID: 0}
-  PlayerIsDead: 0
   MusicOn: 1
-  PlayerHasWon: 0
 --- !u!4 &513521059
 Transform:
   m_ObjectHideFlags: 0

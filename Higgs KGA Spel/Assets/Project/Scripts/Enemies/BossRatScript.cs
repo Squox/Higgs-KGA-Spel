@@ -95,8 +95,6 @@ public class BossRatScript : MonoBehaviour
         idleCollider = playerActionScript.Idle;
         dogedCollider = playerActionScript.Doged;
 
-        animator.enabled = false;
-
         ratRB = gameObject.GetComponent<Rigidbody2D>();
 
         StartCoroutine(attack());
@@ -256,6 +254,8 @@ public class BossRatScript : MonoBehaviour
     {
         AcidFire = true;
 
+        animator.SetBool("TiltNeck", true);
+
         priorShootingpoint = shootingpoint;
 
         int shotCounter = 0;
@@ -273,6 +273,8 @@ public class BossRatScript : MonoBehaviour
 
         AcidFire = false;
         AcidRain = true;
+
+        animator.SetBool("TiltNeck", false);
 
         for (int i = 0; i < 10; i++)
         {
