@@ -11,8 +11,6 @@ public class Audiomanager : MonoBehaviour
 
     public static bool MusicOn = true;
 
-    private static float startVolume = 0f;
-
     private void Awake()
     {
         MakeSingelton();

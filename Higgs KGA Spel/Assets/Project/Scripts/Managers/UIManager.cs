@@ -13,25 +13,10 @@ public class UIManager : MonoBehaviour
     private static GameObject shot2;
     private static GameObject shot3;
 
-    public float FadeTimer = 0f;
-    private float alphaLevel = 0f;
-
     private void Awake()
     {
         MakeSingelton();   
     }
-
-    // Use this for initialization
-    void Start ()
-    {
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-		
-	}
 
     public static void InitializeUI()
     {

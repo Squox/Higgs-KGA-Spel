@@ -37,15 +37,12 @@ public class PlayerActions : MonoBehaviour
     //Ints:
     [SerializeField] private int fireRate;
 
-    private int jumpsLeft = 0;
     private int invulnerabilityTimer;
     private int burstBuffer = 0;
-    private int shotBuffer = 0;
     private int timeSinceShot = 0;
     private int deaths = -1;
 
     public int Health;    
-    public int Jumps = 1;
     public int ShotCount = 0;
 
     //Bools:
@@ -64,7 +61,6 @@ public class PlayerActions : MonoBehaviour
     public bool RatDead = false;
 
     private bool isDoged = false;
-    private bool fading = false;
 
     //variables used to check if player is on ground
     private bool isOnGround;
@@ -79,7 +75,6 @@ public class PlayerActions : MonoBehaviour
         CanExit = false;
         CanUnpause = false;
         CanRestart = false;
-        fading = false;
 
         player = GameObject.FindGameObjectWithTag("Player");
 
@@ -171,11 +166,6 @@ public class PlayerActions : MonoBehaviour
         if (burstFire || PowerShot || Charging)
         {
             UIManager.ManageShots(ShotCount, PowerShot);
-        }
-
-        if (isOnGround)
-        {
-            jumpsLeft = Jumps;
         }
 
         if (HasBeenHit)

@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class level2Script : MonoBehaviour
 {
-    private CameraManager cameraManagerScript;
     private GameObject player;
     private PlayerActions playerActionScript;
     private Transform playerTF;
@@ -24,7 +23,6 @@ public class level2Script : MonoBehaviour
     private int pyramidPressurePlatePresses = 0;
     private int doorShowTime = 5;
     private int cameraBlendTime = 2;
-    private int showTimer = 0;
 
     [SerializeField] private GameObject loadingScreen;
     [SerializeField] private Slider slider;
@@ -49,7 +47,6 @@ public class level2Script : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerActionScript = player.GetComponent<PlayerActions>();
         playerTF = player.GetComponent<Transform>();
-        cameraManagerScript = FindObjectOfType<CameraManager>();
 
         Gamemanager.LoadingScreen = loadingScreen;
         Gamemanager.Slider = slider;

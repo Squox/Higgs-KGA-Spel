@@ -11,7 +11,6 @@ public class BossRatScript : MonoBehaviour
     private BoxCollider2D dogedCollider;
     private PolygonCollider2D bulletCollider;
     private GameObject player;
-    private GameObject bullet;
     private GameObject ratHealthBar;
     private Rigidbody2D ratRB;
     private Animator animator;
@@ -27,10 +26,8 @@ public class BossRatScript : MonoBehaviour
     [SerializeField] private float fallMultiplier = 1.7f;
     [SerializeField] private float lowJumpMultiplier = 1.7f;
 
-    private float movementSpeed = 400;
     private float jumpForce = 530f;
     private float timeTillFall = 2f;
-    private float fallTime = 2f;
     private float acidX;
     private float acidY;
     private float acidFireFireRate = 0.1f;
@@ -54,39 +51,13 @@ public class BossRatScript : MonoBehaviour
     private int invulnerabilityTimer;
 
     // Use this for initialization
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Bullet")
-        {
-            if (!hasBeenHit)
-            {
-                if (playerActionScript.PowerShot)
-                {
-                    Health -= 100;
-                }
-                else
-                {
-                    Health--;
-                }
-            }
-
-            hasBeenHit = true;
-
-            if (ratHealthBar.transform.localScale.x > 0)
-            {
-                ratHealthBar.transform.localScale = new Vector3(Health * 7 / 10, ratHealthBar.transform.localScale.y, ratHealthBar.transform.localScale.z);
-            }
-
-            playerActionScript.PowerShot = false;
-        }
-    }
+    
 
     private void Start()
     {
         Health = 500;
 
         player = GameObject.FindGameObjectWithTag("Player");
-        bullet = GameObject.FindGameObjectWithTag("Bullet");
         ratHealthBar = GameObject.FindGameObjectWithTag("RatHealthBar");
         animator = gameObject.GetComponent<Animator>();
         playerActionScript = player.GetComponent<PlayerActions>();
@@ -304,5 +275,32 @@ public class BossRatScript : MonoBehaviour
         {
             jump = true;
         }        
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Bullet")
+        {
+            if (!hasBeenHit)
+            {
+                if (playerActionScript.PowerShot)
+                {
+                    Health -= 100;
+                }
+                else
+                {
+                    Health--;
+                }
+            }
+
+            hasBeenHit = true;
+
+            if (ratHealthBar.transform.localScale.x > 0)
+            {
+                ratHealthBar.transform.localScale = new Vector3(Health * 7 / 10, ratHealthBar.transform.localScale.y, ratHealthBar.transform.localScale.z);
+            }
+
+            playerActionScript.PowerShot = false;
+        }
     }
 }

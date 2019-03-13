@@ -5,7 +5,6 @@ using UnityEngine;
 public class PiranhaScript : MonoBehaviour
 {
     [SerializeField] private float fallMultiplier = 1.7f;
-    [SerializeField] private float lowJumpMultiplier = 1.7f;
 
     private GameObject player;
     private Rigidbody2D rb;
@@ -18,10 +17,7 @@ public class PiranhaScript : MonoBehaviour
     private float swimSpeed = 2f;
     private float jumpPause = 160f / 60f;
 
-    private int jumpTimer = 0;    
     private int health = 3;
-
-    private bool jumping = false;
 
 	// Use this for initialization
 	void Start ()

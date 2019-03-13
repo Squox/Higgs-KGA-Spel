@@ -9,24 +9,18 @@ public class PlayerInput : MonoBehaviour
     private PlayerActions playerActionsScript;
 
     // Ints:
-    public int MoveDirection = 0;
+    public float MoveDirection = 0;
     public int ChargeTimer = 0;
 
     private int chargeTime = 180;
-    private int fadeTimer;
 
     // Bools:
     public bool HasPressedJump;
     public bool Interact;
 
-    private bool canExit = false;
-    private bool canUnpause = false;
-    private bool canRestart = false;
-
     // Use this for initialization
     private void Awake ()
     {
-        fadeTimer = 0;
         player = GameObject.FindGameObjectWithTag("Player");
         playerActionsScript = player.GetComponent<PlayerActions>();
     }
@@ -48,15 +42,7 @@ public class PlayerInput : MonoBehaviour
 
         if (playerActionsScript.Health > 0 && !playerActionsScript.CanExit)
         {
-            if (Input.GetKey(KeyCode.A))
-            {
-                MoveDirection = -1;
-            }
-
-            if (Input.GetKey(KeyCode.D))
-            {
-                MoveDirection = 1;
-            }
+            MoveDirection = Input.GetAxisRaw("Horizontal");
 
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
