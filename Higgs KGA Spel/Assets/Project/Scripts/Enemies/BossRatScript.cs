@@ -7,7 +7,6 @@ public class BossRatScript : MonoBehaviour
     [SerializeField] private Transform shootingpoint;
     [SerializeField] private GameObject acidPrefab;
 
-    private Audiomanager audiomanagerScript;
     private BoxCollider2D idleCollider;
     private BoxCollider2D dogedCollider;
     private PolygonCollider2D bulletCollider;
@@ -86,7 +85,6 @@ public class BossRatScript : MonoBehaviour
     {
         Health = 500;
 
-        audiomanagerScript = FindObjectOfType<Audiomanager>();
         player = GameObject.FindGameObjectWithTag("Player");
         bullet = GameObject.FindGameObjectWithTag("Bullet");
         ratHealthBar = GameObject.FindGameObjectWithTag("RatHealthBar");
@@ -123,7 +121,7 @@ public class BossRatScript : MonoBehaviour
 
         if (Health < 1)
         {
-            playerActionScript.RatDead = true;
+            playerActionScript.DefeatBoss();
             Destroy(gameObject);
         }       
 

@@ -7,9 +7,6 @@ public class PlayerInput : MonoBehaviour
     //To store PlayerActions script and player in a local variable
     private GameObject player;
     private PlayerActions playerActionsScript;
-    private Gamemanager GamemanagerScript;
-    private Audiomanager audiomanagerScript;
-    private UIManager uiManagerScript;
 
     // Ints:
     public int MoveDirection = 0;
@@ -36,8 +33,6 @@ public class PlayerInput : MonoBehaviour
 
     private void Start()
     {
-        GamemanagerScript = FindObjectOfType<Gamemanager>();
-        audiomanagerScript = FindObjectOfType<Audiomanager>();
         GetComponent<PlayerActions>().enabled = true;
     }
 
@@ -117,7 +112,7 @@ public class PlayerInput : MonoBehaviour
             {
                 playerActionsScript.VictoryScreen.SetActive(false);
                 playerActionsScript.DeathScreen.SetActive(false);
-                GamemanagerScript.RestartGame();
+                Gamemanager.RestartGame();
             }           
         }              
 
@@ -126,9 +121,9 @@ public class PlayerInput : MonoBehaviour
             if (playerActionsScript.CanExit)
             {
                 playerActionsScript.VictoryScreen.SetActive(false);
-                GamemanagerScript.LastLevel++;               
-                GamemanagerScript.SavePlayer(playerActionsScript, GamemanagerScript);
-                GamemanagerScript.ExitLevel();
+                Gamemanager.LastLevel++;               
+                Gamemanager.SavePlayer(playerActionsScript);
+                Gamemanager.ExitLevel();
             }
             else if (playerActionsScript.CanUnpause)
             {
@@ -137,8 +132,8 @@ public class PlayerInput : MonoBehaviour
             else if (playerActionsScript.Health < 1 && playerActionsScript.CanRestart)
             {
                 playerActionsScript.DeathScreen.SetActive(false);
-                GamemanagerScript.ExitLevel();
-                GamemanagerScript.SavePlayer(playerActionsScript, GamemanagerScript);
+                Gamemanager.ExitLevel();
+                Gamemanager.SavePlayer(playerActionsScript);
             }
             else if (playerActionsScript.Health > 0 && !playerActionsScript.CanUnpause)
             {
@@ -151,9 +146,9 @@ public class PlayerInput : MonoBehaviour
             if (playerActionsScript.CanUnpause)
             {
                 playerActionsScript.PauseScreen.SetActive(false);
-                GamemanagerScript.ExitLevel();
-                GamemanagerScript.SavePlayer(playerActionsScript, GamemanagerScript);
-                audiomanagerScript.StopMusic();
+                Gamemanager.ExitLevel();
+                Gamemanager.SavePlayer(playerActionsScript);
+                Audiomanager.StopMusic();
             }
         }
 

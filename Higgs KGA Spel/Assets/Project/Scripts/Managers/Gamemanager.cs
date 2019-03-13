@@ -7,25 +7,23 @@ public class Gamemanager : MonoBehaviour
 {
     public static Gamemanager instance;
 
-    public GameObject LoadingScreen;
-    public Slider Slider;
-    public Text ProgressText;
+    public static GameObject LoadingScreen;
+    public static Slider Slider;
+    public static Text ProgressText;
 
-    private Audiomanager audiomanagerScript;
-    private UIManager uiManagerScript;
+    public static Vector3 LastCheckpointPosition;
+    public static Vector3 PlayerPosition;
 
-    public Vector3 LastCheckpointPosition;
-    public Vector3 PlayerPosition;
+    public static int LastLevel = 0;
+    public static int HighestLevel = 0;
+    public static int PlayerHealth = 3;
+    public static int CheckPointCounter = 0;
+    public static int DeathCounter = 0;
+    
+    public static int PlayerMaxHealth = 3;
 
-    public int LastLevel = 0;
-    public int HighestLevel = 0;
-    public int CheckPointCounter = 0;
-    public int DeathCounter = 0;
-    public int PlayerHealth = 3;
-    public int PlayerMaxHealth = 3;
-
-    public bool InLevel = false;
-    public bool PlayerDead = false;
+    public static bool InLevel = false;
+    public static bool PlayerDead = false;
 
     private void MakeSingelton()
     {
@@ -43,9 +41,6 @@ public class Gamemanager : MonoBehaviour
     private void Awake()
     {
         MakeSingelton();
-
-        audiomanagerScript = FindObjectOfType<Audiomanager>();
-        uiManagerScript = FindObjectOfType<UIManager>();
 
         LastCheckpointPosition = new Vector3(0, 0, 0);
 
@@ -86,12 +81,12 @@ public class Gamemanager : MonoBehaviour
         }
     }
 
-    public void SavePlayer(PlayerActions player, Gamemanager gamemanager)
+    public static void SavePlayer(PlayerActions player)
     {
-        SaveSystem.SavePlayer(player, gamemanager);
+        SaveSystem.SavePlayer(player);
     }
 
-    public void LoadPlayer()
+    public static void LoadPlayer()
     {
         PlayerData data = SaveSystem.LoadPlayer();
 
@@ -101,17 +96,17 @@ public class Gamemanager : MonoBehaviour
         PlayerPosition = new Vector3(data.Position[0], data.Position[1], data.Position[2]);
     }
 
-    public void RestartGame()
+    public static void RestartGame()
     {
-        StartCoroutine(LoadAsyncronously(SceneManager.GetActiveScene().name, LoadingScreen, Slider, ProgressText));
+        instance.StartCoroutine(LoadAsyncronously(SceneManager.GetActiveScene().name, LoadingScreen, Slider, ProgressText));
     }
 
-    public void ExitLevel()
+    public static void ExitLevel()
     {
-        StartCoroutine(LoadAsyncronously("Selection menue", LoadingScreen, Slider, ProgressText));
+        instance.StartCoroutine(LoadAsyncronously("Selection menue", LoadingScreen, Slider, ProgressText));
     }
 
-    public IEnumerator LoadAsyncronously(string level, GameObject loadingScreen, Slider slider, Text progressText)
+    public static IEnumerator LoadAsyncronously(string level, GameObject loadingScreen, Slider slider, Text progressText)
     {
         AsyncOperation load = SceneManager.LoadSceneAsync(level);
 

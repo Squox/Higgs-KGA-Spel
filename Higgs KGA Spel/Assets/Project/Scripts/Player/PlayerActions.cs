@@ -9,9 +9,6 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private Transform idleShootingpoint;
     [SerializeField] private Transform dogedShootingpoint;
 
-    private UIManager uiManagerScript;
-    private Gamemanager GamemanagerScript;
-    private Audiomanager AudiomanagerScript;
     private Transform currentShootingpoint;
 
     public GameObject DeathScreen;
@@ -98,13 +95,9 @@ public class PlayerActions : MonoBehaviour
 
     private void Start()
     {
-        uiManagerScript = FindObjectOfType<UIManager>();
-        GamemanagerScript = FindObjectOfType<Gamemanager>();
-        AudiomanagerScript = FindObjectOfType<Audiomanager>();
+        UIManager.InitializeUI();
 
-        uiManagerScript.InitializeUI();
-
-        Health = GamemanagerScript.PlayerMaxHealth;        
+        Health = Gamemanager.PlayerMaxHealth;        
 
         Doge();
         Doge();
@@ -112,13 +105,8 @@ public class PlayerActions : MonoBehaviour
 
     private void Update()
     {
-        if (RatDead)
-        {
-            StartCoroutine(AudiomanagerScript.FadeOut(AudiomanagerScript.CurrentMusic, deathScreenFadeTime));
-        }
-
-        GamemanagerScript.PlayerHealth = Health;
-        uiManagerScript.ManageLives(Health);
+        Gamemanager.PlayerHealth = Health;
+        UIManager.ManageLives(Health);
 
         checkPlayerState();
         changeSpeedAndJumpForce();
@@ -182,7 +170,7 @@ public class PlayerActions : MonoBehaviour
 
         if (burstFire || PowerShot || Charging)
         {
-            uiManagerScript.ManageShots(ShotCount, PowerShot);
+            UIManager.ManageShots(ShotCount, PowerShot);
         }
 
         if (isOnGround)
@@ -222,16 +210,21 @@ public class PlayerActions : MonoBehaviour
                 PowerShot = false;
                 burstBuffer = 0;
 
-                uiManagerScript.ManageShots(ShotCount, PowerShot);
+                UIManager.ManageShots(ShotCount, PowerShot);
             }
         }
+    }
+
+    public void DefeatBoss()
+    {
+        StartCoroutine(Audiomanager.FadeOut(VictoryScreenFadeTime));
     }
 
     public IEnumerator Pause()
     {
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
 
-        StartCoroutine(uiManagerScript.FadeIn(PauseScreen.GetComponent<SpriteRenderer>(), pauseScreenFadeTime));
+        StartCoroutine(UIManager.FadeIn(PauseScreen.GetComponent<SpriteRenderer>(), pauseScreenFadeTime));
 
         yield return new WaitForSeconds(pauseScreenFadeTime / 60);
 
@@ -242,7 +235,7 @@ public class PlayerActions : MonoBehaviour
     {
         CanUnpause = false;
 
-        StartCoroutine(uiManagerScript.FadeOut(PauseScreen.GetComponent<SpriteRenderer>(), pauseScreenFadeTime));
+        StartCoroutine(UIManager.FadeOut(PauseScreen.GetComponent<SpriteRenderer>(), pauseScreenFadeTime));
 
         yield return new WaitForSeconds(pauseScreenFadeTime / 60);
 
@@ -251,18 +244,18 @@ public class PlayerActions : MonoBehaviour
 
     private IEnumerator die()
     {
-        GamemanagerScript.PlayerDead = true;
+        Gamemanager.PlayerDead = true;
 
-        if (deaths != GamemanagerScript.DeathCounter)
+        if (deaths != Gamemanager.DeathCounter)
         {
-            GamemanagerScript.DeathCounter++;
-            deaths = GamemanagerScript.DeathCounter;
+            Gamemanager.DeathCounter++;
+            deaths = Gamemanager.DeathCounter;
         }
 
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
 
-        StartCoroutine(AudiomanagerScript.FadeOut(AudiomanagerScript.CurrentMusic, deathScreenFadeTime));
-        StartCoroutine(uiManagerScript.FadeIn(DeathScreen.GetComponent<SpriteRenderer>(), deathScreenFadeTime));
+        StartCoroutine(Audiomanager.FadeOut(deathScreenFadeTime));
+        StartCoroutine(UIManager.FadeIn(DeathScreen.GetComponent<SpriteRenderer>(), deathScreenFadeTime));
 
         yield return new WaitForSeconds(deathScreenFadeTime / 60);
 
@@ -273,7 +266,7 @@ public class PlayerActions : MonoBehaviour
     {
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         
-        StartCoroutine(uiManagerScript.FadeIn(VictoryScreen.GetComponent<SpriteRenderer>(), VictoryScreenFadeTime));
+        StartCoroutine(UIManager.FadeIn(VictoryScreen.GetComponent<SpriteRenderer>(), VictoryScreenFadeTime));
 
         yield return new WaitForSeconds(VictoryScreenFadeTime / 60);
 
@@ -419,7 +412,7 @@ public class PlayerActions : MonoBehaviour
         else if (collider.gameObject.tag == "Heart" && Health < 3)
         {
             Health++;
-            uiManagerScript.ManageLives(Health);
+            UIManager.ManageLives(Health);
         }
     }
 

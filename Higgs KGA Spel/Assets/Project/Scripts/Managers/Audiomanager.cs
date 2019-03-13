@@ -7,17 +7,15 @@ public class Audiomanager : MonoBehaviour
 {
     public static Audiomanager instance;
 
-    public AudioSource CurrentMusic;
+    private static AudioSource currentMusic;
 
-    public bool MusicOn;
+    public static bool MusicOn = true;
 
-    private float startVolume = 0f;
+    private static float startVolume = 0f;
 
     private void Awake()
     {
         MakeSingelton();
-
-        CurrentMusic = GetComponent<AudioSource>(); 
     }
 
     private void MakeSingelton()
@@ -33,28 +31,38 @@ public class Audiomanager : MonoBehaviour
         }       
     }
 
-    public void PlayMusic(float volume)
-    {      
-        CurrentMusic.Play(0);
-        CurrentMusic.volume = volume;
-    }
-
-    public void StopMusic()
+    public static void PlayMusic(AudioSource audioSource, float volume)
     {
-        CurrentMusic.Stop();
-    }
-
-    public IEnumerator FadeOut(AudioSource audioSource, float fadeTime)
-    {
-        float startVolume = audioSource.volume;
-
-        while (audioSource.volume > 0)
+        if (MusicOn)
         {
-            audioSource.volume -= startVolume / fadeTime;
+            audioSource.Play(0);
+            audioSource.volume = volume;
 
-            yield return null;
+            currentMusic = audioSource;
         }
+    }
 
-        CurrentMusic.Stop();
+    public static void StopMusic()
+    {
+        currentMusic.Stop();
+    }
+
+    public static IEnumerator FadeOut(float fadeTime)
+    {
+        if (MusicOn)
+        {
+            float startVolume = currentMusic.volume;
+
+            while (currentMusic.volume > 0)
+            {
+                currentMusic.volume -= startVolume / fadeTime;
+
+                yield return null;
+            }
+
+            currentMusic.Stop();
+
+            currentMusic.volume = startVolume;
+        }      
     }
 }

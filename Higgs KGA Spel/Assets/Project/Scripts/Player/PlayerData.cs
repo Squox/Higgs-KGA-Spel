@@ -10,10 +10,10 @@ public class PlayerData
     public int Health;
     public float[] Position;
 
-    public PlayerData(PlayerActions player, Gamemanager gamemanager)
+    public PlayerData(PlayerActions player)
     {
-        CurrentLevel = gamemanager.LastLevel;
-        HighestLevel = gamemanager.HighestLevel;
+        CurrentLevel = Gamemanager.LastLevel;
+        HighestLevel = Gamemanager.HighestLevel;
         Health = player.Health;
 
         Position = new float[3];

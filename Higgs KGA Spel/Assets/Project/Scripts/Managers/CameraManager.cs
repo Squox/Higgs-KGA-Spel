@@ -7,15 +7,9 @@ public class CameraManager : MonoBehaviour
 {
     public static CameraManager instance;
 
-    private int showTimeCounter;
+    private static int showTimeCounter;
 
-    [SerializeField] private CinemachineVirtualCamera standardCam;
-
-    // Use this for initialization
-    void Start ()
-    {
-        
-    }
+    [SerializeField] private static CinemachineVirtualCamera standardCam;
 
     private void Awake()
     {
@@ -28,7 +22,7 @@ public class CameraManager : MonoBehaviour
         standardCam = FindObjectOfType<CinemachineVirtualCamera>();
     }
 
-    public IEnumerator showEvent(CinemachineVirtualCamera CmVCam, float showTime)
+    public static IEnumerator showEvent(CinemachineVirtualCamera CmVCam, float showTime)
     {
         int CmVCamPriority = 0;
 

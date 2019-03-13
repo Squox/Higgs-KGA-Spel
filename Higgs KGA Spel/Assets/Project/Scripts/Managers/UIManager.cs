@@ -6,12 +6,12 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
 
-    private GameObject life1;
-    private GameObject life2;
-    private GameObject life3;
-    public GameObject shot1;
-    public GameObject shot2;
-    public GameObject shot3;
+    private static GameObject life1;
+    private static GameObject life2;
+    private static GameObject life3;
+    private static GameObject shot1;
+    private static GameObject shot2;
+    private static GameObject shot3;
 
     public float FadeTimer = 0f;
     private float alphaLevel = 0f;
@@ -33,7 +33,7 @@ public class UIManager : MonoBehaviour
 		
 	}
 
-    public void InitializeUI()
+    public static void InitializeUI()
     {
         life1 = GameObject.FindGameObjectWithTag("Life 1");
         life2 = GameObject.FindGameObjectWithTag("Life 2");
@@ -63,7 +63,7 @@ public class UIManager : MonoBehaviour
         }
     }  
 
-    public void ManageLives(int livesLeft)
+    public static void ManageLives(int livesLeft)
     {
         if (livesLeft == 2)
         {
@@ -91,7 +91,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void ManageShots(int shotCount, bool powerShot)
+    public static void ManageShots(int shotCount, bool powerShot)
     {
         if (shot1 != null && shot2 != null && shot3 != null)
         {
@@ -122,34 +122,37 @@ public class UIManager : MonoBehaviour
         }        
     }
 
-    public IEnumerator FadeIn(SpriteRenderer spriteRenderer, float fadeTime)
+    public static IEnumerator FadeIn(SpriteRenderer spriteRenderer, float fadeTime)
     {
+        float alphaLevel = 0;
+        float fadeTimer = 0;
+
         spriteRenderer.enabled = true;
         spriteRenderer.color = new Color(1f, 1f, 1f, 0f);
 
         while (alphaLevel < 1)
         {
-            FadeTimer++;
-            alphaLevel = FadeTimer / fadeTime;
+            fadeTimer++;
+            alphaLevel = fadeTimer / fadeTime;
             spriteRenderer.color = new Color(1f, 1f, 1f, alphaLevel);
 
             yield return null;
         }
 
-        FadeTimer = 0;
+        fadeTimer = 0;
         alphaLevel = 0;
     }
 
-    public IEnumerator FadeOut(SpriteRenderer spriteRenderer, float fadeTime)
+    public static IEnumerator FadeOut(SpriteRenderer spriteRenderer, float fadeTime)
     {
-        alphaLevel = spriteRenderer.color.a;
-        FadeTimer = fadeTime;
+        float alphaLevel = spriteRenderer.color.a;
+        float fadeTimer = fadeTime;
         spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
 
         while (alphaLevel > 0)
         {
-            FadeTimer--;
-            alphaLevel = FadeTimer / fadeTime;
+            fadeTimer--;
+            alphaLevel = fadeTimer / fadeTime;
             spriteRenderer.color = new Color(1f, 1f, 1f, alphaLevel);
 
             yield return null;

@@ -9,7 +9,7 @@ public class Level1Script : MonoBehaviour
     [SerializeField] private Slider slider;
     [SerializeField] private Text progressText;
 
-    private Gamemanager gamemanagerScript;
+    [SerializeField] private AudioSource audioSource;
 
     private GameObject bossRat;
     private GameObject door;
@@ -17,7 +17,6 @@ public class Level1Script : MonoBehaviour
     private BossRatScript bossRatScript;
     private PlayerActions playerActionsScript;
     private PlayerInput playerInputScript;
-    private Audiomanager audiomanagerScript;
 
     public bool RatAlive = true;
 
@@ -32,17 +31,14 @@ public class Level1Script : MonoBehaviour
         playerActionsScript = player.GetComponent<PlayerActions>();
         playerInputScript = player.GetComponent<PlayerInput>();
         bossRatScript = bossRat.GetComponent<BossRatScript>();
-        audiomanagerScript = FindObjectOfType<Audiomanager>();
-        gamemanagerScript = FindObjectOfType<Gamemanager>();
 
-        gamemanagerScript.LoadingScreen = loadingScreen;
-        gamemanagerScript.Slider = slider;
-        gamemanagerScript.ProgressText = progressText;
+        Gamemanager.LoadingScreen = loadingScreen;
+        Gamemanager.Slider = slider;
+        Gamemanager.ProgressText = progressText;
 
-        gamemanagerScript.LastLevel = 1;
+        Gamemanager.LastLevel = 1;
 
-        audiomanagerScript.GetComponent<AudioSource>().clip = GetComponent<AudioSource>().clip;
-        audiomanagerScript.PlayMusic(musicVolume);
+        Audiomanager.PlayMusic(audioSource, musicVolume);
     }
 	
 	// Update is called once per frame

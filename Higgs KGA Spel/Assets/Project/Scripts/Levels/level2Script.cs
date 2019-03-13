@@ -6,12 +6,11 @@ using UnityEngine.UI;
 
 public class level2Script : MonoBehaviour
 {
-    private Audiomanager audiomanagerScript;
-    private Gamemanager gamemanagerScript;
     private CameraManager cameraManagerScript;
     private GameObject player;
     private PlayerActions playerActionScript;
-    private Transform playerTF; 
+    private Transform playerTF;
+    
 
     private float checkRange = 1f;
     private float musicVolume = 0.5f;
@@ -34,6 +33,7 @@ public class level2Script : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera pyramidDoorCam;
 
     [SerializeField] private GameObject pyramidDoor;
+    [SerializeField] private AudioSource audioSource;
 
     [SerializeField] private GameObject checkPoint0;
     [SerializeField] private GameObject checkPoint1;
@@ -49,44 +49,38 @@ public class level2Script : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerActionScript = player.GetComponent<PlayerActions>();
         playerTF = player.GetComponent<Transform>();
-        audiomanagerScript = FindObjectOfType<Audiomanager>();
-        gamemanagerScript = FindObjectOfType<Gamemanager>();
-        cameraManagerScript = FindObjectOfType<CameraManager>();       
+        cameraManagerScript = FindObjectOfType<CameraManager>();
 
-        gamemanagerScript.LoadingScreen = loadingScreen;
-        gamemanagerScript.Slider = slider;
-        gamemanagerScript.ProgressText = progressText;
-        gamemanagerScript.LastLevel = 2;
-        gamemanagerScript.LoadPlayer();
+        Gamemanager.LoadingScreen = loadingScreen;
+        Gamemanager.Slider = slider;
+        Gamemanager.ProgressText = progressText;
+        Gamemanager.LastLevel = 2;
+        Gamemanager.LoadPlayer();
 
-        audiomanagerScript.GetComponent<AudioSource>().clip = GetComponent<AudioSource>().clip;
-        audiomanagerScript.PlayMusic(musicVolume);
+        Audiomanager.PlayMusic(audioSource, musicVolume);
 
-        if (gamemanagerScript.LastCheckpointPosition == new Vector3(0,0,0))
+        if (Gamemanager.LastCheckpointPosition == new Vector3(0,0,0))
         {
-            gamemanagerScript.LastCheckpointPosition = checkPoint0.transform.position;
-            gamemanagerScript.CheckPointCounter = 0;
-            gamemanagerScript.DeathCounter = 0;
+            Gamemanager.LastCheckpointPosition = checkPoint0.transform.position;
+            Gamemanager.CheckPointCounter = 0;
+            Gamemanager.DeathCounter = 0;
         }
-        else if (gamemanagerScript.LastCheckpointPosition == checkPoint0.transform.position)
+        else if (Gamemanager.LastCheckpointPosition == checkPoint0.transform.position)
         {
-            gamemanagerScript.DeathCounter = 0;
+            Gamemanager.DeathCounter = 0;
         }
-        else if (gamemanagerScript.DeathCounter > 3)
+        else if (Gamemanager.DeathCounter > 3)
         {
-            gamemanagerScript.LastCheckpointPosition = checkPoint0.transform.position;
-            gamemanagerScript.DeathCounter = 0;
-            gamemanagerScript.CheckPointCounter = 0;
+            Gamemanager.LastCheckpointPosition = checkPoint0.transform.position;
+            Gamemanager.DeathCounter = 0;
+            Gamemanager.CheckPointCounter = 0;
         }
         else
         {
-            playerTF.position = gamemanagerScript.LastCheckpointPosition;
+            playerTF.position = Gamemanager.LastCheckpointPosition;
         }
-
-        if (player.transform.position != gamemanagerScript.PlayerPosition || player.GetComponent<PlayerActions>().Health != gamemanagerScript.PlayerHealth)
-        {      
-            LoadPlayer();     
-        }
+  
+        LoadPlayer();     
     }
 	
 	// Update is called once per frame
@@ -94,21 +88,21 @@ public class level2Script : MonoBehaviour
     {
         if (playerTF != null && checkPoint0 != null && checkPoint1 != null && checkPoint2 != null)
         {
-            if (isInRange(playerTF, checkPoint1.transform, checkRange) && gamemanagerScript.CheckPointCounter < 1)
+            if (isInRange(playerTF, checkPoint1.transform, checkRange) && Gamemanager.CheckPointCounter < 1)
             {
-                gamemanagerScript.LastCheckpointPosition = checkPoint1.transform.position;
+                Gamemanager.LastCheckpointPosition = checkPoint1.transform.position;
                 checkPoint1.GetComponent<SpriteRenderer>().color = Color.green;
-                gamemanagerScript.CheckPointCounter = 1;
-                gamemanagerScript.DeathCounter = 0;
-                gamemanagerScript.SavePlayer(playerActionScript, gamemanagerScript);
+                Gamemanager.CheckPointCounter = 1;
+                Gamemanager.DeathCounter = 0;
+                Gamemanager.SavePlayer(playerActionScript);
             }
-            else if (isInRange(playerTF, checkPoint2.transform, checkRange) && gamemanagerScript.CheckPointCounter < 2)
+            else if (isInRange(playerTF, checkPoint2.transform, checkRange) && Gamemanager.CheckPointCounter < 2)
             {
-                gamemanagerScript.LastCheckpointPosition = checkPoint2.transform.position;
+                Gamemanager.LastCheckpointPosition = checkPoint2.transform.position;
                 checkPoint2.GetComponent<SpriteRenderer>().color = Color.green;
-                gamemanagerScript.CheckPointCounter = 2;
-                gamemanagerScript.DeathCounter = 0;
-                gamemanagerScript.SavePlayer(playerActionScript, gamemanagerScript);
+                Gamemanager.CheckPointCounter = 2;
+                Gamemanager.DeathCounter = 0;
+                Gamemanager.SavePlayer(playerActionScript);
             }
         }    
         
@@ -123,11 +117,11 @@ public class level2Script : MonoBehaviour
 
     private void colourCheckpoints()
     {
-        if(gamemanagerScript.CheckPointCounter == 1 && gamemanagerScript.DeathCounter < 3)
+        if(Gamemanager.CheckPointCounter == 1 && Gamemanager.DeathCounter < 3)
         {
             checkPoint1.GetComponent<SpriteRenderer>().color = Color.green;
         }
-        else if (gamemanagerScript.CheckPointCounter == 2 && gamemanagerScript.DeathCounter < 3)
+        else if (Gamemanager.CheckPointCounter == 2 && Gamemanager.DeathCounter < 3)
         {
             checkPoint1.GetComponent<SpriteRenderer>().color = Color.green;
             checkPoint2.GetComponent<SpriteRenderer>().color = Color.green;
@@ -202,7 +196,7 @@ public class level2Script : MonoBehaviour
 
     private IEnumerator showDoor()
     {
-        StartCoroutine(cameraManagerScript.showEvent(pyramidDoorCam, doorShowTime));
+        StartCoroutine(CameraManager.showEvent(pyramidDoorCam, doorShowTime));
 
         player.GetComponent<PlayerActions>().enabled = false;
         player.GetComponent<PlayerInput>().enabled = false;
@@ -233,24 +227,24 @@ public class level2Script : MonoBehaviour
 
     public void LoadPlayer()
     {
-        if (gamemanagerScript.PlayerDead)
+        if (Gamemanager.PlayerDead)
         {
-            player.transform.position = gamemanagerScript.LastCheckpointPosition;
-            gamemanagerScript.PlayerHealth = gamemanagerScript.PlayerMaxHealth;
-            gamemanagerScript.SavePlayer(playerActionScript, gamemanagerScript);
-            gamemanagerScript.PlayerDead = false;
+            player.transform.position = Gamemanager.LastCheckpointPosition;
+            Gamemanager.PlayerHealth = Gamemanager.PlayerMaxHealth;
+            Gamemanager.SavePlayer(playerActionScript);
+            Gamemanager.PlayerDead = false;
         }
-        else if (gamemanagerScript.HighestLevel < 2)
+        else if (Gamemanager.HighestLevel < 2)
         {
             player.transform.position = checkPoint0.transform.position;
-            gamemanagerScript.PlayerHealth = gamemanagerScript.PlayerMaxHealth;
-            gamemanagerScript.SavePlayer(playerActionScript, gamemanagerScript);
-            gamemanagerScript.HighestLevel = 2;
+            Gamemanager.PlayerHealth = Gamemanager.PlayerMaxHealth;
+            Gamemanager.SavePlayer(playerActionScript);
+            Gamemanager.HighestLevel = 2;
         }
         else
         {
-            player.transform.position = gamemanagerScript.PlayerPosition;
-            playerActionScript.Health = gamemanagerScript.PlayerHealth;
+            player.transform.position = Gamemanager.PlayerPosition;
+            playerActionScript.Health = Gamemanager.PlayerHealth;
         }
     }
 }

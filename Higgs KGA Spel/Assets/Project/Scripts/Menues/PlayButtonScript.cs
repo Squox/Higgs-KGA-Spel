@@ -26,31 +26,31 @@ public class PlayButtonScript : MonoBehaviour
 
     public void Continue()
     {
-        if (gamemanagerScript.LastLevel == 1)
+        if (Gamemanager.LastLevel == 1)
         {
-            StartCoroutine(gamemanagerScript.LoadAsyncronously("First Level", loadingScreen, slider, progressText));
+            StartCoroutine(Gamemanager.LoadAsyncronously("First Level", loadingScreen, slider, progressText));
         }
-        else if (gamemanagerScript.LastLevel == 2)
+        else if (Gamemanager.LastLevel == 2)
         {
-            StartCoroutine(gamemanagerScript.LoadAsyncronously("Second Level", loadingScreen, slider, progressText));
+            StartCoroutine(Gamemanager.LoadAsyncronously("Second Level", loadingScreen, slider, progressText));
         }
-        else if (gamemanagerScript.LastLevel == 3)
+        else if (Gamemanager.LastLevel == 3)
         {
-            StartCoroutine(gamemanagerScript.LoadAsyncronously("Third Level", loadingScreen, slider, progressText));
+            StartCoroutine(Gamemanager.LoadAsyncronously("Third Level", loadingScreen, slider, progressText));
         }
-        else if (gamemanagerScript.LastLevel == 4)
+        else if (Gamemanager.LastLevel == 4)
         {
-            StartCoroutine(gamemanagerScript.LoadAsyncronously("Fourth Level", loadingScreen, slider, progressText));
+            StartCoroutine(Gamemanager.LoadAsyncronously("Fourth Level", loadingScreen, slider, progressText));
         }
     }
 
     public void Exit()
     {
-        StartCoroutine(gamemanagerScript.LoadAsyncronously("Start menu", loadingScreen, slider, progressText));
+        StartCoroutine(Gamemanager.LoadAsyncronously("Start menu", loadingScreen, slider, progressText));
     }
 
     public void SelectLevel()
     {
-        StartCoroutine(gamemanagerScript.LoadAsyncronously("Level select", loadingScreen, slider, progressText));
+        StartCoroutine(Gamemanager.LoadAsyncronously("Level select", loadingScreen, slider, progressText));
     }
 }
