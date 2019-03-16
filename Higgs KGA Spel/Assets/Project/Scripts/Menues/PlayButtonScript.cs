@@ -9,6 +9,8 @@ public class PlayButtonScript : MonoBehaviour
 
     public void Continue()
     {
+        Debug.Log("hEY");
+
         if (Gamemanager.LastLevel == 1)
         {
             StartCoroutine(Gamemanager.LoadAsyncronously("First Level", loadingScreen, slider, progressText));
@@ -29,11 +31,13 @@ public class PlayButtonScript : MonoBehaviour
 
     public void Exit()
     {
+        Debug.Log("hEY");
         StartCoroutine(Gamemanager.LoadAsyncronously("Start menu", loadingScreen, slider, progressText));
     }
 
     public void SelectLevel()
     {
+        Debug.Log("hEY");
         StartCoroutine(Gamemanager.LoadAsyncronously("Level select", loadingScreen, slider, progressText));
     }
 }

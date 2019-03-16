@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(EnemyController))]
 public class PiranhaScript : MonoBehaviour
 {
     [SerializeField] private float fallMultiplier = 1.7f;
 
-    private GameObject player;
     private Rigidbody2D rb;
+    private EnemyController enemyController;
 
     private float startY = 0f;
     private float startX = 0f;
@@ -23,7 +25,7 @@ public class PiranhaScript : MonoBehaviour
 	void Start ()
     {
         rb = GetComponent<Rigidbody2D>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        enemyController = GetComponent<EnemyController>();
         startY = transform.position.y;
         startX = transform.position.x;
 
@@ -33,6 +35,8 @@ public class PiranhaScript : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        health = enemyController.Health;
+
         if (transform.position.y <= startY)
         {
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -63,21 +67,9 @@ public class PiranhaScript : MonoBehaviour
         StartCoroutine(jump());
     }
 
-    private bool isPlayerRight()
-    {
-        if (player.transform.position.x > transform.position.x)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
     private bool isPlayerInRange()
     {
-        if (Mathf.Abs(player.transform.position.x - transform.position.x) < playerCheckRadius)
+        if (enemyController.IsPlayerInRange(playerCheckRadius))
         {
             return true;
         }
@@ -148,16 +140,9 @@ public class PiranhaScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Bullet")
+        if (collision.gameObject.tag == "Player")
         {
-            if (player.GetComponent<PlayerActions>().PowerShot)
-            {
-                health -= 10;
-            }
-            else
-            {
-                health--;
-            }            
+            collision.gameObject.GetComponent<PlayerActions>().TakeDamage();
         }
     }
 }

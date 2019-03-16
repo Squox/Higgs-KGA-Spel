@@ -10,7 +10,6 @@ public class level2Script : MonoBehaviour
     private PlayerActions playerActionScript;
     private Transform playerTF;
     
-
     private float checkRange = 1f;
     private float musicVolume = 0.5f;
 
@@ -56,8 +55,10 @@ public class level2Script : MonoBehaviour
 
         Audiomanager.PlayMusic(audioSource, musicVolume);
 
-        if (Gamemanager.LastCheckpointPosition == new Vector3(0,0,0))
+        if (Gamemanager.LastCheckpointPosition == Vector3.zero)
         {
+            Debug.Log("LCP = 0");
+
             Gamemanager.LastCheckpointPosition = checkPoint0.transform.position;
             Gamemanager.CheckPointCounter = 0;
             Gamemanager.DeathCounter = 0;
@@ -68,13 +69,11 @@ public class level2Script : MonoBehaviour
         }
         else if (Gamemanager.DeathCounter > 3)
         {
+            Debug.Log("DC = 4");
+
             Gamemanager.LastCheckpointPosition = checkPoint0.transform.position;
             Gamemanager.DeathCounter = 0;
             Gamemanager.CheckPointCounter = 0;
-        }
-        else
-        {
-            playerTF.position = Gamemanager.LastCheckpointPosition;
         }
   
         LoadPlayer();     
@@ -83,6 +82,8 @@ public class level2Script : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        Debug.Log(Gamemanager.LastCheckpointPosition);
+
         if (playerTF != null && checkPoint0 != null && checkPoint1 != null && checkPoint2 != null)
         {
             if (isInRange(playerTF, checkPoint1.transform, checkRange) && Gamemanager.CheckPointCounter < 1)
@@ -226,6 +227,8 @@ public class level2Script : MonoBehaviour
     {
         if (Gamemanager.PlayerDead)
         {
+            Debug.Log("Player was dead.");
+
             player.transform.position = Gamemanager.LastCheckpointPosition;
             Gamemanager.PlayerHealth = Gamemanager.PlayerMaxHealth;
             Gamemanager.SavePlayer(playerActionScript);
@@ -233,6 +236,8 @@ public class level2Script : MonoBehaviour
         }
         else if (Gamemanager.HighestLevel < 2)
         {
+            Debug.Log("HL = 1");
+
             player.transform.position = checkPoint0.transform.position;
             Gamemanager.PlayerHealth = Gamemanager.PlayerMaxHealth;
             Gamemanager.SavePlayer(playerActionScript);

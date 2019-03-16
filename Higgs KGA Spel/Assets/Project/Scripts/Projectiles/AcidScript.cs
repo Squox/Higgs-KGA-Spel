@@ -20,7 +20,7 @@ public class AcidScript : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        rat = GameObject.FindGameObjectWithTag("Rat");
+        rat = GameObject.FindGameObjectWithTag("Enemy");
         bossRatScript = rat.GetComponent<BossRatScript>();
         acidRB = GetComponent<Rigidbody2D>();    
         
@@ -75,7 +75,11 @@ public class AcidScript : MonoBehaviour
     {
         if (collision.gameObject.tag != "Acid" && collision.gameObject.tag != "Bullet" && collision.gameObject.tag != "ShootingLimit" && collision.gameObject.tag != "Rat")
         {
+            if (collision.gameObject.tag == "Player")
+            {
+                collision.gameObject.GetComponent<PlayerActions>().TakeDamage();
+            }
             Destroy(gameObject);
-        }      
+        }        
     }
 }

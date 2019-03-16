@@ -11,10 +11,8 @@ public class Level1Script : MonoBehaviour
 
     [SerializeField] private AudioSource audioSource;
 
-    private GameObject bossRat;
     private GameObject door;
     private GameObject player;   
-    private BossRatScript bossRatScript;
     private PlayerActions playerActionsScript;
     private PlayerInput playerInputScript;
 
@@ -26,11 +24,9 @@ public class Level1Script : MonoBehaviour
     void Start ()
     {
         door = GameObject.FindGameObjectWithTag("Door");
-        bossRat = GameObject.FindGameObjectWithTag("Rat");
         player = GameObject.FindGameObjectWithTag("Player");
         playerActionsScript = player.GetComponent<PlayerActions>();
         playerInputScript = player.GetComponent<PlayerInput>();
-        bossRatScript = bossRat.GetComponent<BossRatScript>();
 
         Gamemanager.LoadingScreen = loadingScreen;
         Gamemanager.Slider = slider;
@@ -44,12 +40,13 @@ public class Level1Script : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-		if (bossRatScript.Health < 1)
+		if (!RatAlive)
         {
             if (playerInputScript.Interact && playerActionsScript.StandingByDoor)
             {
                 Destroy(door);
                 playerActionsScript.StandingByDoor = true;
+                RatAlive = true;
             }
         }
 	}

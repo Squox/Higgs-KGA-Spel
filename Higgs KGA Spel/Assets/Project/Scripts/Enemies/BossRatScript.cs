@@ -2,23 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(EnemyController))]
 public class BossRatScript : MonoBehaviour
 {
     [SerializeField] private Transform shootingpoint;
     [SerializeField] private GameObject acidPrefab;
+    [SerializeField] private GameObject ratHealthBar;
 
     private BoxCollider2D idleCollider;
     private BoxCollider2D dogedCollider;
     private PolygonCollider2D bulletCollider;
     private GameObject player;
-    private GameObject ratHealthBar;
+    private GameObject level;
     private Rigidbody2D ratRB;
     private Animator animator;
     private Vector2 fallpoint;
     private Transform priorShootingpoint;
     private PlayerActions playerActionScript;
+    private EnemyController enemyController;
+    private Level1Script level1Script;
 
-    public int Health = 500;
+    private int health;
+    private int maxHealth;
 
     private int attackType;
     private int lastAttack;  
@@ -32,6 +37,7 @@ public class BossRatScript : MonoBehaviour
     private float acidY;
     private float acidFireFireRate = 0.1f;
     private float attackDelay = 2f;
+    private float startScaleX;
 
     //variables used to check if rat is on ground
     private bool isOnGround;
@@ -46,25 +52,24 @@ public class BossRatScript : MonoBehaviour
     public bool AcidFire = false;
 
     private bool jump = false;
-    private bool hasBeenHit = false;
 
     private int invulnerabilityTimer;
 
-    // Use this for initialization
-    
-
     private void Start()
     {
-        Health = 500;
-
         player = GameObject.FindGameObjectWithTag("Player");
         ratHealthBar = GameObject.FindGameObjectWithTag("RatHealthBar");
         animator = gameObject.GetComponent<Animator>();
         playerActionScript = player.GetComponent<PlayerActions>();
+        enemyController = GetComponent<EnemyController>();
+        level = GameObject.FindGameObjectWithTag("Level");
+        level1Script = level.GetComponent<Level1Script>();
         idleCollider = playerActionScript.Idle;
         dogedCollider = playerActionScript.Doged;
-
         ratRB = gameObject.GetComponent<Rigidbody2D>();
+
+        maxHealth = enemyController.MaxHealth;
+        startScaleX = ratHealthBar.transform.localScale.x;
 
         StartCoroutine(attack());
     }
@@ -72,26 +77,23 @@ public class BossRatScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        health = enemyController.Health;
+
         Physics2D.IgnoreCollision(idleCollider, GetComponent<BoxCollider2D>());
         Physics2D.IgnoreCollision(dogedCollider, GetComponent<BoxCollider2D>());
 
-        if (hasBeenHit)
-        {
-            invulnerabilityTimer++;
-            if (invulnerabilityTimer > 3)
-            {
-                hasBeenHit = false;
-                invulnerabilityTimer = 0;
-            }
-        }
-
-        if (ratHealthBar.transform.localScale.x < 0)
+        if (ratHealthBar.transform.localScale.x <= 0)
         {
             ratHealthBar.transform.localScale = new Vector3(0, ratHealthBar.transform.localScale.y, ratHealthBar.transform.localScale.z);
         }
-
-        if (Health < 1)
+        else if (ratHealthBar.transform.localScale.x > 0)
         {
+            ratHealthBar.transform.localScale = new Vector3(startScaleX - startScaleX / maxHealth * (maxHealth - health), ratHealthBar.transform.localScale.y, ratHealthBar.transform.localScale.z);
+        }
+
+        if (health < 1)
+        {
+            level1Script.RatAlive = false;
             playerActionScript.DefeatBoss();
             Destroy(gameObject);
         }       
@@ -277,30 +279,11 @@ public class BossRatScript : MonoBehaviour
         }        
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision) 
     {
-        if (collision.gameObject.tag == "Bullet")
+        if (collision.gameObject.tag == "Player")
         {
-            if (!hasBeenHit)
-            {
-                if (playerActionScript.PowerShot)
-                {
-                    Health -= 100;
-                }
-                else
-                {
-                    Health--;
-                }
-            }
-
-            hasBeenHit = true;
-
-            if (ratHealthBar.transform.localScale.x > 0)
-            {
-                ratHealthBar.transform.localScale = new Vector3(Health * 7 / 10, ratHealthBar.transform.localScale.y, ratHealthBar.transform.localScale.z);
-            }
-
-            playerActionScript.PowerShot = false;
+            collision.gameObject.GetComponent<PlayerActions>().TakeDamage();
         }
     }
 }

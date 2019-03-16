@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(EnemyController))]
 public class CactusScript : MonoBehaviour
 {
     [SerializeField] private Animator animator;
@@ -9,32 +10,25 @@ public class CactusScript : MonoBehaviour
     [SerializeField] private Transform rightShootingPoint;
     [SerializeField] private GameObject cactusDartPrefab;
 
-    private GameObject player;
     private Rigidbody2D cactusDartRb;
-    private PlayerActions playerActionsScript;
+    private EnemyController enemyController;
 
-    [SerializeField] private float playerCheckRadius = 21;
+    [SerializeField] private float playerCheckRadius = 21f;
 
     private float fireRate = 0.5f;
     private float animationDuration = 9f/60f;
 
-    private int shotTimer;
-    private int health = 3;
+    private int health;
     private int shotCounter;
     private int burstBuffer = 2;
-    private int invulnerabilityTimer = 0;
     private int animationPause;
 
     public int DartSpeed = 5;
 
-    private bool hasBeenHit = false;
-    private bool attacking;
-
 	// Use this for initialization
 	void Start ()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerActionsScript = player.GetComponent<PlayerActions>();
+        enemyController = GetComponent<EnemyController>();
 
         StartCoroutine(shoot());
 	}
@@ -42,23 +36,15 @@ public class CactusScript : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if (isPlayerRight())
+        health = enemyController.Health;
+        
+        if (enemyController.IsPlayerRight())
         {
             GetComponent<SpriteRenderer>().flipX = true;
         }
         else
         {
             GetComponent<SpriteRenderer>().flipX = false;
-        }
-
-        if (hasBeenHit)
-        {
-            invulnerabilityTimer++;
-            if (invulnerabilityTimer > 3)
-            {
-                invulnerabilityTimer = 0;
-                hasBeenHit = false;
-            }
         }
 
         if (health < 1)
@@ -71,7 +57,7 @@ public class CactusScript : MonoBehaviour
     {
         while (shotCounter < 3)
         {
-            if (isPlayerInRange())
+            if (enemyController.IsPlayerInRange(playerCheckRadius))
             {                
                 animator.SetBool("Attack", true);
 
@@ -79,11 +65,11 @@ public class CactusScript : MonoBehaviour
 
                 animator.SetBool("Attack", false);
 
-                if (isPlayerRight())
+                if (enemyController.IsPlayerRight())
                 {
                     Instantiate(cactusDartPrefab, rightShootingPoint.position, transform.rotation * Quaternion.Euler(0, 0, 180));
                 }
-                else if (!isPlayerRight())
+                else if (!enemyController.IsPlayerRight())
                 {
                     Instantiate(cactusDartPrefab, leftShootingPoint.position, transform.rotation);
                 }               
@@ -102,45 +88,11 @@ public class CactusScript : MonoBehaviour
         StartCoroutine(shoot());
     }
 
-    private bool isPlayerRight()
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (player.transform.position.x > transform.position.x)
+        if (collision.gameObject.tag == "Player")
         {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    private bool isPlayerInRange()
-    {
-        if (Mathf.Abs(player.transform.position.x - transform.position.x) < playerCheckRadius)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Bullet")
-        {
-            if (playerActionsScript.PowerShot)
-            {
-                health -= 10;
-            }
-            else if (!playerActionsScript.PowerShot && !hasBeenHit)
-            {
-                health--;
-                hasBeenHit = true;
-            }
-
-            playerActionsScript.PowerShot = false;
+            collision.gameObject.GetComponent<PlayerActions>().TakeDamage();
         }
     }
 }

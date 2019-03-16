@@ -98,7 +98,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1368115266776336}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 465.55, y: 280.1, z: 0}
+  m_LocalPosition: {x: 476.67, y: 279.94, z: 0}
   m_LocalScale: {x: 1.335, y: 1.335, z: 1.335}
   m_Children:
   - {fileID: 4171995036575904}
@@ -237,24 +237,29 @@ MonoBehaviour:
     type: 2}
   idleShootingpoint: {fileID: 4171995036575904}
   dogedShootingpoint: {fileID: 4366186929537338}
+  DeathScreen: {fileID: 0}
+  PauseScreen: {fileID: 0}
+  VictoryScreen: {fileID: 0}
   Idle: {fileID: 61386571729774220}
   Doged: {fileID: 61721860967019496}
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
   LastFadeTime: 0
+  VictoryScreenFadeTime: 40
   fireRate: 7
   Health: 3
-  Jumps: 0
   ShotCount: 0
   burstFire: 0
   IsFacingRight: 1
   HasBeenHit: 0
   PowerShot: 0
-  Exit: 0
+  CanExit: 0
   StandingByDoor: 0
   HasShot: 0
-  Paused: 0
-  Unpause: 0
+  CanUnpause: 0
+  CanRestart: 0
+  Charging: 0
+  RatDead: 0
   checkRadius: 0.21
   whatIsGround:
     serializedVersion: 2
@@ -308,7 +313,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1448249473
-  m_SortingLayer: 4
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8a62e0be3d438f248839b7125a96e054, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

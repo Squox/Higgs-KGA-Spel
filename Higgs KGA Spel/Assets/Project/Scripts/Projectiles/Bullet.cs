@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-
     [SerializeField]private float destroyTime = 10f;
     
     public float BulletSpeed;
+
+    [SerializeField] private int damage = 1;
 
     [SerializeField] private GameObject hitEffect;
 
@@ -28,9 +29,14 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag != "Acid" && collision.gameObject.tag != "Player" && collision.gameObject.tag != "CactusDart" && collision.gameObject.tag != "InvulnerableEnemy")
+        if (collision.gameObject.tag != "Projectile" && collision.gameObject.tag != "Player" && collision.gameObject.tag != "InvulnerableEnemy")
         {
             Instantiate(hitEffect, transform.position, hitEffect.transform.rotation);
+
+            if(collision.gameObject.tag == "Enemy")
+            {
+                collision.gameObject.GetComponent<EnemyController>().TakeDamage(damage);
+            }
 
             Destroy(gameObject);
         }

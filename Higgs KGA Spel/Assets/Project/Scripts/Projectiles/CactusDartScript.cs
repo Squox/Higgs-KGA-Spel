@@ -44,10 +44,14 @@ public class CactusDartScript : MonoBehaviour
         }      
     }
 
-    private void OnTriggerEnter2D(Collider2D collider)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collider.gameObject.tag != "Enemy" && collider.gameObject.tag != "InvulnerableEnemy" && collider.gameObject.tag != "ShootingLimit" && collider.gameObject.tag != "Bullet" && collider.gameObject.tag != "CactusDart")
+        if (collision.gameObject.tag != "Enemy" && collision.gameObject.tag != "InvulnerableEnemy" && collision.gameObject.tag != "Projectile")
         {
+            if (collision.gameObject.tag == "Player")
+            {
+                collision.gameObject.GetComponent<PlayerActions>().TakeDamage();
+            }
             Destroy(gameObject);
         }
     }

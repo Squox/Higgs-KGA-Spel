@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SawScript : MonoBehaviour
 {
+    [SerializeField] private Transform leftBorder;
+    [SerializeField] private Transform rightBorder;
+
     private Rigidbody2D rb;
 
     private int sawSpeed = 7;
@@ -37,15 +40,36 @@ public class SawScript : MonoBehaviour
         {
             spinCounter = 0;
         }
+
+        checkForBorder();
 	}
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void checkForBorder()
     {
-        if (collision.gameObject.tag == "InvulnerableEnemy")
+        if (transform.position.x - transform.localScale.x / 2 < leftBorder.position.x)
         {
-            rb.velocity = new Vector2(rb.velocity.x * -1, 0);
-            GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
-            movingRight = !movingRight;
+            transform.position = new Vector3(leftBorder.position.x + transform.localScale.x, transform.position.y, transform.position.z);
+            flip();
+        }
+        else if(transform.position.x + transform.localScale.x / 2 > rightBorder.position.x)
+        {
+            transform.position = new Vector3(rightBorder.position.x - transform.localScale.x, transform.position.y, transform.position.z);
+            flip();
+        }
+    }
+
+    private void flip()
+    {
+        rb.velocity = new Vector2(rb.velocity.x * -1, 0);
+        GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
+        movingRight = !movingRight;
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.GetComponent<PlayerActions>().TakeDamage();
         }
     }
 }

@@ -2467,21 +2467,21 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 212832968761438092, guid: d6a0169b2f2374d458df0d199a0cee81,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 114077206214877302, guid: d6a0169b2f2374d458df0d199a0cee81,
         type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114338169466660124, guid: d6a0169b2f2374d458df0d199a0cee81,
+      propertyPath: DeathScreen
+      value: 
+      objectReference: {fileID: 243661010}
+    - target: {fileID: 114077206214877302, guid: d6a0169b2f2374d458df0d199a0cee81,
         type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: PauseScreen
+      value: 
+      objectReference: {fileID: 1409650222}
+    - target: {fileID: 114077206214877302, guid: d6a0169b2f2374d458df0d199a0cee81,
+        type: 2}
+      propertyPath: VictoryScreen
+      value: 
+      objectReference: {fileID: 194380761}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6a0169b2f2374d458df0d199a0cee81, type: 2}
   m_IsPrefabAsset: 0
@@ -3574,7 +3574,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1915ee5aab9db43419a2afc853dc841c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FadeTimer: 0
 --- !u!4 &1801177997
 Transform:
   m_ObjectHideFlags: 0

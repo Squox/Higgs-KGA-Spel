@@ -4,18 +4,14 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Rat
-  - Bullet
   - Enemy
   - Camera
   - Floor
   - DeathScreen
   - PauseScreen
-  - Acid
   - Life 1
   - Life 2
   - Life 3
-  - ShootingLimit
   - Shot 1
   - Shot 2
   - Shot 3
@@ -26,14 +22,14 @@ TagManager:
   - Level
   - ExitTrigger
   - OpenDoor
-  - CactusDart
-  - Trap
   - MapBorder
   - RatTrigger
   - InvulnerableEnemy
-  - Water
   - Heart
+  - Projectile
+  - Acid
   - DeathWall
+  - Rat
   layers:
   - Default
   - TransparentFX

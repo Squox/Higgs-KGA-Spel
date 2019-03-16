@@ -53,6 +53,7 @@ GameObject:
   - component: {fileID: 95581281990322848}
   - component: {fileID: 114457211552635974}
   - component: {fileID: 61198713487148640}
+  - component: {fileID: 114485959679601558}
   m_Layer: 0
   m_Name: Cactus
   m_TagString: Enemy
@@ -162,6 +163,19 @@ MonoBehaviour:
     type: 2}
   playerCheckRadius: 21
   DartSpeed: 5
+--- !u!114 &114485959679601558
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1837253108814204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56699c1f67ce2464bb713320c3769880, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 3
+  Health: 0
 --- !u!212 &212315461449081802
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -195,7 +209,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1448249473
-  m_SortingLayer: 4
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 602cbc68b4cabd844b6c9fdaaa5c56e8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

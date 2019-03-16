@@ -55,9 +55,10 @@ GameObject:
   - component: {fileID: 114466994247160516}
   - component: {fileID: 95309508749595376}
   - component: {fileID: 61128749602216016}
+  - component: {fileID: 114791944238547754}
   m_Layer: 0
   m_Name: rat3
-  m_TagString: Rat
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -204,7 +205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootingpoint: {fileID: 4226141521206118}
   acidPrefab: {fileID: 1838518942730356, guid: 49c2c2eac0b8c4347990341dae022b93, type: 2}
-  Health: 50
+  ratHealthBar: {fileID: 0}
   fallMultiplier: 2
   lowJumpMultiplier: 2
   checkRadius: 0.85
@@ -216,6 +217,19 @@ MonoBehaviour:
   AcidShot: 0
   AcidRain: 0
   AcidFire: 0
+--- !u!114 &114791944238547754
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1572359848625778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56699c1f67ce2464bb713320c3769880, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 100
+  Health: 0
 --- !u!212 &212372699147067180
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -249,7 +263,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1448249473
-  m_SortingLayer: 4
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 87418abbcd9357d499d96cac16e951b2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 50064761725803126}
   - component: {fileID: 212927004362640362}
   - component: {fileID: 114803644568891734}
+  - component: {fileID: 114396362133506956}
   m_Layer: 0
   m_Name: Piranha
   m_TagString: Enemy
@@ -88,6 +89,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &114396362133506956
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1436350554403056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56699c1f67ce2464bb713320c3769880, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 3
+  Health: 0
 --- !u!114 &114803644568891734
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -100,7 +114,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallMultiplier: 1.7
-  lowJumpMultiplier: 1.7
 --- !u!212 &212927004362640362
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -134,7 +147,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1448249473
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c36084adef80d34449a2d8cbc1efc365, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

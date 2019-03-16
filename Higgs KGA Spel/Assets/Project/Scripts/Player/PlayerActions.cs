@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(PlayerInput))]
 public class PlayerActions : MonoBehaviour
 {
     [SerializeField] private Animator animator;
@@ -11,15 +13,14 @@ public class PlayerActions : MonoBehaviour
 
     private Transform currentShootingpoint;
 
-    public GameObject DeathScreen;
-    public GameObject PauseScreen;
-    public GameObject VictoryScreen;
+    [SerializeField] public GameObject DeathScreen;
+    [SerializeField] public GameObject PauseScreen;
+    [SerializeField] public GameObject VictoryScreen;
 
     [SerializeField] public BoxCollider2D Idle;
     [SerializeField] public BoxCollider2D Doged;
 
     //To store PlayerInput script and player in a local variable
-    private GameObject player;
     private PlayerInput playerInputScript;
     private Rigidbody2D playerRB;
 
@@ -57,10 +58,10 @@ public class PlayerActions : MonoBehaviour
     public bool CanUnpause = false;
     public bool CanRestart = false;
     public bool Charging = false;
-
     public bool RatDead = false;
 
     private bool isDoged = false;
+    private bool isDead = false;
 
     //variables used to check if player is on ground
     private bool isOnGround;
@@ -76,16 +77,10 @@ public class PlayerActions : MonoBehaviour
         CanUnpause = false;
         CanRestart = false;
 
-        player = GameObject.FindGameObjectWithTag("Player");
-
         playerRB = GetComponent<Rigidbody2D>();
-        playerInputScript = player.GetComponent<PlayerInput>();
+        playerInputScript = GetComponent<PlayerInput>();
   
         currentShootingpoint = idleShootingpoint;
-
-        DeathScreen = GameObject.FindGameObjectWithTag("DeathScreen");
-        PauseScreen = GameObject.FindGameObjectWithTag("PauseScreen");
-        VictoryScreen = GameObject.FindGameObjectWithTag("VictoryScreen");
     }
 
     private void Start()
@@ -362,14 +357,18 @@ public class PlayerActions : MonoBehaviour
         transform.Rotate(0f, 180f, 0f);
     }
 
-    private void takeDamage(int damage)
+    public void TakeDamage(int damage = 1)
     {
-        Health -= damage;
-        HasBeenHit = true;
+        if (!HasBeenHit && Health > 0)
+        {
+            Health -= damage;
+            HasBeenHit = true;
+        }     
 
-        if (Health < 1)
+        if (Health <= 0 && !isDead)
         {
             StartCoroutine(die());
+            isDead = true;
         }
     }
 
@@ -383,23 +382,7 @@ public class PlayerActions : MonoBehaviour
         {
             StartCoroutine(win());
         }
-        else if (collider.gameObject.tag == "Acid" && !HasBeenHit && Health > 0)
-        {
-            takeDamage(1);
-        }
-        else if (collider.gameObject.tag == "CactusDart" && !HasBeenHit && Health > 0)
-        {
-            takeDamage(1);
-        }
-        else if (collider.gameObject.tag == "InvulnerableEnemy" && !HasBeenHit && Health > 0)
-        {
-            takeDamage(1);
-        }
-        else if (collider.gameObject.tag == "Enemy" && !HasBeenHit && Health > 0)
-        {
-            takeDamage(1);
-        }
-        else if (collider.gameObject.tag == "Heart" && Health < 3)
+        else if (collider.gameObject.tag == "Heart" && Health < Gamemanager.PlayerMaxHealth)
         {
             Health++;
             UIManager.ManageLives(Health);
@@ -412,21 +395,9 @@ public class PlayerActions : MonoBehaviour
         {
             StandingByDoor = true;
         }
-        else if (collision.gameObject.tag == "Rat" && !HasBeenHit && Health > 0)
+        else if(collision.gameObject.tag == "InvulnerableEnemy")
         {
-            takeDamage(1);
-        }
-        else if (collision.gameObject.tag == "Cactus" && !HasBeenHit && Health > 0)
-        {
-            takeDamage(1);
-        }
-        else if (collision.gameObject.tag == "Trap" && !HasBeenHit && Health > 0)
-        {
-            takeDamage(1);
-        }
-        else if (collision.gameObject.tag == "Water" && !HasBeenHit && Health > 0)
-        {
-            takeDamage(1);
+            TakeDamage();
         }
     }
 
