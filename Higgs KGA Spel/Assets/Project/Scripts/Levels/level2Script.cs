@@ -47,30 +47,20 @@ public class level2Script : MonoBehaviour
         playerActionScript = player.GetComponent<PlayerActions>();
         playerTF = player.GetComponent<Transform>();
 
+        Gamemanager.LoadPlayer();
         Gamemanager.LoadingScreen = loadingScreen;
         Gamemanager.Slider = slider;
         Gamemanager.ProgressText = progressText;
-        Gamemanager.LastLevel = 2;
-        Gamemanager.LoadPlayer();
+        Gamemanager.LastLevel = 2;      
 
         Audiomanager.PlayMusic(audioSource, musicVolume);
 
-        if (Gamemanager.LastCheckpointPosition == Vector3.zero)
-        {
-            Debug.Log("LCP = 0");
-
-            Gamemanager.LastCheckpointPosition = checkPoint0.transform.position;
-            Gamemanager.CheckPointCounter = 0;
-            Gamemanager.DeathCounter = 0;
-        }
-        else if (Gamemanager.LastCheckpointPosition == checkPoint0.transform.position)
+        if (Gamemanager.LastCheckpointPosition == checkPoint0.transform.position)
         {
             Gamemanager.DeathCounter = 0;
         }
         else if (Gamemanager.DeathCounter > 3)
         {
-            Debug.Log("DC = 4");
-
             Gamemanager.LastCheckpointPosition = checkPoint0.transform.position;
             Gamemanager.DeathCounter = 0;
             Gamemanager.CheckPointCounter = 0;
@@ -82,25 +72,15 @@ public class level2Script : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        Debug.Log(Gamemanager.LastCheckpointPosition);
-
-        if (playerTF != null && checkPoint0 != null && checkPoint1 != null && checkPoint2 != null)
+        if (playerTF != null && checkPoint1 != null && checkPoint2 != null)
         {
             if (isInRange(playerTF, checkPoint1.transform, checkRange) && Gamemanager.CheckPointCounter < 1)
             {
-                Gamemanager.LastCheckpointPosition = checkPoint1.transform.position;
-                checkPoint1.GetComponent<SpriteRenderer>().color = Color.green;
-                Gamemanager.CheckPointCounter = 1;
-                Gamemanager.DeathCounter = 0;
-                Gamemanager.SavePlayer(playerActionScript);
+                takeCheckpoint(checkPoint1, 1);
             }
             else if (isInRange(playerTF, checkPoint2.transform, checkRange) && Gamemanager.CheckPointCounter < 2)
             {
-                Gamemanager.LastCheckpointPosition = checkPoint2.transform.position;
-                checkPoint2.GetComponent<SpriteRenderer>().color = Color.green;
-                Gamemanager.CheckPointCounter = 2;
-                Gamemanager.DeathCounter = 0;
-                Gamemanager.SavePlayer(playerActionScript);
+                takeCheckpoint(checkPoint2, 2);
             }
         }    
         
@@ -111,6 +91,15 @@ public class level2Script : MonoBehaviour
 
         countPyramidPressurePlatePresses();
         colourCheckpoints();
+    }
+
+    private void takeCheckpoint(GameObject cp, int cpIndex)
+    {
+        Gamemanager.LastCheckpointPosition = cp.transform.position;
+        cp.GetComponent<SpriteRenderer>().color = Color.green;
+        Gamemanager.CheckPointCounter = cpIndex;
+        Gamemanager.DeathCounter = 0;
+        Gamemanager.SavePlayer(playerActionScript);
     }
 
     private void colourCheckpoints()
@@ -227,8 +216,6 @@ public class level2Script : MonoBehaviour
     {
         if (Gamemanager.PlayerDead)
         {
-            Debug.Log("Player was dead.");
-
             player.transform.position = Gamemanager.LastCheckpointPosition;
             Gamemanager.PlayerHealth = Gamemanager.PlayerMaxHealth;
             Gamemanager.SavePlayer(playerActionScript);
@@ -236,10 +223,9 @@ public class level2Script : MonoBehaviour
         }
         else if (Gamemanager.HighestLevel < 2)
         {
-            Debug.Log("HL = 1");
-
             player.transform.position = checkPoint0.transform.position;
             Gamemanager.PlayerHealth = Gamemanager.PlayerMaxHealth;
+            Gamemanager.LastCheckpointPosition = checkPoint0.transform.position;
             Gamemanager.SavePlayer(playerActionScript);
             Gamemanager.HighestLevel = 2;
         }

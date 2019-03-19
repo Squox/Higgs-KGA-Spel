@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Gamemanager : MonoBehaviour
 {
-    public static Gamemanager instance;
+    public static Gamemanager Instance;
 
     public static GameObject LoadingScreen;
     public static Slider Slider;
@@ -27,13 +27,13 @@ public class Gamemanager : MonoBehaviour
 
     private void MakeSingelton()
     {
-        if (instance != null)
+        if (Instance != null)
         {
             Destroy(gameObject);
         }
         else
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         }
     }
@@ -41,9 +41,6 @@ public class Gamemanager : MonoBehaviour
     private void Awake()
     {
         MakeSingelton();
-
-        LastCheckpointPosition = new Vector3(0, 0, 0);
-
         Time.timeScale = 1;
     }
 
@@ -98,12 +95,12 @@ public class Gamemanager : MonoBehaviour
 
     public static void RestartGame()
     {
-        instance.StartCoroutine(LoadAsyncronously(SceneManager.GetActiveScene().name, LoadingScreen, Slider, ProgressText));
+        Instance.StartCoroutine(LoadAsyncronously(SceneManager.GetActiveScene().name, LoadingScreen, Slider, ProgressText));
     }
 
     public static void ExitLevel()
     {
-        instance.StartCoroutine(LoadAsyncronously("Selection menue", LoadingScreen, Slider, ProgressText));
+        Instance.StartCoroutine(LoadAsyncronously("Selection menue", LoadingScreen, Slider, ProgressText));
     }
 
     public static IEnumerator LoadAsyncronously(string level, GameObject loadingScreen, Slider slider, Text progressText)

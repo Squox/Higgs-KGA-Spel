@@ -794,7 +794,7 @@ GameObject:
   - component: {fileID: 112517409}
   - component: {fileID: 112517408}
   - component: {fileID: 112517407}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TransparentWall (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1658,7 +1658,7 @@ GameObject:
   - component: {fileID: 363003468}
   - component: {fileID: 363003467}
   - component: {fileID: 363003466}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TransparentWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9137,7 +9137,7 @@ GameObject:
   - component: {fileID: 595664236}
   - component: {fileID: 595664235}
   - component: {fileID: 595664234}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TransparentWall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23609,7 +23609,7 @@ GameObject:
   - component: {fileID: 741209167}
   - component: {fileID: 741209166}
   - component: {fileID: 741209165}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TransparentWall (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24150,7 +24150,7 @@ AudioSource:
   m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
-  Mute: 1
+  Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
@@ -26352,7 +26352,7 @@ GameObject:
   - component: {fileID: 1243737130}
   - component: {fileID: 1243737129}
   - component: {fileID: 1243737128}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TransparentWall (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28701,7 +28701,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1906759772}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 610.6, y: 227.53001, z: -5}
+  m_LocalPosition: {x: 465.43, y: 280.419, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 535398027}
@@ -29611,11 +29611,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4274083624062424, guid: d6a0169b2f2374d458df0d199a0cee81, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 610.6
+      value: 465.43
       objectReference: {fileID: 0}
     - target: {fileID: 4274083624062424, guid: d6a0169b2f2374d458df0d199a0cee81, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 226.96
+      value: 279.849
       objectReference: {fileID: 0}
     - target: {fileID: 4274083624062424, guid: d6a0169b2f2374d458df0d199a0cee81, type: 2}
       propertyPath: m_LocalPosition.z
@@ -29656,6 +29656,15 @@ Prefab:
       propertyPath: VictoryScreen
       value: 
       objectReference: {fileID: 1796623983}
+    - target: {fileID: 4753844573922744, guid: d6a0169b2f2374d458df0d199a0cee81, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.058
+      objectReference: {fileID: 0}
+    - target: {fileID: 114077206214877302, guid: d6a0169b2f2374d458df0d199a0cee81,
+        type: 2}
+      propertyPath: whatIsCeiling.m_Bits
+      value: 1847
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6a0169b2f2374d458df0d199a0cee81, type: 2}
   m_IsPrefabAsset: 0

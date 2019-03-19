@@ -13,12 +13,18 @@ public class Bullet : MonoBehaviour
     [SerializeField] private GameObject hitEffect;
 
     private Rigidbody2D rb;
+    private GameObject player;
+    private PlayerActions playerActionsScript;
 
 	void Start ()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerActionsScript = player.GetComponent<PlayerActions>();
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = transform.right * BulletSpeed;
         StartCoroutine(destroyBullet());
+
+        damage = playerActionsScript.ShotDamage;
     }
 
     private IEnumerator destroyBullet()

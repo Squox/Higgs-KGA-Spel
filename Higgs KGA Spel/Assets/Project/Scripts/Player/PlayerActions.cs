@@ -37,6 +37,8 @@ public class PlayerActions : MonoBehaviour
 
     //Ints:
     [SerializeField] private int fireRate;
+    [SerializeField] private int empoweredShotDamage = 10;
+    [SerializeField] private int simpleShotDamage = 1;
 
     private int invulnerabilityTimer;
     private int burstBuffer = 0;
@@ -45,6 +47,7 @@ public class PlayerActions : MonoBehaviour
 
     public int Health;    
     public int ShotCount = 0;
+    public int ShotDamage;
 
     //Bools:
     [SerializeField] private bool burstFire;
@@ -59,15 +62,21 @@ public class PlayerActions : MonoBehaviour
     public bool CanRestart = false;
     public bool Charging = false;
     public bool RatDead = false;
+    public bool IsDoged = false;
 
-    private bool isDoged = false;
     private bool isDead = false;
 
     //variables used to check if player is on ground
     private bool isOnGround;
-    [SerializeField] private float checkRadius; 
+    [SerializeField] private float groundCheckRadius; 
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private Transform groundCheck;
+
+    //variables used to check if player is underneath ceiling
+    private bool ceilingAbove;
+    [SerializeField] private float ceilingCheckRadius;
+    [SerializeField] private LayerMask whatIsCeiling;
+    [SerializeField] private Transform ceilingCheck;
 
     private void Awake()
     {
@@ -88,9 +97,6 @@ public class PlayerActions : MonoBehaviour
         UIManager.InitializeUI();
 
         Health = Gamemanager.PlayerMaxHealth;        
-
-        Doge();
-        Doge();
     }
 
     private void Update()
@@ -101,12 +107,16 @@ public class PlayerActions : MonoBehaviour
         checkPlayerState();
         changeSpeedAndJumpForce();
         CheckFacingDirection();
+        CheckDoge();
     }
 
     private void FixedUpdate ()
     {
         // Check if player is on ground
-        isOnGround = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
+        isOnGround = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
+
+        // Check if player is underneath ceiling
+        ceilingAbove = Physics2D.OverlapCircle(ceilingCheck.position, ceilingCheckRadius, whatIsCeiling);
         
         // Moving the player on the x axies
         playerRB.velocity = new Vector2(playerInputScript.MoveDirection * speed * Time.fixedDeltaTime, playerRB.velocity.y);
@@ -123,13 +133,13 @@ public class PlayerActions : MonoBehaviour
             speed = 250f;
             jumpForce = 250f;
 
-            if (isDoged)
+            if (IsDoged)
             {
                 speed = 160f;
                 jumpForce = 160f;
             }
         }
-        else if (isDoged)
+        else if (IsDoged)
         {
             if (playerInputScript.ChargeTimer < 1)
             {
@@ -258,24 +268,22 @@ public class PlayerActions : MonoBehaviour
         CanExit = true;
     }
 
-    public void Doge()
+    public void CheckDoge()
     {
-        isDoged = !isDoged;
-
-        animator.SetBool("IsDoge", isDoged);
-
-        if (Idle.enabled == false)
-        {
-            Idle.enabled = true;
-            Doged.enabled = false;
-            currentShootingpoint = idleShootingpoint;
-        }
-        else
+        if (IsDoged)
         {
             Idle.enabled = false;
             Doged.enabled = true;
             currentShootingpoint = dogedShootingpoint;
-        }      
+            animator.SetBool("IsDoge", true);
+        }
+        else if (!ceilingAbove)
+        {
+            Idle.enabled = true;
+            Doged.enabled = false;
+            currentShootingpoint = idleShootingpoint;
+            animator.SetBool("IsDoge", false);
+        }     
     }
 
     private void Jumping()
@@ -321,7 +329,7 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
-    public void shoot()
+    public IEnumerator shoot()
     {      
         if (burstFire && burstBuffer < 1 && timeSinceShot > fireRate || !HasShot)
         {
@@ -329,6 +337,7 @@ public class PlayerActions : MonoBehaviour
             ShotCount++;
             timeSinceShot = 0;
             HasShot = true;
+            ShotDamage = simpleShotDamage;
         }
         else if (!burstFire && timeSinceShot > fireRate)
         {
@@ -336,10 +345,15 @@ public class PlayerActions : MonoBehaviour
             ShotCount++;
             timeSinceShot = 0;           
             HasShot = true;
+            ShotDamage = simpleShotDamage;
         }
+
+        yield return new WaitForSeconds(fireRate / 60);
+
+        ShotDamage = 0;
     }
 
-    public void EmpoweredShot()
+    public IEnumerator EmpoweredShot()
     {
         if (burstBuffer < 1 && timeSinceShot > fireRate || !HasShot)
         {
@@ -347,7 +361,12 @@ public class PlayerActions : MonoBehaviour
             timeSinceShot = 0;
             HasShot = true;
             PowerShot = true;
+            ShotDamage = empoweredShotDamage;
         }
+
+        yield return new WaitForSeconds(fireRate / 60);
+
+        ShotDamage = 0;
     }
 
     private void FlipPlayer()

@@ -46,17 +46,17 @@ public class PlayerInput : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                playerActionsScript.Doge();
+                playerActionsScript.IsDoged = true;
             }
 
             if (Input.GetKeyUp(KeyCode.LeftShift))
             {
-                playerActionsScript.Doge();
+                playerActionsScript.IsDoged = false;
             }
 
             if (Input.GetKeyUp(KeyCode.I) && ChargeTimer < chargeTime)
             {
-                playerActionsScript.shoot();
+                StartCoroutine(playerActionsScript.shoot());
                 ChargeTimer = 0;
             }
 
@@ -83,7 +83,7 @@ public class PlayerInput : MonoBehaviour
             {
                 playerActionsScript.PowerShot = false;
                 ChargeTimer = 0;
-                playerActionsScript.EmpoweredShot();
+                StartCoroutine(playerActionsScript.EmpoweredShot());
             }
         }
 
