@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyTime: 10
   BulletSpeed: 20
+  damage: 1
   hitEffect: {fileID: 1949225251826804, guid: 87238e2fa563ffa498391aff41aaad22, type: 2}
 --- !u!212 &212367775536921616
 SpriteRenderer:
