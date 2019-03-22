@@ -73,11 +73,11 @@ public class AcidScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag != "Acid" && collision.gameObject.tag != "Bullet" && collision.gameObject.tag != "ShootingLimit" && collision.gameObject.tag != "Rat")
+        if (collision.gameObject.tag != "Projectile" && collision.gameObject.tag != "ShootingLimit" && collision.gameObject.tag != "Enemy")
         {
             if (collision.gameObject.tag == "Player")
             {
-                collision.gameObject.GetComponent<PlayerActions>().TakeDamage();
+                collision.gameObject.GetComponent<PlayerController>().TakeDamage();
             }
             Destroy(gameObject);
         }        

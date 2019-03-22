@@ -8,6 +8,8 @@ public class BossRatScript : MonoBehaviour
     [SerializeField] private Transform shootingpoint;
     [SerializeField] private GameObject acidPrefab;
     [SerializeField] private GameObject ratHealthBar;
+    [SerializeField] private BoxCollider2D idleCol;
+    [SerializeField] private BoxCollider2D chargedCol;
 
     private BoxCollider2D idleCollider;
     private BoxCollider2D dogedCollider;
@@ -18,7 +20,7 @@ public class BossRatScript : MonoBehaviour
     private Animator animator;
     private Vector2 fallpoint;
     private Transform priorShootingpoint;
-    private PlayerActions playerActionScript;
+    private PlayerController playerActionScript;
     private EnemyController enemyController;
     private Level1Script level1Script;
 
@@ -30,8 +32,9 @@ public class BossRatScript : MonoBehaviour
 
     [SerializeField] private float fallMultiplier = 1.7f;
     [SerializeField] private float lowJumpMultiplier = 1.7f;
+    [SerializeField] private float dashSpeed = 1000f;
+    [SerializeField] private float jumpForce = 530f;
 
-    private float jumpForce = 530f;
     private float timeTillFall = 2f;
     private float acidX;
     private float acidY;
@@ -49,9 +52,10 @@ public class BossRatScript : MonoBehaviour
     public bool IsFacingRight = true;
     public bool AcidShot = false;
     public bool AcidRain = false;
-    public bool AcidFire = false;
+    public bool AcidFire = false;    
 
     private bool jump = false;
+    private bool charging = false;
 
     private int invulnerabilityTimer;
 
@@ -60,7 +64,7 @@ public class BossRatScript : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         ratHealthBar = GameObject.FindGameObjectWithTag("RatHealthBar");
         animator = gameObject.GetComponent<Animator>();
-        playerActionScript = player.GetComponent<PlayerActions>();
+        playerActionScript = player.GetComponent<PlayerController>();
         enemyController = GetComponent<EnemyController>();
         level = GameObject.FindGameObjectWithTag("Level");
         level1Script = level.GetComponent<Level1Script>();
@@ -96,16 +100,7 @@ public class BossRatScript : MonoBehaviour
             level1Script.RatAlive = false;
             playerActionScript.DefeatBoss();
             Destroy(gameObject);
-        }       
-
-        if (gameObject.transform.position.x < player.transform.position.x && !IsFacingRight) 
-        {
-            FlipRat();
-        }
-        else if (gameObject.transform.position.x > player.transform.position.x && IsFacingRight)
-        {
-            FlipRat();
-        }
+        }             
 
         if (isOnGround)
         {
@@ -118,16 +113,24 @@ public class BossRatScript : MonoBehaviour
         isOnGround = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
 
         ChangeGravityScale();
+        updateFacingDirection(charging);
     }
 
-    private void FlipRat()
+    private void updateFacingDirection(bool _charging)
     {
-        if (!jump)
+        if (!_charging)
         {
-            IsFacingRight = !IsFacingRight;
-
-            transform.Rotate(0f, 180f, 0f);
-        }
+            if (gameObject.transform.position.x < player.transform.position.x)
+            {
+                IsFacingRight = true;
+                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            }
+            else if (gameObject.transform.position.x > player.transform.position.x)
+            {
+                IsFacingRight = false;
+                transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            }
+        }        
     }
 
     private void ChangeGravityScale()
@@ -148,27 +151,44 @@ public class BossRatScript : MonoBehaviour
         }
     }
 
+    private bool isCharging()
+    {
+        if (charging)
+        {
+            chargedCol.enabled = true;
+            idleCol.enabled = false;
+            return true;
+        }
+        else
+        {
+            chargedCol.enabled = false;
+            idleCol.enabled = true;
+            return false;
+        }           
+    }
+
     private IEnumerator attack()
     {
-        if (!jump)
+        if (!jump && !charging)
         {
             ratRB.velocity = new Vector2(0, 0);
         }
 
         if (attackType == 3)
-        {
             yield return new WaitForSeconds(timeTillFall + 1);
-        }
-        else
+        else if (attackType == 1)
         {
+            yield return new WaitWhile(isCharging);
             yield return new WaitForSeconds(attackDelay);
-        }
+        }           
+        else
+            yield return new WaitForSeconds(attackDelay);
 
         attackType = Random.Range(1, 5);
 
         if (attackType == 1)
         {
-            attackTypeOne();
+            StartCoroutine(attackTypeOne());
         }
         else if (attackType == 2)
         {
@@ -198,9 +218,22 @@ public class BossRatScript : MonoBehaviour
         }
     }
      
-    private void attackTypeOne()
+    private IEnumerator attackTypeOne()
     {
-        //Rat lays down and charges dash
+        charging = true;
+        animator.SetBool("chargeAttack", true);
+
+        yield return new WaitForSeconds(1);
+
+        if (IsFacingRight)
+            ratRB.velocity = new Vector2(dashSpeed * Time.fixedDeltaTime, 0);
+        else
+            ratRB.velocity = new Vector2(-dashSpeed * Time.fixedDeltaTime, 0);
+
+        yield return new WaitForSeconds(1);
+
+        animator.SetBool("chargeAttack", false);
+        charging = false;     
     }
 
     private IEnumerator attackTypeTwo()
@@ -283,7 +316,7 @@ public class BossRatScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            collision.gameObject.GetComponent<PlayerActions>().TakeDamage();
+            collision.gameObject.GetComponent<PlayerController>().TakeDamage();
         }
     }
 }

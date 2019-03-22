@@ -835,7 +835,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 1
   serializedVersion: 2
-  m_Size: {x: 0.9, y: 1}
+  m_Size: {x: 0.7, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &112517409
 SpriteRenderer:
@@ -1699,7 +1699,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 1
   serializedVersion: 2
-  m_Size: {x: 0.9, y: 1}
+  m_Size: {x: 0.7, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &363003468
 SpriteRenderer:
@@ -9178,7 +9178,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 1
   serializedVersion: 2
-  m_Size: {x: 0.9, y: 1}
+  m_Size: {x: 0.7, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &595664236
 SpriteRenderer:
@@ -23650,7 +23650,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 1
   serializedVersion: 2
-  m_Size: {x: 0.9, y: 1}
+  m_Size: {x: 0.7, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &741209167
 SpriteRenderer:
@@ -24149,7 +24149,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -26393,7 +26393,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 1
   serializedVersion: 2
-  m_Size: {x: 0.9, y: 1}
+  m_Size: {x: 0.7, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &1243737130
 SpriteRenderer:
@@ -29656,15 +29656,6 @@ Prefab:
       propertyPath: VictoryScreen
       value: 
       objectReference: {fileID: 1796623983}
-    - target: {fileID: 4753844573922744, guid: d6a0169b2f2374d458df0d199a0cee81, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -0.058
-      objectReference: {fileID: 0}
-    - target: {fileID: 114077206214877302, guid: d6a0169b2f2374d458df0d199a0cee81,
-        type: 2}
-      propertyPath: whatIsCeiling.m_Bits
-      value: 1847
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6a0169b2f2374d458df0d199a0cee81, type: 2}
   m_IsPrefabAsset: 0

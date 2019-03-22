@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class level2Script : MonoBehaviour
 {
     private GameObject player;
-    private PlayerActions playerActionScript;
+    private PlayerController playerActionScript;
     private Transform playerTF;
     
     private float checkRange = 1f;
@@ -44,7 +44,7 @@ public class level2Script : MonoBehaviour
     void Start ()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        playerActionScript = player.GetComponent<PlayerActions>();
+        playerActionScript = player.GetComponent<PlayerController>();
         playerTF = player.GetComponent<Transform>();
 
         Gamemanager.LoadPlayer();
@@ -185,7 +185,7 @@ public class level2Script : MonoBehaviour
     {
         StartCoroutine(CameraManager.showEvent(pyramidDoorCam, doorShowTime));
 
-        player.GetComponent<PlayerActions>().enabled = false;
+        player.GetComponent<PlayerController>().enabled = false;
         player.GetComponent<PlayerInput>().enabled = false;
         player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
 
@@ -196,7 +196,7 @@ public class level2Script : MonoBehaviour
         yield return new WaitForSeconds(doorShowTime / 2 + cameraBlendTime);
 
         player.GetComponent<PlayerInput>().enabled = true;
-        player.GetComponent<PlayerActions>().enabled = true;
+        player.GetComponent<PlayerController>().enabled = true;
         player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
@@ -232,7 +232,7 @@ public class level2Script : MonoBehaviour
         else
         {
             player.transform.position = Gamemanager.PlayerPosition;
-            playerActionScript.Health = Gamemanager.PlayerHealth;
+            PlayerController.Health = Gamemanager.PlayerHealth;
         }
     }
 }

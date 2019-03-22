@@ -3,32 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(PlayerInput))]
-public class PlayerActions : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject bulletprefab;
     [SerializeField] private Transform idleShootingpoint;
     [SerializeField] private Transform dogedShootingpoint;
-
-    private Transform currentShootingpoint;
-
+   
     [SerializeField] public GameObject DeathScreen;
     [SerializeField] public GameObject PauseScreen;
     [SerializeField] public GameObject VictoryScreen;
-
     [SerializeField] public BoxCollider2D Idle;
     [SerializeField] public BoxCollider2D Doged;
 
-    //To store PlayerInput script and player in a local variable
-    private PlayerInput playerInputScript;
-    private Rigidbody2D playerRB;
+    private Transform currentShootingpoint;
 
-    //Floats:   
-    [SerializeField] private float fallMultiplier = 2.5f;
-    [SerializeField] private float lowJumpMultiplier = 2f;
-    private float speed = 330f;
-    private float jumpForce = 330f;
+    //Floats:      
     private float deathScreenFadeTime = 60f;   
     private float pauseScreenFadeTime = 10f;
 
@@ -40,37 +30,30 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private int empoweredShotDamage = 10;
     [SerializeField] private int simpleShotDamage = 1;
 
-    private int invulnerabilityTimer;
+    private int invulnerabilityTimer = 0;
     private int burstBuffer = 0;
     private int timeSinceShot = 0;
     private int deaths = -1;
 
-    public int Health;    
-    public int ShotCount = 0;
-    public int ShotDamage;
+    public static int Health;    
+    public static int ShotCount = 0;
+    public static int ShotDamage;
 
     //Bools:
     [SerializeField] private bool burstFire;
 
-    public bool IsFacingRight = true;
-    public bool HasBeenHit = false;
-    public bool PowerShot = false;
-    public bool CanExit = false;
-    public bool StandingByDoor = false;
-    public bool HasShot = false;
-    public bool CanUnpause = false;
-    public bool CanRestart = false;
-    public bool Charging = false;
-    public bool RatDead = false;
-    public bool IsDoged = false;
+    public static bool HasBeenHit = false;
+    public static bool PowerShot = false;
+    public static bool CanExit = false;
+    public static bool StandingByDoor = false;
+    public static bool HasShot = false;
+    public static bool CanUnpause = false;
+    public static bool CanRestart = false;
+    public static bool RatDead = false;
+    public static bool IsDoged = false;
 
     private bool isDead = false;
-
-    //variables used to check if player is on ground
-    private bool isOnGround;
-    [SerializeField] private float groundCheckRadius; 
-    [SerializeField] private LayerMask whatIsGround;
-    [SerializeField] private Transform groundCheck;
+    private bool isWinning = false;
 
     //variables used to check if player is underneath ceiling
     private bool ceilingAbove;
@@ -78,16 +61,17 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private LayerMask whatIsCeiling;
     [SerializeField] private Transform ceilingCheck;
 
+    //variables used to check if player is by wall
+    private bool byWall;
+    [SerializeField] private float wallCheckRadius;
+    [SerializeField] private LayerMask whatIsWall;
+    [SerializeField] private Transform wallCheck;
+
     private void Awake()
     {
-        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
-
         CanExit = false;
         CanUnpause = false;
         CanRestart = false;
-
-        playerRB = GetComponent<Rigidbody2D>();
-        playerInputScript = GetComponent<PlayerInput>();
   
         currentShootingpoint = idleShootingpoint;
     }
@@ -96,7 +80,9 @@ public class PlayerActions : MonoBehaviour
     {
         UIManager.InitializeUI();
 
-        Health = Gamemanager.PlayerMaxHealth;        
+        Health = Gamemanager.PlayerMaxHealth;
+        invulnerabilityTimer = 0;
+        HasBeenHit = false;
     }
 
     private void Update()
@@ -105,53 +91,17 @@ public class PlayerActions : MonoBehaviour
         UIManager.ManageLives(Health);
 
         checkPlayerState();
-        changeSpeedAndJumpForce();
-        CheckFacingDirection();
         CheckDoge();
     }
 
     private void FixedUpdate ()
     {
-        // Check if player is on ground
-        isOnGround = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
-
-        // Check if player is underneath ceiling
         ceilingAbove = Physics2D.OverlapCircle(ceilingCheck.position, ceilingCheckRadius, whatIsCeiling);
-        
-        // Moving the player on the x axies
-        playerRB.velocity = new Vector2(playerInputScript.MoveDirection * speed * Time.fixedDeltaTime, playerRB.velocity.y);
+        byWall = Physics2D.OverlapCircle(wallCheck.position, wallCheckRadius, whatIsWall);
 
-        Jumping();
-
-        ChangeGravityScale();
-    }
-
-    private void changeSpeedAndJumpForce()
-    {
-        if (playerInputScript.ChargeTimer > 10)
-        {
-            speed = 250f;
-            jumpForce = 250f;
-
-            if (IsDoged)
-            {
-                speed = 160f;
-                jumpForce = 160f;
-            }
-        }
-        else if (IsDoged)
-        {
-            if (playerInputScript.ChargeTimer < 1)
-            {
-                speed = 250f;
-                jumpForce = 250f;
-            }
-        }
-        else
-        {
-            speed = 330f;
-            jumpForce = 330f;
-        }
+        PlayerPhysics.OrientPlayer();
+        PlayerPhysics.ChangeGravityScale();
+        PlayerPhysics.ChangeSpeedAndJumpForce(PowerShot, !Idle.enabled);
     }
 
     private void checkPlayerState()
@@ -168,11 +118,11 @@ public class PlayerActions : MonoBehaviour
             }
         }
 
-        if (burstFire || PowerShot || Charging)
+        if (burstFire && !PowerShot)
         {
-            UIManager.ManageShots(ShotCount, PowerShot);
+            UIManager.ManageShots(ShotCount);
         }
-
+        
         if (HasBeenHit)
         {
             invulnerabilityTimer++;
@@ -183,7 +133,7 @@ public class PlayerActions : MonoBehaviour
             }
         }
 
-        if (burstFire && ShotCount > 2 && playerInputScript.ChargeTimer < 1)
+        if (burstFire && ShotCount > 2 && !PowerShot)
         {
             burstBuffer++;
 
@@ -202,10 +152,9 @@ public class PlayerActions : MonoBehaviour
             {
                 HasShot = false;
                 ShotCount = 0;
-                PowerShot = false;
                 burstBuffer = 0;
 
-                UIManager.ManageShots(ShotCount, PowerShot);
+                UIManager.ManageShots(ShotCount);
             }
         }
     }
@@ -259,6 +208,8 @@ public class PlayerActions : MonoBehaviour
 
     private IEnumerator win()
     {
+        isWinning = true;
+
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         
         StartCoroutine(UIManager.FadeIn(VictoryScreen.GetComponent<SpriteRenderer>(), VictoryScreenFadeTime));
@@ -286,51 +237,11 @@ public class PlayerActions : MonoBehaviour
         }     
     }
 
-    private void Jumping()
+    public IEnumerator Shoot()
     {
-        if (playerInputScript.HasPressedJump == true && isOnGround == true)
-        {
-            playerRB.velocity = new Vector2(playerRB.velocity.x, jumpForce * Time.fixedDeltaTime);
-            playerInputScript.HasPressedJump = false;
-        }
-        else
-        {
-            playerInputScript.HasPressedJump = false;
-        }
-    }
+        if (byWall)
+            yield break;
 
-    private void CheckFacingDirection()
-    {
-        if (playerInputScript.MoveDirection == -1 && IsFacingRight == true)
-        {
-            FlipPlayer();
-        }
-        else if (playerInputScript.MoveDirection == 1 && IsFacingRight ==false)
-        {
-            FlipPlayer();
-        }
-    }
-
-    private void ChangeGravityScale()
-    {
-        if (playerRB.velocity.y < 0.1f)
-        {
-            playerRB.gravityScale = fallMultiplier;
-        }
-
-        else if (playerRB.velocity.y > 0.1f && !Input.GetKey(KeyCode.Space) && !Input.GetKey(KeyCode.W))
-        {
-            playerRB.gravityScale = lowJumpMultiplier;
-        }
-
-        else
-        {
-            playerRB.gravityScale = 1f;
-        }
-    }
-
-    public IEnumerator shoot()
-    {      
         if (burstFire && burstBuffer < 1 && timeSinceShot > fireRate || !HasShot)
         {
             Instantiate(bulletprefab, currentShootingpoint.position, currentShootingpoint.rotation);
@@ -353,28 +264,35 @@ public class PlayerActions : MonoBehaviour
         ShotDamage = 0;
     }
 
-    public IEnumerator EmpoweredShot()
+    public IEnumerator EmpoweredShot(float chargeTime)
     {
-        if (burstBuffer < 1 && timeSinceShot > fireRate || !HasShot)
+        if (byWall)
+            yield break;
+
+        yield return new WaitForSeconds(chargeTime * 1 / 9);
+
+        ShotCount = 0;
+        PowerShot = true;
+
+        while (ShotCount < 3)
         {
-            Instantiate(bulletprefab, currentShootingpoint.position, currentShootingpoint.rotation);
-            timeSinceShot = 0;
-            HasShot = true;
-            PowerShot = true;
-            ShotDamage = empoweredShotDamage;
+            yield return new WaitForSeconds(chargeTime * 1f / 3f);
+            ShotCount++;
+            UIManager.ManageShots(ShotCount);
         }
+
+        yield return new WaitUntil(PlayerInput.FireEmpowered);
+
+        Instantiate(bulletprefab, currentShootingpoint.position, currentShootingpoint.rotation);
+        timeSinceShot = 0;
+        HasShot = true;
+        ShotDamage = empoweredShotDamage;
 
         yield return new WaitForSeconds(fireRate / 60);
 
         ShotDamage = 0;
-    }
-
-    private void FlipPlayer()
-    {
-        IsFacingRight = !IsFacingRight;
-
-        transform.Rotate(0f, 180f, 0f);
-    }
+        PowerShot = false;
+    }   
 
     public void TakeDamage(int damage = 1)
     {
@@ -397,7 +315,7 @@ public class PlayerActions : MonoBehaviour
         {
             Health = 0;
         }
-        else if (collider.gameObject.tag == "ExitTrigger")
+        else if (collider.gameObject.tag == "ExitTrigger" && !isWinning)
         {
             StartCoroutine(win());
         }

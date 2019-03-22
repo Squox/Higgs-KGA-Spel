@@ -12,9 +12,6 @@ public class Level1Script : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
 
     private GameObject door;
-    private GameObject player;   
-    private PlayerActions playerActionsScript;
-    private PlayerInput playerInputScript;
 
     public bool RatAlive = true;
 
@@ -24,9 +21,6 @@ public class Level1Script : MonoBehaviour
     void Start ()
     {
         door = GameObject.FindGameObjectWithTag("Door");
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerActionsScript = player.GetComponent<PlayerActions>();
-        playerInputScript = player.GetComponent<PlayerInput>();
 
         Gamemanager.LoadingScreen = loadingScreen;
         Gamemanager.Slider = slider;
@@ -42,10 +36,10 @@ public class Level1Script : MonoBehaviour
     {
 		if (!RatAlive)
         {
-            if (playerInputScript.Interact && playerActionsScript.StandingByDoor)
+            if (PlayerInput.Interact && PlayerController.StandingByDoor)
             {
                 Destroy(door);
-                playerActionsScript.StandingByDoor = true;
+                PlayerController.StandingByDoor = true;
                 RatAlive = true;
             }
         }

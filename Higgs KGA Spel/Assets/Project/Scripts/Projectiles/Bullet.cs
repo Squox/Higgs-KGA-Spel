@@ -8,23 +8,21 @@ public class Bullet : MonoBehaviour
     
     public float BulletSpeed;
 
+    private bool delaying;
+
     [SerializeField] private int damage = 1;
 
     [SerializeField] private GameObject hitEffect;
 
     private Rigidbody2D rb;
-    private GameObject player;
-    private PlayerActions playerActionsScript;
 
 	void Start ()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerActionsScript = player.GetComponent<PlayerActions>();
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = transform.right * BulletSpeed;
         StartCoroutine(destroyBullet());
 
-        damage = playerActionsScript.ShotDamage;
+        damage = PlayerController.ShotDamage;
     }
 
     private IEnumerator destroyBullet()
@@ -39,12 +37,20 @@ public class Bullet : MonoBehaviour
         {
             Instantiate(hitEffect, transform.position, hitEffect.transform.rotation);
 
-            if(collision.gameObject.tag == "Enemy")
+            if(collision.gameObject.tag == "Enemy" && !delaying)
             {
                 collision.gameObject.GetComponent<EnemyController>().TakeDamage(damage);
+                StartCoroutine(doubbleDamagePreventionDelay());
             }
 
             Destroy(gameObject);
         }
+    }
+
+    private IEnumerator doubbleDamagePreventionDelay()
+    {
+        delaying = true;
+        yield return null;
+        delaying = false;
     }
 }

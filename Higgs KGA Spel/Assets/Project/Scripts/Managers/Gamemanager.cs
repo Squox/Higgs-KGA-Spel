@@ -78,7 +78,7 @@ public class Gamemanager : MonoBehaviour
         }
     }
 
-    public static void SavePlayer(PlayerActions player)
+    public static void SavePlayer(PlayerController player)
     {
         SaveSystem.SavePlayer(player);
     }

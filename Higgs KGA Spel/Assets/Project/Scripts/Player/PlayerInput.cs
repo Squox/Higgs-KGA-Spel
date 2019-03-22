@@ -6,28 +6,28 @@ public class PlayerInput : MonoBehaviour
 {
     //To store PlayerActions script and player in a local variable
     private GameObject player;
-    private PlayerActions playerActionsScript;
+    private PlayerController playerController;
+
+    private Coroutine powerShot;
 
     // Ints:
     public float MoveDirection = 0;
     public int ChargeTimer = 0;
 
-    private int chargeTime = 180;
+    private float chargeTime = 3f;
 
-    // Bools:
-    public bool HasPressedJump;
-    public bool Interact;
+    public static bool Interact;
 
     // Use this for initialization
     private void Awake ()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        playerActionsScript = player.GetComponent<PlayerActions>();
+        playerController = player.GetComponent<PlayerController>();
     }
 
     private void Start()
     {
-        GetComponent<PlayerActions>().enabled = true;
+        GetComponent<PlayerController>().enabled = true;
     }
 
     // Update is called once per frame
@@ -38,102 +38,87 @@ public class PlayerInput : MonoBehaviour
 
     private void CheckPlayerInput()
     {
-        MoveDirection = 0;
+        PlayerPhysics.MoveDirection = 0;
 
-        if (playerActionsScript.Health > 0 && !playerActionsScript.CanExit)
+        if (PlayerController.Health > 0 && !PlayerController.CanExit)
         {
-            MoveDirection = Input.GetAxisRaw("Horizontal");
+            PlayerPhysics.MoveDirection = Input.GetAxisRaw("Horizontal");
 
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                playerActionsScript.IsDoged = true;
+                PlayerController.IsDoged = true;
             }
 
             if (Input.GetKeyUp(KeyCode.LeftShift))
             {
-                playerActionsScript.IsDoged = false;
+                PlayerController.IsDoged = false;
             }
 
-            if (Input.GetKeyUp(KeyCode.I) && ChargeTimer < chargeTime)
-            {
-                StartCoroutine(playerActionsScript.shoot());
-                ChargeTimer = 0;
+            if (Input.GetKeyDown(KeyCode.I))
+            {               
+                powerShot = StartCoroutine(playerController.EmpoweredShot(chargeTime));
             }
 
-            if (Input.GetKey(KeyCode.I))
+            if (Input.GetKeyUp(KeyCode.I) && !FireEmpowered())
             {
-                ChargeTimer++;
-
-                if (ChargeTimer == chargeTime * 1 / 3)
+                if (powerShot != null)
                 {
-                    playerActionsScript.ShotCount = 1;
-                    playerActionsScript.Charging = true;
+                    PlayerController.PowerShot = false;
+                    PlayerController.ShotCount = 0;
+                    StopCoroutine(powerShot);
                 }
-                if (ChargeTimer == chargeTime * 2 / 3)
-                {
-                    playerActionsScript.ShotCount = 2;
-                }
-                if (ChargeTimer == chargeTime * 3 / 3)
-                {
-                    playerActionsScript.ShotCount = 3;
-                }
-            }
-
-            if (Input.GetKeyUp(KeyCode.I) && ChargeTimer > chargeTime)
-            {
-                playerActionsScript.PowerShot = false;
-                ChargeTimer = 0;
-                StartCoroutine(playerActionsScript.EmpoweredShot());
+                
+                StartCoroutine(playerController.Shoot());
             }
         }
 
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))
         {
-            HasPressedJump = true;
+            PlayerPhysics.Jump();
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (playerActionsScript.CanExit || playerActionsScript.CanRestart)
+            if (PlayerController.CanExit || PlayerController.CanRestart)
             {
-                playerActionsScript.VictoryScreen.SetActive(false);
-                playerActionsScript.DeathScreen.SetActive(false);
+                playerController.VictoryScreen.SetActive(false);
+                playerController.DeathScreen.SetActive(false);
                 Gamemanager.RestartGame();
             }           
         }              
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (playerActionsScript.CanExit)
+            if (PlayerController.CanExit)
             {
-                playerActionsScript.VictoryScreen.SetActive(false);
+                playerController.VictoryScreen.SetActive(false);
                 Gamemanager.LastLevel++;               
-                Gamemanager.SavePlayer(playerActionsScript);
+                Gamemanager.SavePlayer(playerController);
                 Gamemanager.ExitLevel();
             }
-            else if (playerActionsScript.CanUnpause)
+            else if (PlayerController.CanUnpause)
             {
-                StartCoroutine(playerActionsScript.Unpause());
+                StartCoroutine(playerController.Unpause());
             }
-            else if (playerActionsScript.Health < 1 && playerActionsScript.CanRestart)
+            else if (PlayerController.Health < 1 && PlayerController.CanRestart)
             {
-                playerActionsScript.DeathScreen.SetActive(false);
+                playerController.DeathScreen.SetActive(false);
                 Gamemanager.ExitLevel();
-                Gamemanager.SavePlayer(playerActionsScript);
+                Gamemanager.SavePlayer(playerController);
             }
-            else if (playerActionsScript.Health > 0 && !playerActionsScript.CanUnpause)
+            else if (PlayerController.Health > 0 && !PlayerController.CanUnpause)
             {
-                StartCoroutine(playerActionsScript.Pause());
+                StartCoroutine(playerController.Pause());
             }            
         }
 
         if (Input.GetKeyDown(KeyCode.S))
         {
-            if (playerActionsScript.CanUnpause)
+            if (PlayerController.CanUnpause)
             {
-                playerActionsScript.PauseScreen.SetActive(false);
+                playerController.PauseScreen.SetActive(false);
                 Gamemanager.ExitLevel();
-                Gamemanager.SavePlayer(playerActionsScript);
+                Gamemanager.SavePlayer(playerController);
                 Audiomanager.StopMusic();
             }
         }
@@ -146,5 +131,20 @@ public class PlayerInput : MonoBehaviour
         {
             Interact = false;
         }
+    }
+
+    public static bool FireEmpowered()
+    {
+        if (!Input.GetKey(KeyCode.I))
+        {
+            if (PlayerController.ShotCount >= 3)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+        else
+            return false;
     }
 }

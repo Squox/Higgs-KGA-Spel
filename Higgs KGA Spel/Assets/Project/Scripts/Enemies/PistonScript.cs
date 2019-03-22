@@ -55,7 +55,7 @@ public class PistonScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            collision.gameObject.GetComponent<PlayerActions>().TakeDamage();
+            collision.gameObject.GetComponent<PlayerController>().TakeDamage();
         }
     }
 }

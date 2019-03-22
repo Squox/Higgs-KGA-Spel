@@ -4,7 +4,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveSystem
 {
-    public static void SavePlayer(PlayerActions player)
+    public static void SavePlayer(PlayerController player)
     {
         BinaryFormatter formatter = new BinaryFormatter();
 

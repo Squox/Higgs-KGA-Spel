@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    public static UIManager instance;
+    public static UIManager Instance;
 
     private static GameObject life1;
     private static GameObject life2;
@@ -37,13 +37,13 @@ public class UIManager : MonoBehaviour
 
     private void MakeSingelton()
     {
-        if (instance != null)
+        if (Instance != null)
         {
             Destroy(gameObject);
         }
         else
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         }
     }  
@@ -76,7 +76,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public static void ManageShots(int shotCount, bool powerShot)
+    public static void ManageShots(int shotCount)
     {
         if (shot1 != null && shot2 != null && shot3 != null)
         {
@@ -98,7 +98,7 @@ public class UIManager : MonoBehaviour
                 shot2.SetActive(false);
                 shot1.SetActive(false);
             }
-            else if (shotCount == 0 && !powerShot)
+            else if (shotCount == 0)
             {
                 shot1.SetActive(true);
                 shot2.SetActive(true);

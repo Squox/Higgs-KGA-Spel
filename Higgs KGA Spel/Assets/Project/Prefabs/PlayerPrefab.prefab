@@ -71,9 +71,25 @@ GameObject:
   - component: {fileID: 95183654847959484}
   - component: {fileID: 61386571729774220}
   - component: {fileID: 61721860967019496}
+  - component: {fileID: 114315736303261416}
   m_Layer: 10
   m_Name: PlayerPrefab
   m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1479005741160368
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4125385532847952}
+  m_Layer: 10
+  m_Name: byWall?
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -93,6 +109,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4125385532847952
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1479005741160368}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.142, y: -0.08, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4274083624062424}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4171995036575904
 Transform:
   m_ObjectHideFlags: 1
@@ -120,6 +149,7 @@ Transform:
   - {fileID: 4753844573922744}
   - {fileID: 4366186929537338}
   - {fileID: 4668075966411192}
+  - {fileID: 4125385532847952}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -156,7 +186,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1011627787406532}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.03, y: -0.627, z: 0}
+  m_LocalPosition: {x: -0.058, y: -0.627, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4274083624062424}
@@ -271,35 +301,38 @@ MonoBehaviour:
   VictoryScreen: {fileID: 0}
   Idle: {fileID: 61386571729774220}
   Doged: {fileID: 61721860967019496}
-  fallMultiplier: 2.5
-  lowJumpMultiplier: 2
   LastFadeTime: 0
   VictoryScreenFadeTime: 40
   fireRate: 7
-  Health: 3
-  ShotCount: 0
+  empoweredShotDamage: 10
+  simpleShotDamage: 1
   burstFire: 0
-  IsFacingRight: 1
-  HasBeenHit: 0
-  PowerShot: 0
-  CanExit: 0
-  StandingByDoor: 0
-  HasShot: 0
-  CanUnpause: 0
-  CanRestart: 0
-  Charging: 0
-  RatDead: 0
-  IsDoged: 0
+  ceilingCheckRadius: 0.2
+  whatIsCeiling:
+    serializedVersion: 2
+    m_Bits: 1847
+  ceilingCheck: {fileID: 4668075966411192}
+  wallCheckRadius: 0.5
+  whatIsWall:
+    serializedVersion: 2
+    m_Bits: 823
+  wallCheck: {fileID: 4125385532847952}
+--- !u!114 &114315736303261416
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1368115266776336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7b2d04827149c4a89e815557d06bcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   groundCheckRadius: 0.2
   whatIsGround:
     serializedVersion: 2
     m_Bits: 512
   groundCheck: {fileID: 4753844573922744}
-  ceilingCheckRadius: 0.2
-  whatIsCeiling:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  ceilingCheck: {fileID: 4668075966411192}
 --- !u!114 &114338169466660124
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -313,8 +346,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveDirection: 0
   ChargeTimer: 0
-  HasPressedJump: 0
-  Interact: 0
 --- !u!212 &212832968761438092
 SpriteRenderer:
   m_ObjectHideFlags: 1
