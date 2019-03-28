@@ -157,6 +157,11 @@ public class PlayerController : MonoBehaviour
                 UIManager.ManageShots(ShotCount);
             }
         }
+
+        if (Health <= 0)
+        {
+            StartCoroutine(die());
+        }
     }
 
     public void DefeatBoss()
@@ -223,7 +228,6 @@ public class PlayerController : MonoBehaviour
     {
         if (IsDoged)
         {
-            float currentX = transform.position.x;
             Idle.enabled = false;
             Doged.enabled = true;
             currentShootingpoint = dogedShootingpoint;
@@ -231,7 +235,6 @@ public class PlayerController : MonoBehaviour
         }
         else if (!ceilingAbove)
         {
-            float currentX = transform.position.x;
             Idle.enabled = true;
             Doged.enabled = false;
             currentShootingpoint = idleShootingpoint;

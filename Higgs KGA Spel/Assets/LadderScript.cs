@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class LadderScript : MonoBehaviour
 {
-    private void OnTriggerStay2D(Collider2D collision) 
+    private bool playerOnLadder;
+
+    private void OnTriggerEnter2D(Collider2D collision) 
     {
         if (collision.gameObject.tag == "Player")
         {
+            playerOnLadder = true;
             PlayerInput.OnLadder = true;
         }
     }
@@ -15,7 +18,18 @@ public class LadderScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            PlayerInput.OnLadder = false;
+            playerOnLadder = false;
+            StartCoroutine(stepOffLadder());
         }
+    }
+
+    private IEnumerator stepOffLadder()
+    {
+        yield return null;
+        yield return null;
+        if (playerOnLadder)
+            yield break;
+        else
+            PlayerInput.OnLadder = false;
     }
 }

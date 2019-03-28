@@ -13,7 +13,9 @@ public class PlayerPhysics : MonoBehaviour
     public static float MoveDirectionX = 0;
     public static float MoveDirectionY = 0;
 
-    private static Rigidbody2D rb;
+    private static bool jumping = false;
+
+    private static Rigidbody2D rb;                            
 
     private static bool isOnGround;
     [SerializeField] private float groundCheckRadius;
@@ -38,25 +40,29 @@ public class PlayerPhysics : MonoBehaviour
 
     private void move()
     {
-        if (PlayerInput.OnLadder)
+        if (PlayerInput.OnLadder && !jumping)
         {
             if (MoveDirectionY != 0)
-                rb.velocity = new Vector2(0, climbSpeed * MoveDirectionY * Time.fixedDeltaTime);
+                rb.velocity = new Vector2(0, climbSpeed * MoveDirectionY * Time.fixedDeltaTime);             
             else if (MoveDirectionX != 0)
-                rb.velocity = new Vector2(climbSpeed * MoveDirectionX * Time.fixedDeltaTime, 0);
-            else
-                rb.velocity = new Vector2(0, 0);          
+                rb.velocity = new Vector2(climbSpeed * MoveDirectionX * Time.fixedDeltaTime, 0);          
+            else 
+                rb.velocity = new Vector2(0, 0);
         }
         else
-            rb.velocity = new Vector2(MoveDirectionX * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
+            rb.velocity = new Vector2(MoveDirectionX * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);       
     }
 
     public static void ChangeGravityScale()
     {
-        if (PlayerInput.OnLadder)
+        if (PlayerInput.OnLadder && !jumping)
             rb.gravityScale = 0;
         else if (rb.velocity.y < 0.1f)
+        {
             rb.gravityScale = fallMultiplier;
+            if (!Input.GetKey(KeyCode.Space))
+                jumping = false;
+        }           
         else if (rb.velocity.y > 0.1f && !Input.GetKey(KeyCode.Space) && !Input.GetKey(KeyCode.W))
             rb.gravityScale = lowJumpMultiplier;
         else
@@ -65,8 +71,11 @@ public class PlayerPhysics : MonoBehaviour
 
     public static void Jump()
     {
-        if (isOnGround)
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce * Time.fixedDeltaTime); 
+        if (isOnGround || PlayerInput.OnLadder)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce * Time.fixedDeltaTime);
+            jumping = true;
+        }          
     }
 
     public static void ChangeSpeedAndJumpForce(bool charging, bool doged)

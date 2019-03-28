@@ -23896,11 +23896,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4068636500788770, guid: c78dc8677e22c244daeedd07b2b07cc2, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 468.43
+      value: 465.42
       objectReference: {fileID: 0}
     - target: {fileID: 4068636500788770, guid: c78dc8677e22c244daeedd07b2b07cc2, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 280.96
+      value: 281.458
       objectReference: {fileID: 0}
     - target: {fileID: 4068636500788770, guid: c78dc8677e22c244daeedd07b2b07cc2, type: 2}
       propertyPath: m_LocalPosition.z
@@ -23954,7 +23954,7 @@ Prefab:
     - target: {fileID: 212629181412157008, guid: c78dc8677e22c244daeedd07b2b07cc2,
         type: 2}
       propertyPath: m_Size.y
-      value: 4.031769
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c78dc8677e22c244daeedd07b2b07cc2, type: 2}
@@ -24324,7 +24324,7 @@ EdgeCollider2D:
   - {x: -6.273529, y: -4.5446167}
   - {x: -23.567383, y: -4.439392}
   - {x: -23.633759, y: 5.8332825}
-  - {x: -11.1586, y: 5.8352356}
+  - {x: -23.680908, y: 12.454193}
   - {x: -11.014679, y: 12.619659}
   - {x: 103.43393, y: 12.93161}
   - {x: 103.56094, y: 16.550842}

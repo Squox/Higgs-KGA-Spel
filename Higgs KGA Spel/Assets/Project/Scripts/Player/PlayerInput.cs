@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerController))]
 public class PlayerInput : MonoBehaviour
 {
     //To store PlayerActions script and player in a local variable
@@ -17,7 +18,7 @@ public class PlayerInput : MonoBehaviour
     private float chargeTime = 3f;
 
     public static bool Interact;
-    public static bool OnLadder;
+    public static bool OnLadder = false;
 
     // Use this for initialization
     private void Awake ()
@@ -29,6 +30,7 @@ public class PlayerInput : MonoBehaviour
     private void Start()
     {
         GetComponent<PlayerController>().enabled = true;
+        PlayerController.IsDoged = false;
     }
 
     // Update is called once per frame
