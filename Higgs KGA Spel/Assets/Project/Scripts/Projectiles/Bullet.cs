@@ -33,7 +33,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag != "Projectile" && collision.gameObject.tag != "Player" && collision.gameObject.tag != "InvulnerableEnemy")
+        if (collision.gameObject.tag != "Projectile" && collision.gameObject.tag != "Player" && collision.gameObject.tag != "InvulnerableEnemy" && collision.gameObject.tag != "Interactables")
         {
             Instantiate(hitEffect, transform.position, hitEffect.transform.rotation);
 

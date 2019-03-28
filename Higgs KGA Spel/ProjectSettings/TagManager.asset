@@ -30,6 +30,8 @@ TagManager:
   - Acid
   - DeathWall
   - Rat
+  - ShootingLimit
+  - Interactables
   layers:
   - Default
   - TransparentFX
@@ -43,7 +45,7 @@ TagManager:
   - Ground
   - Characters
   - Background
-  - 
+  - Interactables
   - 
   - 
   - 
@@ -84,6 +86,9 @@ TagManager:
     locked: 0
   - name: Ground
     uniqueID: 1264879831
+    locked: 0
+  - name: Interactables
+    uniqueID: 2513424251
     locked: 0
   - name: Player
     uniqueID: 2846717823

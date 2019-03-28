@@ -73,7 +73,7 @@ public class AcidScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag != "Projectile" && collision.gameObject.tag != "ShootingLimit" && collision.gameObject.tag != "Enemy")
+        if (collision.gameObject.tag != "Projectile" && collision.gameObject.tag != "ShootingLimit" && collision.gameObject.tag != "Enemy" && collision.gameObject.tag != "Interactables")
         {
             if (collision.gameObject.tag == "Player")
             {

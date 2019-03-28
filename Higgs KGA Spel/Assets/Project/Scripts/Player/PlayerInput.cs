@@ -17,6 +17,7 @@ public class PlayerInput : MonoBehaviour
     private float chargeTime = 3f;
 
     public static bool Interact;
+    public static bool OnLadder;
 
     // Use this for initialization
     private void Awake ()
@@ -38,11 +39,12 @@ public class PlayerInput : MonoBehaviour
 
     private void CheckPlayerInput()
     {
-        PlayerPhysics.MoveDirection = 0;
+        PlayerPhysics.MoveDirectionX = 0;
+        PlayerPhysics.MoveDirectionY = 0;
 
         if (PlayerController.Health > 0 && !PlayerController.CanExit)
         {
-            PlayerPhysics.MoveDirection = Input.GetAxisRaw("Horizontal");
+            PlayerPhysics.MoveDirectionX = Input.GetAxisRaw("Horizontal");
 
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
@@ -72,7 +74,7 @@ public class PlayerInput : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             PlayerPhysics.Jump();
         }
@@ -130,6 +132,11 @@ public class PlayerInput : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.E))
         {
             Interact = false;
+        }
+
+        if (OnLadder)
+        {
+            PlayerPhysics.MoveDirectionY = Input.GetAxisRaw("Vertical");
         }
     }
 

@@ -223,14 +223,14 @@ public class BossRatScript : MonoBehaviour
         charging = true;
         animator.SetBool("chargeAttack", true);
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.4f);
 
         if (IsFacingRight)
             ratRB.velocity = new Vector2(dashSpeed * Time.fixedDeltaTime, 0);
         else
             ratRB.velocity = new Vector2(-dashSpeed * Time.fixedDeltaTime, 0);
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.4f);
 
         animator.SetBool("chargeAttack", false);
         charging = false;     

@@ -6,10 +6,12 @@ public class PlayerPhysics : MonoBehaviour
 {
     private static float fallMultiplier = 2.5f;
     private static float lowJumpMultiplier = 2f;
-    private static float speed = 330f;
+    private static float moveSpeed = 330f;
+    private static float climbSpeed = 150f;
     private static float jumpForce = 330f;
 
-    public static float MoveDirection = 0;
+    public static float MoveDirectionX = 0;
+    public static float MoveDirectionY = 0;
 
     private static Rigidbody2D rb;
 
@@ -29,19 +31,34 @@ public class PlayerPhysics : MonoBehaviour
 	// Update is called once per frame
 	void FixedUpdate ()
     {
-        rb.velocity = new Vector2(MoveDirection * speed * Time.fixedDeltaTime, rb.velocity.y);
-
         isOnGround = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
+
+        move();
+    }
+
+    private void move()
+    {
+        if (PlayerInput.OnLadder)
+        {
+            if (MoveDirectionY != 0)
+                rb.velocity = new Vector2(0, climbSpeed * MoveDirectionY * Time.fixedDeltaTime);
+            else if (MoveDirectionX != 0)
+                rb.velocity = new Vector2(climbSpeed * MoveDirectionX * Time.fixedDeltaTime, 0);
+            else
+                rb.velocity = new Vector2(0, 0);          
+        }
+        else
+            rb.velocity = new Vector2(MoveDirectionX * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
     }
 
     public static void ChangeGravityScale()
     {
-        if (rb.velocity.y < 0.1f)
+        if (PlayerInput.OnLadder)
+            rb.gravityScale = 0;
+        else if (rb.velocity.y < 0.1f)
             rb.gravityScale = fallMultiplier;
-
         else if (rb.velocity.y > 0.1f && !Input.GetKey(KeyCode.Space) && !Input.GetKey(KeyCode.W))
             rb.gravityScale = lowJumpMultiplier;
-
         else
             rb.gravityScale = 1f;
     }
@@ -56,12 +73,12 @@ public class PlayerPhysics : MonoBehaviour
     {
         if (charging)
         {
-            speed = 250f;
+            moveSpeed = 250f;
             jumpForce = 250f;
 
             if (doged)
             {
-                speed = 160f;
+                moveSpeed = 160f;
                 jumpForce = 160f;
             }
         }
@@ -69,24 +86,24 @@ public class PlayerPhysics : MonoBehaviour
         {
             if (!charging)
             {
-                speed = 250f;
+                moveSpeed = 250f;
                 jumpForce = 250f;
             }
         }
         else
         {
-            speed = 330f;
+            moveSpeed = 330f;
             jumpForce = 330f;
         }
     }
 
     public static void OrientPlayer()
     {
-        if (MoveDirection < 0)
+        if (MoveDirectionX < 0)
         {
             rb.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
         }
-        else if (MoveDirection > 0)
+        else if (MoveDirectionX > 0)
         {
             rb.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
