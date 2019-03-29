@@ -19,4 +19,9 @@ public class SettingsMenueScript : MonoBehaviour
     {
         StartCoroutine(Gamemanager.LoadAsyncronously("Start menu", loadingScreen, slider, progressText));
     }
+
+    public void DeleteSaves()
+    {
+
+    }
 }

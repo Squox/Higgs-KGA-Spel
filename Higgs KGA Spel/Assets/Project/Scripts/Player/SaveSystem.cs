@@ -4,11 +4,12 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveSystem
 {
+    private static string path = Application.persistentDataPath + "/Player.file";
+
     public static void SavePlayer(PlayerController player)
     {
         BinaryFormatter formatter = new BinaryFormatter();
 
-        string path = Application.persistentDataPath + "/Player.file";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         PlayerData data = new PlayerData(player);
@@ -19,7 +20,6 @@ public static class SaveSystem
 
     public static PlayerData LoadPlayer()
     {
-        string path = Application.persistentDataPath + "/Player.file";
         if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();
@@ -35,5 +35,11 @@ public static class SaveSystem
             Debug.LogError("File doesn't exist.");
             return null;
         }
+    }
+
+    public static void DeleteSaves()
+    {
+        if (File.Exists(path))
+            File.Delete(path);
     }
 }
