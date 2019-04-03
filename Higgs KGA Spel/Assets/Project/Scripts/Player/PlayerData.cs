@@ -14,7 +14,7 @@ public class PlayerData
     {
         CurrentLevel = Gamemanager.LastLevel;
         HighestLevel = Gamemanager.HighestLevel;
-        Health = PlayerController.Health;
+        Health = Gamemanager.PlayerHealth;
 
         Position = new float[3];
         Position[0] = player.transform.position.x;

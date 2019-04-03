@@ -5,50 +5,26 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
+    //------------------------------------------------>>
+    #region NonRegionalVariables
+
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject bulletprefab;
     [SerializeField] private Transform idleShootingpoint;
     [SerializeField] private Transform dogedShootingpoint;
    
-    [SerializeField] public GameObject DeathScreen;
-    [SerializeField] public GameObject PauseScreen;
-    [SerializeField] public GameObject VictoryScreen;
     [SerializeField] public BoxCollider2D Idle;
     [SerializeField] public BoxCollider2D Doged;
 
     private Transform currentShootingpoint;
 
-    //Floats:      
-    private float deathScreenFadeTime = 60f;   
-    private float pauseScreenFadeTime = 10f;
-
-    public float LastFadeTime = 0f;
-    public float VictoryScreenFadeTime = 40f;
-
-    //Ints:
-    [SerializeField] private int fireRate;
-    [SerializeField] private int empoweredShotDamage = 10;
-    [SerializeField] private int simpleShotDamage = 1;
-
-    private int invulnerabilityTimer = 0;
-    private int burstBuffer = 0;
-    private int timeSinceShot = 0;
+    //Ints: 
     private int deaths = -1;
 
-    public static int Health;    
-    public static int ShotCount = 0;
-    public static int ShotDamage;
+    public static int Health;       
 
-    //Bools:
-    [SerializeField] private bool burstFire;
-
-    public static bool HasBeenHit = false;
-    public static bool PowerShot = false;
-    public static bool CanExit = false;
+    //Bools:  
     public static bool StandingByDoor = false;
-    public static bool HasShot = false;
-    public static bool CanUnpause = false;
-    public static bool CanRestart = false;
     public static bool RatDead = false;
     public static bool IsDoged = false;
 
@@ -67,6 +43,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask whatIsWall;
     [SerializeField] private Transform wallCheck;
 
+    #endregion
+    //------------------------------------------------<<
+
     private void Awake()
     {
         CanExit = false;
@@ -74,6 +53,7 @@ public class PlayerController : MonoBehaviour
         CanRestart = false;
   
         currentShootingpoint = idleShootingpoint;
+        SettingsMenueScript.Player = this;
     }
 
     private void Start()
@@ -103,6 +83,59 @@ public class PlayerController : MonoBehaviour
         PlayerPhysics.ChangeGravityScale();
         PlayerPhysics.ChangeSpeedAndJumpForce(PowerShot, !Idle.enabled);
     }
+
+    public void TakeDamage(int damage = 1)
+    {
+        if (!HasBeenHit && Health > 0)
+        {
+            Health -= damage;
+            HasBeenHit = true;
+        }
+
+        if (Health <= 0 && !isDead)
+        {
+            StartCoroutine(die());
+            isDead = true;
+        }
+    }
+
+    public void DefeatBoss()
+    {
+        Audiomanager.FadeOut(VictoryScreenFadeTime);
+    }
+
+    public void CheckDoge()
+    {
+        if (IsDoged)
+        {
+            Idle.enabled = false;
+            Doged.enabled = true;
+            currentShootingpoint = dogedShootingpoint;
+            animator.SetBool("IsDoge", true);
+        }
+        else if (!ceilingAbove)
+        {
+            Idle.enabled = true;
+            Doged.enabled = false;
+            currentShootingpoint = idleShootingpoint;
+            animator.SetBool("IsDoge", false);
+        }
+    }
+
+    //------------------------------------------------>>
+    #region checkPlayerState
+
+    public static int ShotCount = 0;
+
+    private int invulnerabilityTimer = 0;
+    private int burstBuffer = 0;
+    private int timeSinceShot = 0;
+
+    [SerializeField] private bool burstFire;
+
+    public static bool HasBeenHit = false;
+    public static bool PowerShot = false;
+    public static bool HasShot = false;
 
     private void checkPlayerState()
     {
@@ -157,17 +190,29 @@ public class PlayerController : MonoBehaviour
                 UIManager.ManageShots(ShotCount);
             }
         }
-
-        if (Health <= 0)
-        {
-            StartCoroutine(die());
-        }
     }
 
-    public void DefeatBoss()
-    {
-        StartCoroutine(Audiomanager.FadeOut(VictoryScreenFadeTime));
-    }
+    #endregion
+    //------------------------------------------------<<
+
+    
+
+    //------------------------------------------------>>
+    #region StateAffectingCoroutines
+
+    [SerializeField] public GameObject DeathScreen;
+    [SerializeField] public GameObject PauseScreen;
+    [SerializeField] public GameObject VictoryScreen;
+
+    private float deathScreenFadeTime = 60f;
+    private float pauseScreenFadeTime = 10f;
+
+    public float LastFadeTime = 0f;
+    public float VictoryScreenFadeTime = 40f;
+
+    public static bool CanUnpause = false;
+    public static bool CanRestart = false;
+    public static bool CanExit = false;
 
     public IEnumerator Pause()
     {
@@ -184,7 +229,7 @@ public class PlayerController : MonoBehaviour
     {
         CanUnpause = false;
 
-        StartCoroutine(UIManager.FadeOut(PauseScreen.GetComponent<SpriteRenderer>(), pauseScreenFadeTime));
+        UIManager.FadeOut(PauseScreen.GetComponent<SpriteRenderer>(), pauseScreenFadeTime);
 
         yield return new WaitForSeconds(pauseScreenFadeTime / 60);
 
@@ -203,7 +248,7 @@ public class PlayerController : MonoBehaviour
 
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
 
-        StartCoroutine(Audiomanager.FadeOut(deathScreenFadeTime));
+        Audiomanager.FadeOut(deathScreenFadeTime);
         StartCoroutine(UIManager.FadeIn(DeathScreen.GetComponent<SpriteRenderer>(), deathScreenFadeTime));
 
         yield return new WaitForSeconds(deathScreenFadeTime / 60);
@@ -224,23 +269,20 @@ public class PlayerController : MonoBehaviour
         CanExit = true;
     }
 
-    public void CheckDoge()
-    {
-        if (IsDoged)
-        {
-            Idle.enabled = false;
-            Doged.enabled = true;
-            currentShootingpoint = dogedShootingpoint;
-            animator.SetBool("IsDoge", true);
-        }
-        else if (!ceilingAbove)
-        {
-            Idle.enabled = true;
-            Doged.enabled = false;
-            currentShootingpoint = idleShootingpoint;
-            animator.SetBool("IsDoge", false);
-        }     
-    }
+    #endregion
+    //------------------------------------------------<<
+
+    
+
+    //------------------------------------------------>>
+    #region Shooting
+
+    [SerializeField] private int fireRate;
+    [SerializeField] private int empoweredShotDamage = 10;
+    [SerializeField] private int simpleShotDamage = 1;
+    [SerializeField] private float chargeTime = 1f;
+
+    public static int ShotDamage;  
 
     public IEnumerator Shoot()
     {
@@ -269,7 +311,7 @@ public class PlayerController : MonoBehaviour
         ShotDamage = 0;
     }
 
-    public IEnumerator EmpoweredShot(float chargeTime)
+    public IEnumerator EmpoweredShot()
     {
         if (byWall)
             yield break;
@@ -286,7 +328,7 @@ public class PlayerController : MonoBehaviour
             UIManager.ManageShots(ShotCount);
         }
 
-        yield return new WaitUntil(PlayerInput.FireEmpowered);
+        yield return new WaitUntil(canFireEmpowered);
 
         Instantiate(bulletprefab, currentShootingpoint.position, currentShootingpoint.rotation);
         timeSinceShot = 0;
@@ -297,28 +339,29 @@ public class PlayerController : MonoBehaviour
 
         ShotDamage = 0;
         PowerShot = false;
-    }   
-
-    public void TakeDamage(int damage = 1)
-    {
-        if (!HasBeenHit && Health > 0)
-        {
-            Health -= damage;
-            HasBeenHit = true;
-        }     
-
-        if (Health <= 0 && !isDead)
-        {
-            StartCoroutine(die());
-            isDead = true;
-        }
     }
+
+    private bool canFireEmpowered()
+    {
+        if (ShotCount >= 3 && Input.GetKeyUp(KeyCode.I))
+            return true;
+
+        return false;
+    }
+
+    #endregion
+    //------------------------------------------------<<
+
+    
+
+    //------------------------------------------------>>
+    #region Collision detection
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject.tag == "Level")
         {
-            Health = 0;
+            TakeDamage(Gamemanager.PlayerMaxHealth);
         }
         else if (collider.gameObject.tag == "ExitTrigger" && !isWinning)
         {
@@ -350,4 +393,7 @@ public class PlayerController : MonoBehaviour
             StandingByDoor = false;
         }
     }
+
+    #endregion
+    //------------------------------------------------<<
 }

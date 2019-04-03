@@ -2,42 +2,50 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class AcidScript : MonoBehaviour
 {
     private float destroyTime = 10f;
-    private float destroy;
-
+    private float acidXPosition;
     public float AcidSpeed;
 
     private Rigidbody2D acidRB;
     private GameObject rat;
     private BossRatScript bossRatScript;
-
-    private float acidXVelocity;
-    private float acidYVelocity;
-    private float acidXPosition;
+    private Vector2 acidVel;  
 
     // Use this for initialization
     void Start ()
     {
         rat = GameObject.FindGameObjectWithTag("Enemy");
-        bossRatScript = rat.GetComponent<BossRatScript>();
-        acidRB = GetComponent<Rigidbody2D>();    
-        
-        destroy = destroyTime + Time.time;
 
+        if (rat == null)
+            Destroy(gameObject);
+
+        bossRatScript = rat.GetComponent<BossRatScript>();
+        acidRB = GetComponent<Rigidbody2D>();      
+    }
+
+    private IEnumerator destroy()
+    {
+        yield return new WaitForSeconds(destroyTime);
+        Destroy(gameObject);
+    }
+
+    private void calculateVelocity()
+    {
         if (bossRatScript.AcidShot)
         {
-            acidXVelocity = Random.Range(5f, 6f);
-            acidYVelocity = Random.Range(-2.5f, -1f);
+            acidVel.x = Random.Range(5f, 6f);
+            acidVel.y = Random.Range(-2.5f, -1f);
 
             if (bossRatScript.IsFacingRight)
             {
-                acidRB.velocity = new Vector2(acidXVelocity, acidYVelocity);
+                acidRB.velocity = acidVel;
             }
             else if (!bossRatScript.IsFacingRight)
             {
-                acidRB.velocity = new Vector2(-acidXVelocity, acidYVelocity);
+                acidRB.velocity = new Vector2(-acidVel.x, acidVel.y);
             }
         }
         else if (bossRatScript.AcidRain)
@@ -46,28 +54,18 @@ public class AcidScript : MonoBehaviour
         }
         else if (bossRatScript.AcidFire)
         {
-            acidXVelocity = 2;
-            acidYVelocity = 3;
+            acidVel.x = 2;
+            acidVel.y = 3;
 
             if (bossRatScript.IsFacingRight)
             {
-                acidRB.velocity = new Vector2(acidXVelocity, acidYVelocity);
+                acidRB.velocity = acidVel;
             }
 
             else if (!bossRatScript.IsFacingRight)
             {
-                acidRB.velocity = new Vector2(-acidXVelocity, acidYVelocity);
+                acidRB.velocity = new Vector2(-acidVel.x, acidVel.y);
             }
-        }
-
-    }
-	
-	// Update is called once per frame
-	void Update ()
-    {
-        if (destroy < Time.time)
-        {
-            Destroy(gameObject);
         }
     }
 

@@ -110,39 +110,23 @@ public class UIManager : MonoBehaviour
     public static IEnumerator FadeIn(SpriteRenderer spriteRenderer, float fadeTime)
     {
         float alphaLevel = 0;
-        float fadeTimer = 0;
 
         spriteRenderer.enabled = true;
         spriteRenderer.color = new Color(1f, 1f, 1f, 0f);
 
         while (alphaLevel < 1)
         {
-            fadeTimer++;
-            alphaLevel = fadeTimer / fadeTime;
+            alphaLevel += 1 / fadeTime;
             spriteRenderer.color = new Color(1f, 1f, 1f, alphaLevel);
 
             yield return null;
         }
 
-        fadeTimer = 0;
         alphaLevel = 0;
     }
 
-    public static IEnumerator FadeOut(SpriteRenderer spriteRenderer, float fadeTime)
+    public static void FadeOut(SpriteRenderer spriteRenderer, float fadeTime)
     {
-        float alphaLevel = spriteRenderer.color.a;
-        float fadeTimer = fadeTime;
-        spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
-
-        while (alphaLevel > 0)
-        {
-            fadeTimer--;
-            alphaLevel = fadeTimer / fadeTime;
-            spriteRenderer.color = new Color(1f, 1f, 1f, alphaLevel);
-
-            yield return null;
-        }
-
-        spriteRenderer.enabled = false;
+        Instance.StartCoroutine(Utility.FadeOut(spriteRenderer, null, fadeTime));
     }
 }

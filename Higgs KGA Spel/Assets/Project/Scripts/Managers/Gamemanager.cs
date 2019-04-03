@@ -87,6 +87,9 @@ public class Gamemanager : MonoBehaviour
     {
         PlayerData data = SaveSystem.LoadPlayer();
 
+        if (data == null)
+            return;
+
         LastLevel = data.CurrentLevel;
         HighestLevel = data.HighestLevel;
         PlayerHealth = data.Health;

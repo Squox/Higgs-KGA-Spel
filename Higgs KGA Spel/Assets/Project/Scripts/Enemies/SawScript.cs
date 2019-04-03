@@ -61,7 +61,7 @@ public class SawScript : MonoBehaviour
     private void flip()
     {
         rb.velocity = new Vector2(rb.velocity.x * -1, 0);
-        GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
+        Utility.Flip2D(gameObject);
         movingRight = !movingRight;
     }
 

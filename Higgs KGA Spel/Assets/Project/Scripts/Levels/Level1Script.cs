@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Level1Script : MonoBehaviour
@@ -22,13 +20,7 @@ public class Level1Script : MonoBehaviour
     {
         door = GameObject.FindGameObjectWithTag("Door");
 
-        Gamemanager.LoadingScreen = loadingScreen;
-        Gamemanager.Slider = slider;
-        Gamemanager.ProgressText = progressText;
-
-        Gamemanager.LastLevel = 1;
-
-        Audiomanager.PlayMusic(audioSource, musicVolume);
+        LevelSetup.SetUpLevel(1, loadingScreen, slider, progressText, audioSource, musicVolume);
     }
 	
 	// Update is called once per frame

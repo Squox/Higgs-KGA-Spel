@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.UI;
@@ -7,90 +6,55 @@ using UnityEngine.UI;
 public class level2Script : MonoBehaviour
 {
     private GameObject player;
-    private PlayerController playerActionScript;
+    private PlayerController playerController;
     private Transform playerTF;
     
     private float checkRange = 1f;
     private float musicVolume = 0.5f;
 
-    private bool lastLife;
-    private bool rightCombibation = true;
-    private bool addedPress1 = false;
-    private bool addedPress2 = false;
-    private bool addedPress3 = false;
-
-    private int pyramidPressurePlatePresses = 0;
-    private int doorShowTime = 5;
-    private int cameraBlendTime = 2;
-
     [SerializeField] private GameObject loadingScreen;
     [SerializeField] private Slider slider;
     [SerializeField] private Text progressText;
+    
+    [SerializeField] private AudioSource audioSource;   
 
-    [SerializeField] private CinemachineVirtualCamera pyramidDoorCam;
-
-    [SerializeField] private GameObject pyramidDoor;
-    [SerializeField] private AudioSource audioSource;
-
-    [SerializeField] private GameObject checkPoint0;
-    [SerializeField] private GameObject checkPoint1;
-    [SerializeField] private GameObject checkPoint2;
-
-    [SerializeField] private GameObject pyramidPressurePlate1;
-    [SerializeField] private GameObject pyramidPressurePlate2;
-    [SerializeField] private GameObject pyramidPressurePlate3;
-
-    // Use this for initialization
     void Start ()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        playerActionScript = player.GetComponent<PlayerController>();
+        playerController = player.GetComponent<PlayerController>();
         playerTF = player.GetComponent<Transform>();
 
-        Gamemanager.LoadPlayer();
-        Gamemanager.LoadingScreen = loadingScreen;
-        Gamemanager.Slider = slider;
-        Gamemanager.ProgressText = progressText;
-        Gamemanager.LastLevel = 2;      
-
-        Audiomanager.PlayMusic(audioSource, musicVolume);
-
-        if (Gamemanager.LastCheckpointPosition == checkPoint0.transform.position)
-        {
-            Gamemanager.DeathCounter = 0;
-        }
-        else if (Gamemanager.DeathCounter > 3)
-        {
-            Gamemanager.LastCheckpointPosition = checkPoint0.transform.position;
-            Gamemanager.DeathCounter = 0;
-            Gamemanager.CheckPointCounter = 0;
-        }
-  
-        LoadPlayer();     
+        LevelSetup.SetUpLevel(2, loadingScreen, slider, progressText, audioSource, musicVolume);
+        LevelSetup.SetPlayerValues(checkPoints[0]);
+        LevelSetup.LoadPlayer(2, checkPoints);     
     }
-	
-	// Update is called once per frame
-	void Update ()
-    {
-        if (playerTF != null && checkPoint1 != null && checkPoint2 != null)
-        {
-            if (isInRange(playerTF, checkPoint1.transform, checkRange) && Gamemanager.CheckPointCounter < 1)
-            {
-                takeCheckpoint(checkPoint1, 1);
-            }
-            else if (isInRange(playerTF, checkPoint2.transform, checkRange) && Gamemanager.CheckPointCounter < 2)
-            {
-                takeCheckpoint(checkPoint2, 2);
-            }
-        }    
-        
-        if (pyramidPressurePlatePresses > 0)
-        {
-            checkPyramidPressurePlates(pyramidPressurePlate1.GetComponent<PressurePlateScript>().Pressed, pyramidPressurePlate2.GetComponent<PressurePlateScript>().Pressed, pyramidPressurePlate3.GetComponent<PressurePlateScript>().Pressed);
-        }
 
+	void Update ()
+    {       
+        checkPyramidPressurePlates();
         countPyramidPressurePlatePresses();
         colourCheckpoints();
+        checkIfPlayerCanTakeCheckPoint();
+    }
+
+    //------------------------------------------------>>
+    #region CheckPoint system
+
+    [SerializeField] private GameObject[] checkPoints;
+
+    private void checkIfPlayerCanTakeCheckPoint()
+    {
+        if (playerTF != null && checkPoints != null)
+        {
+            if (Utility.IsInRange(playerTF, checkPoints[1].transform, checkRange) && Gamemanager.CheckPointCounter < 1)
+            {
+                takeCheckpoint(checkPoints[1], 1);
+            }
+            else if (Utility.IsInRange(playerTF, checkPoints[2].transform, checkRange) && Gamemanager.CheckPointCounter < 2)
+            {
+                takeCheckpoint(checkPoints[2], 2);
+            }
+        }
     }
 
     private void takeCheckpoint(GameObject cp, int cpIndex)
@@ -99,37 +63,58 @@ public class level2Script : MonoBehaviour
         cp.GetComponent<SpriteRenderer>().color = Color.green;
         Gamemanager.CheckPointCounter = cpIndex;
         Gamemanager.DeathCounter = 0;
-        Gamemanager.SavePlayer(playerActionScript);
+        Gamemanager.SavePlayer(playerController);
     }
 
     private void colourCheckpoints()
     {
-        if(Gamemanager.CheckPointCounter == 1 && Gamemanager.DeathCounter < 3)
+        for (int i = 0; i < Gamemanager.CheckPointCounter; i++)
         {
-            checkPoint1.GetComponent<SpriteRenderer>().color = Color.green;
-        }
-        else if (Gamemanager.CheckPointCounter == 2 && Gamemanager.DeathCounter < 3)
-        {
-            checkPoint1.GetComponent<SpriteRenderer>().color = Color.green;
-            checkPoint2.GetComponent<SpriteRenderer>().color = Color.green;
+            //cp0 has no SpriteRenderer, so it's color must not be set: therefore the "i + 1".
+            if (Gamemanager.DeathCounter < 3)           
+                checkPoints[i + 1].GetComponent<SpriteRenderer>().color = Color.green;
+            else
+                checkPoints[i + 1].GetComponent<SpriteRenderer>().color = Color.red;
+
         }
     }
+
+    #endregion
+    //------------------------------------------------<<
+
+
+    //------------------------------------------------>>
+    #region PyramidDoorMechanism
+
+    private bool addedPress1 = false;
+    private bool addedPress2 = false;
+    private bool addedPress3 = false;
+    private bool rightCombibation = true;
+
+    private int pyramidPressurePlatePresses = 0;
+    private int doorShowTime = 5;
+    private int cameraBlendTime = 2;
+
+    [SerializeField] private CinemachineVirtualCamera pyramidDoorCam;
+    [SerializeField] private GameObject pyramidDoor;
+
+    [SerializeField] private GameObject[] pyramidPressurePlates;
 
     private void countPyramidPressurePlatePresses()
     {
         if (pyramidPressurePlatePresses < 3)
         {
-            if (pyramidPressurePlate1.GetComponent<PressurePlateScript>().Pressed && !addedPress1)
+            if (pyramidPressurePlates[0].GetComponent<PressurePlateScript>().Pressed && !addedPress1)
             {
                 pyramidPressurePlatePresses++;
                 addedPress1 = true;
             }
-            else if (pyramidPressurePlate2.GetComponent<PressurePlateScript>().Pressed && !addedPress2)
+            else if (pyramidPressurePlates[1].GetComponent<PressurePlateScript>().Pressed && !addedPress2)
             {
                 pyramidPressurePlatePresses++;
                 addedPress2 = true;
             }
-            else if (pyramidPressurePlate3.GetComponent<PressurePlateScript>().Pressed && !addedPress3)
+            else if (pyramidPressurePlates[2].GetComponent<PressurePlateScript>().Pressed && !addedPress3)
             {
                 pyramidPressurePlatePresses++;
                 addedPress3 = true;
@@ -141,13 +126,13 @@ public class level2Script : MonoBehaviour
         }
     }
 
-    private void checkPyramidPressurePlates(bool pressed1, bool pressed2, bool pressed3)
+    private void checkPyramidPressurePlates()
     {       
-        if (pressed3)
+        if (pyramidPressurePlates[2].GetComponent<PressurePlateScript>().Pressed && pyramidPressurePlatePresses > 0)
         {
-            if (pressed1 && pyramidPressurePlatePresses > 1)
+            if (pyramidPressurePlates[0].GetComponent<PressurePlateScript>().Pressed && pyramidPressurePlatePresses > 1)
             {
-                if (pressed2 && pyramidPressurePlatePresses > 2)
+                if (pyramidPressurePlates[1].GetComponent<PressurePlateScript>().Pressed && pyramidPressurePlatePresses > 2)
                 {
                     if (rightCombibation)
                     {
@@ -168,7 +153,7 @@ public class level2Script : MonoBehaviour
                 rightCombibation = false;
             }
         }
-        else
+        else if (pyramidPressurePlatePresses > 0)
         {
             rightCombibation = false;
         }
@@ -176,9 +161,10 @@ public class level2Script : MonoBehaviour
 
     private void deactivatePyramidPressurePlates()
     {
-        pyramidPressurePlate1.GetComponent<PressurePlateScript>().Active = false;
-        pyramidPressurePlate2.GetComponent<PressurePlateScript>().Active = false;
-        pyramidPressurePlate3.GetComponent<PressurePlateScript>().Active = false;       
+        foreach (GameObject go in pyramidPressurePlates)
+        {
+            go.GetComponent<PressurePlateScript>().Active = false;
+        }
     }
 
     private IEnumerator showDoor()
@@ -200,39 +186,6 @@ public class level2Script : MonoBehaviour
         player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
-    private bool isInRange(Transform transform1, Transform transform2, float range)
-    {
-        if (Mathf.Abs(transform1.position.x - transform2.position.x) < range && Mathf.Abs(transform1.position.y - transform2.position.y) < range)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    public void LoadPlayer()
-    {
-        if (Gamemanager.PlayerDead)
-        {
-            player.transform.position = Gamemanager.LastCheckpointPosition;
-            Gamemanager.PlayerHealth = Gamemanager.PlayerMaxHealth;
-            Gamemanager.SavePlayer(playerActionScript);
-            Gamemanager.PlayerDead = false;
-        }
-        else if (Gamemanager.HighestLevel < 2)
-        {
-            player.transform.position = checkPoint0.transform.position;
-            Gamemanager.PlayerHealth = Gamemanager.PlayerMaxHealth;
-            Gamemanager.LastCheckpointPosition = checkPoint0.transform.position;
-            Gamemanager.SavePlayer(playerActionScript);
-            Gamemanager.HighestLevel = 2;
-        }
-        else
-        {
-            player.transform.position = Gamemanager.PlayerPosition;
-            PlayerController.Health = Gamemanager.PlayerHealth;
-        }
-    }
+    #endregion
+    //------------------------------------------------<<
 }

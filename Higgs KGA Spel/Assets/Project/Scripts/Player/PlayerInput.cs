@@ -12,10 +12,7 @@ public class PlayerInput : MonoBehaviour
     private Coroutine powerShot;
 
     // Ints:
-    public float MoveDirection = 0;
-    public int ChargeTimer = 0;
-
-    private float chargeTime = 3f;
+    public float MoveDirection = 0;   
 
     public static bool Interact;
     public static bool OnLadder = false;
@@ -60,7 +57,7 @@ public class PlayerInput : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.I))
             {               
-                powerShot = StartCoroutine(playerController.EmpoweredShot(chargeTime));
+                powerShot = StartCoroutine(playerController.EmpoweredShot());
             }
 
             if (Input.GetKeyUp(KeyCode.I) && !FireEmpowered())

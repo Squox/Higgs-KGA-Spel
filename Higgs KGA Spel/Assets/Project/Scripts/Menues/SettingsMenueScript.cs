@@ -10,6 +10,8 @@ public class SettingsMenueScript : MonoBehaviour
     [SerializeField] private Slider slider;
     [SerializeField] private Text progressText;
 
+    public static PlayerController Player;
+
     public void ToggleMusic()
     {
         Audiomanager.MusicOn = !Audiomanager.MusicOn;
@@ -22,6 +24,6 @@ public class SettingsMenueScript : MonoBehaviour
 
     public void DeleteSaves()
     {
-
+        SaveSystem.DeleteSaves();
     }
 }

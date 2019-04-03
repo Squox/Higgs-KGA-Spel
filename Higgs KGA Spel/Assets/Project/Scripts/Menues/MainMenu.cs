@@ -10,6 +10,12 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private Slider slider;
     [SerializeField] private Text progressText;
 
+    private void Start()
+    {
+        if(Gamemanager.HighestLevel > 0)
+            Gamemanager.LoadPlayer();
+    }
+
     public void PlayGame()
     {
         if (Gamemanager.HighestLevel == 0)

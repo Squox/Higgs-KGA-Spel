@@ -25,6 +25,11 @@ public static class SaveSystem
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);
 
+            if (stream.Length <= 0)
+            {
+                return null;
+            }
+
             PlayerData data = formatter.Deserialize(stream) as PlayerData;
             stream.Close();
 
@@ -39,7 +44,9 @@ public static class SaveSystem
 
     public static void DeleteSaves()
     {
-        if (File.Exists(path))
-            File.Delete(path);
+        Gamemanager.LastLevel = 0;
+        Gamemanager.HighestLevel = 0;
+        Gamemanager.LastCheckpointPosition = Vector3.zero;
+        Gamemanager.PlayerHealth = Gamemanager.PlayerMaxHealth;
     }
 }

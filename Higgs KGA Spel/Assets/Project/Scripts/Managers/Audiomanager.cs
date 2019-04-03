@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Audiomanager : MonoBehaviour
 {
-    public static Audiomanager instance;
+    public static Audiomanager Instance;
 
     private static AudioSource currentMusic;
 
@@ -18,13 +18,13 @@ public class Audiomanager : MonoBehaviour
 
     private void MakeSingelton()
     {
-        if (instance != null)
+        if (Instance != null)
         {
             Destroy(gameObject);
         }
         else
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         }       
     }
@@ -45,22 +45,11 @@ public class Audiomanager : MonoBehaviour
         currentMusic.Stop();
     }
 
-    public static IEnumerator FadeOut(float fadeTime)
+    public static void FadeOut(float fadeTime)
     {
         if (MusicOn)
         {
-            float startVolume = currentMusic.volume;
-
-            while (currentMusic.volume > 0)
-            {
-                currentMusic.volume -= startVolume / fadeTime;
-
-                yield return null;
-            }
-
-            currentMusic.Stop();
-
-            currentMusic.volume = startVolume;
+            Instance.StartCoroutine(Utility.FadeOut(null, currentMusic, fadeTime, currentMusic.volume));
         }      
     }
 }

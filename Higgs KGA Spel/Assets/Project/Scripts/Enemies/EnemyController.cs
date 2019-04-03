@@ -34,27 +34,6 @@ public class EnemyController : MonoBehaviour
 
     public bool IsPlayerInRange(float rangeX, float rangeY = 0)
     {
-        if (rangeY == 0)
-        {
-            if (Mathf.Abs(player.transform.position.x - transform.position.x) < rangeX)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        else
-        {
-            if (Mathf.Abs(player.transform.position.x - transform.position.x) < rangeX && Mathf.Abs(player.transform.position.y - transform.position.y) < rangeY)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }       
+        return Utility.IsInRange(player.transform, transform, rangeX, rangeY);
     }
 }
