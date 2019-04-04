@@ -150,6 +150,11 @@ public class BossRatScript : MonoBehaviour
         }           
     }
 
+    private void OnDisable()
+    {
+        Destroy(ratHealthBar);
+    }
+
     //------------------------------------------------>>
     #region AttackFunctionality
 
