@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class Audiomanager : MonoBehaviour
 {
@@ -42,6 +39,9 @@ public class Audiomanager : MonoBehaviour
 
     public static void StopMusic()
     {
+        if (!MusicOn)
+            return;
+
         currentMusic.Stop();
     }
 

@@ -94,7 +94,7 @@ public class PlayerInput : MonoBehaviour
             {
                 playerController.VictoryScreen.SetActive(false);
                 Gamemanager.LastLevel++;               
-                Gamemanager.SavePlayer(playerController);
+                Gamemanager.SavePlayer(playerController, Gamemanager.LastLevel);
                 Gamemanager.ExitLevel();
             }
             else if (PlayerController.CanUnpause)
@@ -104,7 +104,7 @@ public class PlayerInput : MonoBehaviour
             else if (PlayerController.Health < 1 && PlayerController.CanRestart)
             {
                 playerController.DeathScreen.SetActive(false);
-                Gamemanager.SavePlayer(playerController);
+                Gamemanager.SavePlayer(playerController, Gamemanager.LastLevel);
                 Gamemanager.ExitLevel();               
             }
             else if (PlayerController.Health > 0 && !PlayerController.CanUnpause)
@@ -119,7 +119,7 @@ public class PlayerInput : MonoBehaviour
             {
                 playerController.PauseScreen.SetActive(false);               
                 Audiomanager.StopMusic();
-                Gamemanager.SavePlayer(playerController);
+                Gamemanager.SavePlayer(playerController, Gamemanager.LastLevel);
                 Gamemanager.ExitLevel();
             }
         }

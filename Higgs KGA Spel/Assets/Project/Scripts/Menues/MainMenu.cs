@@ -9,8 +9,8 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
-        if (Gamemanager.HighestLevel > 0)
-            Gamemanager.LoadPlayer();
+        //if (Gamemanager.HighestLevel > 0)
+        //    Gamemanager.LoadPlayer();
     }
 
     public void PlayGame()

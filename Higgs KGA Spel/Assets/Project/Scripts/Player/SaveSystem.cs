@@ -6,13 +6,13 @@ public static class SaveSystem
 {
     private static string path = Application.persistentDataPath + "/Player.file";
 
-    public static void SavePlayer(PlayerController player = null)
+    public static void SavePlayer(PlayerController player = null, int level = 0)
     {
         BinaryFormatter formatter = new BinaryFormatter();
 
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        PlayerData data = new PlayerData(player);
+        PlayerData data = new PlayerData(player, level);
 
         formatter.Serialize(stream, data);
         stream.Close();

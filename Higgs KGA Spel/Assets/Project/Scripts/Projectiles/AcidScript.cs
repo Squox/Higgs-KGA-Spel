@@ -12,13 +12,19 @@ public class AcidScript : MonoBehaviour
     private Rigidbody2D acidRB;
     private GameObject rat;
     private BossRatScript bossRatScript;
-    private Vector2 acidVel;  
+    private Vector2 acidVel;
+
+    private void Awake()
+    {
+        rat = GameObject.FindGameObjectWithTag("Enemy");
+
+        if (rat == null)
+            Destroy(gameObject);
+    }
 
     // Use this for initialization
     void Start ()
     {
-        rat = GameObject.FindGameObjectWithTag("Enemy");
-
         if (rat == null)
             Destroy(gameObject);
 

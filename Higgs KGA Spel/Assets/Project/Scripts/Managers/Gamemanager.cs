@@ -12,14 +12,13 @@ public class Gamemanager : MonoBehaviour
     public static Text ProgressText;
 
     public static Vector3 LastCheckpointPosition;
-    public static Vector3 PlayerPosition;
+    public static Vector3 SavedPlayerPosition;
 
     public static int LastLevel;
     public static int HighestLevel;
     public static int PlayerHealth;
     public static int CheckPointCounter = 0;
-    public static int DeathCounter = 0;
-    
+    public static int DeathCounter = 0;    
     public static int PlayerMaxHealth = 3;
 
     public static bool InLevel = false;
@@ -80,12 +79,44 @@ public class Gamemanager : MonoBehaviour
         }
     }
 
-    public static void SavePlayer(PlayerController player = null)
+    public static object LevelStringIntConversion(object level)
+    {
+        if (level.GetType() == typeof(int))
+        {
+            if ((int)level == 1)
+                return "First Level";
+            else if ((int)level == 2)
+                return "Second Level";
+            else if ((int)level == 3)
+                return "Third Level";
+            else if ((int)level == 4)
+                return "Fourth Level";
+            else
+                return null;
+        }
+        else if (level.GetType() == typeof(string))
+        {
+            if ((string)level == "First Level")
+                return 1;
+            else if ((string)level == "Second Level")
+                return 2;
+            else if ((string)level == "Third Level")
+                return 3;
+            else if ((string)level == "Fourth Level")
+                return 4;
+            else
+                return null;
+        }
+        else
+            return null;
+    }
+
+    public static void SavePlayer(PlayerController player = null, int level = 0)
     {
         SaveSystem.SavePlayer(player);
     }
 
-    public static void LoadPlayer()
+    public static void LoadPlayer(int level = 0)
     {
         PlayerData data = SaveSystem.LoadPlayer();
 
@@ -97,7 +128,7 @@ public class Gamemanager : MonoBehaviour
         LastLevel = data.CurrentLevel;
         HighestLevel = data.HighestLevel;
         PlayerHealth = data.Health;
-        PlayerPosition = new Vector3(data.Position[0], data.Position[1], data.Position[2]);
+        SavedPlayerPosition = new Vector3(data.Position[level,0], data.Position[level,1], data.Position[level,2]);
     }
 
     public static void RestartGame()

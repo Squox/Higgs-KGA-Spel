@@ -39,9 +39,7 @@ public static class LevelSetup
     public static void LoadPlayer(int levelIndex, GameObject[] cps)
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        PlayerController playerController = player.GetComponent<PlayerController>();
-
-        Gamemanager.LoadPlayer();
+        PlayerController playerController = player.GetComponent<PlayerController>();       
 
         int counter = 0;
 
@@ -56,23 +54,24 @@ public static class LevelSetup
                 Gamemanager.LastCheckpointPosition = cps[0].transform.position;
         }
 
-        if (Gamemanager.PlayerDead)
-        {
-            player.transform.position = Gamemanager.LastCheckpointPosition;
-            Gamemanager.PlayerHealth = Gamemanager.PlayerMaxHealth;
-            Gamemanager.SavePlayer(playerController);
-            Gamemanager.PlayerDead = false;
-        }
-        else if (Gamemanager.HighestLevel < levelIndex)
+        if (Gamemanager.HighestLevel < levelIndex)
         {
             player.transform.position = cps[0].transform.position;
             Gamemanager.PlayerHealth = Gamemanager.PlayerMaxHealth;
             Gamemanager.LastCheckpointPosition = cps[0].transform.position;
-            Gamemanager.SavePlayer(playerController);
+            Gamemanager.SavePlayer(playerController, Gamemanager.LastLevel);
         }
+        else if (Gamemanager.PlayerDead || Gamemanager.LastLevel != levelIndex)
+        {
+            player.transform.position = Gamemanager.LastCheckpointPosition;
+            Gamemanager.PlayerHealth = Gamemanager.PlayerMaxHealth;
+            Gamemanager.SavePlayer(playerController, Gamemanager.LastLevel);
+            Gamemanager.PlayerDead = false;
+        }       
         else
         {
-            player.transform.position = Gamemanager.PlayerPosition;
+            Gamemanager.LoadPlayer(levelIndex);
+            player.transform.position = Gamemanager.SavedPlayerPosition;
             PlayerController.Health = Gamemanager.PlayerHealth;
         }
     }

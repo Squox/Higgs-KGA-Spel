@@ -17,18 +17,22 @@ public class LevelSelectScript : MonoBehaviour
 
     public void LoadFirstLevel()
     {
-        StartCoroutine(Gamemanager.LoadAsyncronously("First Level", loadingScreen, slider, progressText));
+        if (Gamemanager.HighestLevel >= 1)
+            StartCoroutine(Gamemanager.LoadAsyncronously("First Level", loadingScreen, slider, progressText));
     }
     public void LoadSecondLevel()
     {
-        StartCoroutine(Gamemanager.LoadAsyncronously("Second Level", loadingScreen, slider, progressText));
+        if (Gamemanager.HighestLevel >= 2)
+            StartCoroutine(Gamemanager.LoadAsyncronously("Second Level", loadingScreen, slider, progressText));
     }
     public void LoadThirdLevel()
     {
-        StartCoroutine(Gamemanager.LoadAsyncronously("Third Level", loadingScreen, slider, progressText));
+        if (Gamemanager.HighestLevel >= 3)
+            StartCoroutine(Gamemanager.LoadAsyncronously("Third Level", loadingScreen, slider, progressText));
     }
     public void LoadFourthLevel()
     {
-        StartCoroutine(Gamemanager.LoadAsyncronously("Fourth Level", loadingScreen, slider, progressText));
+        if (Gamemanager.HighestLevel >= 4)
+            StartCoroutine(Gamemanager.LoadAsyncronously("Fourth Level", loadingScreen, slider, progressText));
     }
 }

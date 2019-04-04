@@ -61,7 +61,7 @@ public class level2Script : MonoBehaviour
         cp.GetComponent<SpriteRenderer>().color = Color.green;
         Gamemanager.CheckPointCounter = cpIndex;
         Gamemanager.DeathCounter = 0;
-        Gamemanager.SavePlayer(playerController);
+        Gamemanager.SavePlayer(playerController, Gamemanager.LastLevel);
     }
 
     private void colourCheckpoints()

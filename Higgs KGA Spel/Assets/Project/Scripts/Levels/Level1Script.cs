@@ -23,7 +23,7 @@ public class Level1Script : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
 
         LevelSetup.SetUpLevel(1, loadingScreen, slider, progressText, audioSource, musicVolume);
-        Gamemanager.SavePlayer(player.GetComponent<PlayerController>());
+        Gamemanager.SavePlayer(player.GetComponent<PlayerController>(), Gamemanager.LastLevel);
     }
 	
 	// Update is called once per frame

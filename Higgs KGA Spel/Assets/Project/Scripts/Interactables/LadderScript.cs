@@ -32,4 +32,9 @@ public class LadderScript : MonoBehaviour
         else
             PlayerInput.OnLadder = false;
     }
+
+    private void OnDisable()
+    {
+        PlayerInput.OnLadder = false;
+    }
 }
