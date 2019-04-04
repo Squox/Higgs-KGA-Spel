@@ -22,9 +22,9 @@ public class level2Script : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
 
-        LevelSetup.SetUpLevel(2, loadingScreen, slider, progressText, audioSource, musicVolume);
         LevelSetup.SetPlayerValues(checkPoints[0]);
-        LevelSetup.LoadPlayer(2, checkPoints);     
+        LevelSetup.LoadPlayer(2, checkPoints);
+        LevelSetup.SetUpLevel(2, loadingScreen, slider, progressText, audioSource, musicVolume);                 
     }
 
 	void Update ()
@@ -44,11 +44,11 @@ public class level2Script : MonoBehaviour
     {
         if (checkPoints != null)
         {
-            if (Utility.IsInRange(PlayerPhysics.PlayerPosition, checkPoints[1].transform, checkRange) && Gamemanager.CheckPointCounter < 1)
+            if (Utility.IsInRange(PlayerPhysics.PlayerTransform, checkPoints[1].transform, checkRange) && Gamemanager.CheckPointCounter < 1)
             {
                 takeCheckpoint(checkPoints[1], 1);
             }
-            else if (Utility.IsInRange(PlayerPhysics.PlayerPosition, checkPoints[2].transform, checkRange) && Gamemanager.CheckPointCounter < 2)
+            else if (Utility.IsInRange(PlayerPhysics.PlayerTransform, checkPoints[2].transform, checkRange) && Gamemanager.CheckPointCounter < 2)
             {
                 takeCheckpoint(checkPoints[2], 2);
             }

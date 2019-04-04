@@ -19,7 +19,7 @@ public class EnemyController : MonoBehaviour
 
     public bool IsPlayerRight()
     {
-        if (PlayerPhysics.PlayerPosition.position.x > transform.position.x)
+        if (PlayerPhysics.PlayerTransform.position.x > transform.position.x)
         {
             return true;
         }
@@ -31,6 +31,6 @@ public class EnemyController : MonoBehaviour
 
     public bool IsPlayerInRange(float rangeX, float rangeY = 0)
     {
-        return Utility.IsInRange(PlayerPhysics.PlayerPosition, transform, rangeX, rangeY);
+        return Utility.IsInRange(PlayerPhysics.PlayerTransform, transform, rangeX, rangeY);
     }
 }

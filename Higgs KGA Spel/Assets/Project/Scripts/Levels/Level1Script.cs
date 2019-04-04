@@ -10,6 +10,7 @@ public class Level1Script : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
 
     private GameObject door;
+    private GameObject player;
 
     public bool RatAlive = true;
 
@@ -19,8 +20,10 @@ public class Level1Script : MonoBehaviour
     void Start ()
     {
         door = GameObject.FindGameObjectWithTag("Door");
+        player = GameObject.FindGameObjectWithTag("Player");
 
         LevelSetup.SetUpLevel(1, loadingScreen, slider, progressText, audioSource, musicVolume);
+        Gamemanager.SavePlayer(player.GetComponent<PlayerController>());
     }
 	
 	// Update is called once per frame

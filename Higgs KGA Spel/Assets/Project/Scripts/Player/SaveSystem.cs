@@ -6,7 +6,7 @@ public static class SaveSystem
 {
     private static string path = Application.persistentDataPath + "/Player.file";
 
-    public static void SavePlayer(PlayerController player)
+    public static void SavePlayer(PlayerController player = null)
     {
         BinaryFormatter formatter = new BinaryFormatter();
 

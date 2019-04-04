@@ -14,9 +14,9 @@ public class Gamemanager : MonoBehaviour
     public static Vector3 LastCheckpointPosition;
     public static Vector3 PlayerPosition;
 
-    public static int LastLevel = 0;
-    public static int HighestLevel = 0;
-    public static int PlayerHealth = 3;
+    public static int LastLevel;
+    public static int HighestLevel;
+    public static int PlayerHealth;
     public static int CheckPointCounter = 0;
     public static int DeathCounter = 0;
     
@@ -40,12 +40,14 @@ public class Gamemanager : MonoBehaviour
 
     private void Awake()
     {
+        LoadPlayer();
         MakeSingelton();
         Time.timeScale = 1;
     }
 
     private void Update()
     {
+        Debug.Log("From Gamemanager perspective HightsLevel == " + HighestLevel);
         if (PlayerHealth < 1)
         {
             PlayerDead = true;
@@ -78,7 +80,7 @@ public class Gamemanager : MonoBehaviour
         }
     }
 
-    public static void SavePlayer(PlayerController player)
+    public static void SavePlayer(PlayerController player = null)
     {
         SaveSystem.SavePlayer(player);
     }
@@ -89,6 +91,8 @@ public class Gamemanager : MonoBehaviour
 
         if (data == null)
             return;
+
+        Debug.Log("Loading in Highets level as: " + data.HighestLevel);
 
         LastLevel = data.CurrentLevel;
         HighestLevel = data.HighestLevel;

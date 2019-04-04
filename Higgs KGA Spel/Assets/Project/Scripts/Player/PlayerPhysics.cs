@@ -17,7 +17,7 @@ public class PlayerPhysics : MonoBehaviour
 
     private static Rigidbody2D rb;
 
-    public static Transform PlayerPosition;
+    public static Transform PlayerTransform;
 
     private static bool isOnGround;
     [SerializeField] private float groundCheckRadius;
@@ -27,6 +27,8 @@ public class PlayerPhysics : MonoBehaviour
     // Use this for initialization
     void Awake ()
     {
+        PlayerTransform = transform;
+
         rb = GetComponent<Rigidbody2D>();
 
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -35,7 +37,7 @@ public class PlayerPhysics : MonoBehaviour
 	// Update is called once per frame
 	void FixedUpdate ()
     {
-        PlayerPosition = transform;
+        PlayerTransform = transform;
         isOnGround = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
 
         move();

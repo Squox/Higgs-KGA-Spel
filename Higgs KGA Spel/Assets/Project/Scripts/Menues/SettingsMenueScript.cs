@@ -25,5 +25,6 @@ public class SettingsMenueScript : MonoBehaviour
     public void DeleteSaves()
     {
         SaveSystem.DeleteSaves();
+        Gamemanager.SavePlayer();
     }
 }

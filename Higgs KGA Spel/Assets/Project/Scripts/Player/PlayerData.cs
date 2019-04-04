@@ -10,15 +10,24 @@ public class PlayerData
     public int Health;
     public float[] Position;
 
-    public PlayerData(PlayerController player)
+    public PlayerData(PlayerController player = null)
     {
         CurrentLevel = Gamemanager.LastLevel;
         HighestLevel = Gamemanager.HighestLevel;
         Health = Gamemanager.PlayerHealth;
 
         Position = new float[3];
-        Position[0] = player.transform.position.x;
-        Position[1] = player.transform.position.y;
-        Position[2] = player.transform.position.z;
+        if (player != null)
+        {            
+            Position[0] = player.transform.position.x;
+            Position[1] = player.transform.position.y;
+            Position[2] = player.transform.position.z;
+        }
+        else
+        {
+            Position[0] = 0;
+            Position[1] = 0;
+            Position[2] = 0;
+        }           
     }
 }

@@ -4,7 +4,18 @@ using UnityEngine.UI;
 public static class LevelSetup
 {
     public static void SetUpLevel(int levelIndex, GameObject loadingScreen, Slider slider, Text progressText, AudioSource audioSource, float volume = 0)
-    {      
+    {
+        Debug.Log("Setting up level.");
+        Debug.Log("LevelIndex: " + levelIndex);
+        Debug.Log("HighestLevel: " + Gamemanager.HighestLevel);
+
+        if (levelIndex > Gamemanager.HighestLevel)
+        {
+            Debug.Log("LevelIndex > HighestLevel");
+            Gamemanager.HighestLevel = levelIndex;
+            Debug.Log("NewHighestLevel: " + Gamemanager.HighestLevel);
+        }          
+
         Gamemanager.LoadingScreen = loadingScreen;
         Gamemanager.Slider = slider;
         Gamemanager.ProgressText = progressText;
@@ -57,7 +68,6 @@ public static class LevelSetup
             player.transform.position = cps[0].transform.position;
             Gamemanager.PlayerHealth = Gamemanager.PlayerMaxHealth;
             Gamemanager.LastCheckpointPosition = cps[0].transform.position;
-            Gamemanager.HighestLevel = levelIndex;
             Gamemanager.SavePlayer(playerController);
         }
         else

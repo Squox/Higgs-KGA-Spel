@@ -104,8 +104,8 @@ public class PlayerInput : MonoBehaviour
             else if (PlayerController.Health < 1 && PlayerController.CanRestart)
             {
                 playerController.DeathScreen.SetActive(false);
-                Gamemanager.ExitLevel();
                 Gamemanager.SavePlayer(playerController);
+                Gamemanager.ExitLevel();               
             }
             else if (PlayerController.Health > 0 && !PlayerController.CanUnpause)
             {
@@ -117,10 +117,10 @@ public class PlayerInput : MonoBehaviour
         {
             if (PlayerController.CanUnpause)
             {
-                playerController.PauseScreen.SetActive(false);
-                Gamemanager.ExitLevel();
-                Gamemanager.SavePlayer(playerController);
+                playerController.PauseScreen.SetActive(false);               
                 Audiomanager.StopMusic();
+                Gamemanager.SavePlayer(playerController);
+                Gamemanager.ExitLevel();
             }
         }
 
