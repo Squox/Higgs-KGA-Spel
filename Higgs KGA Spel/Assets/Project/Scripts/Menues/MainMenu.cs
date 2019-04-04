@@ -36,7 +36,5 @@ public class MainMenu : MonoBehaviour
     public void Settings()
     {
         StartCoroutine(Gamemanager.LoadAsyncronously("Settings menue", loadingScreen, slider, progressText));
-    }
-
-    
+    }   
 }

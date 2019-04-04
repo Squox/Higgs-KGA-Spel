@@ -625,16 +625,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7e4bb95eceea3f48b322f2f188684dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LastCheckpointPosition: {x: 0, y: 0, z: 0}
-  PlayerPosition: {x: 0, y: 0, z: 0}
-  LastLevel: 0
-  HighestLevel: 0
-  CheckPointCounter: 0
-  DeathCounter: 0
-  PlayerHealth: 3
-  PlayerMaxHealth: 3
-  InLevel: 0
-  PlayerDead: 0
 --- !u!4 &450092476
 Transform:
   m_ObjectHideFlags: 0

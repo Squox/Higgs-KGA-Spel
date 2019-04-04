@@ -15,7 +15,9 @@ public class PlayerPhysics : MonoBehaviour
 
     private static bool jumping = false;
 
-    private static Rigidbody2D rb;                            
+    private static Rigidbody2D rb;
+
+    public static Transform PlayerPosition;
 
     private static bool isOnGround;
     [SerializeField] private float groundCheckRadius;
@@ -33,6 +35,7 @@ public class PlayerPhysics : MonoBehaviour
 	// Update is called once per frame
 	void FixedUpdate ()
     {
+        PlayerPosition = transform;
         isOnGround = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
 
         move();

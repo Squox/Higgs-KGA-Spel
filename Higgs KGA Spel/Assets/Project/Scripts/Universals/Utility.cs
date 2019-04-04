@@ -129,25 +129,14 @@ public static class Utility
     }
 
     /// <summary>
-    /// Checks whether a value is inside an array.
-    /// </summary>
-    /// <returns>Returns true if the value is in the array.</returns>
-    public static bool ArrayContains(this object[] array, object val)
-    {
-        for (int i = 0; i < array.Length; i++)
-        {
-            if (array[i] == val)
-                return true;
-        }
-        return false;
-    }
-
-    /// <summary>
     /// Checks whether two Transforms are whithin a given distance of each other.
     /// </summary>
     /// <returns>Returns true if the Transforms are in range of each other.</returns>
     public static bool IsInRange(Transform transform1, Transform transform2, float rangeX, float rangeY = 0)
     {
+        if (transform1 == null || transform2 == null)
+            return false;
+
         if (rangeY == 0)
         {
             if (Mathf.Abs(transform1.position.x - transform2.position.x) < rangeX)

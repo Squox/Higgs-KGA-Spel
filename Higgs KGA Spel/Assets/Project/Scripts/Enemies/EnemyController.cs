@@ -7,12 +7,9 @@ public class EnemyController : MonoBehaviour
 
     public int Health;
 
-    private GameObject player;
-
     private void Awake()
     {
         Health = MaxHealth;
-        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     public void TakeDamage(int damage = 1)
@@ -22,7 +19,7 @@ public class EnemyController : MonoBehaviour
 
     public bool IsPlayerRight()
     {
-        if (player.transform.position.x > transform.position.x)
+        if (PlayerPhysics.PlayerPosition.position.x > transform.position.x)
         {
             return true;
         }
@@ -34,6 +31,6 @@ public class EnemyController : MonoBehaviour
 
     public bool IsPlayerInRange(float rangeX, float rangeY = 0)
     {
-        return Utility.IsInRange(player.transform, transform, rangeX, rangeY);
+        return Utility.IsInRange(PlayerPhysics.PlayerPosition, transform, rangeX, rangeY);
     }
 }

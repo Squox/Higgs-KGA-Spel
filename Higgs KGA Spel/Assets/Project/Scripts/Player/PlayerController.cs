@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void DefeatBoss()
+    public static void DefeatBoss()
     {
         Audiomanager.FadeOut(VictoryScreenFadeTime);
     }
@@ -195,7 +195,6 @@ public class PlayerController : MonoBehaviour
     #endregion
     //------------------------------------------------<<
 
-    
 
     //------------------------------------------------>>
     #region StateAffectingCoroutines
@@ -208,7 +207,7 @@ public class PlayerController : MonoBehaviour
     private float pauseScreenFadeTime = 10f;
 
     public float LastFadeTime = 0f;
-    public float VictoryScreenFadeTime = 40f;
+    public static float VictoryScreenFadeTime = 40f;
 
     public static bool CanUnpause = false;
     public static bool CanRestart = false;
@@ -271,8 +270,7 @@ public class PlayerController : MonoBehaviour
 
     #endregion
     //------------------------------------------------<<
-
-    
+   
 
     //------------------------------------------------>>
     #region Shooting
@@ -351,8 +349,7 @@ public class PlayerController : MonoBehaviour
 
     #endregion
     //------------------------------------------------<<
-
-    
+  
 
     //------------------------------------------------>>
     #region Collision detection

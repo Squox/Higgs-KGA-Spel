@@ -2,24 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(EnemyController))]
 public class BossRatScript : MonoBehaviour
 {
-    [SerializeField] private Transform shootingpoint;
-    [SerializeField] private GameObject acidPrefab;
     [SerializeField] private GameObject ratHealthBar;
     [SerializeField] private BoxCollider2D idleCol;
     [SerializeField] private BoxCollider2D chargedCol;
 
     private BoxCollider2D idleCollider;
     private BoxCollider2D dogedCollider;
-    private PolygonCollider2D bulletCollider;
     private GameObject player;
     private GameObject level;
     private Rigidbody2D ratRB;
     private Animator animator;
-    private Vector2 fallpoint;
-    private Transform priorShootingpoint;
     private PlayerController playerActionScript;
     private EnemyController enemyController;
     private Level1Script level1Script;
@@ -27,19 +23,11 @@ public class BossRatScript : MonoBehaviour
     private int health;
     private int maxHealth;
 
-    private int attackType;
-    private int lastAttack;  
-
     [SerializeField] private float fallMultiplier = 1.7f;
     [SerializeField] private float lowJumpMultiplier = 1.7f;
     [SerializeField] private float dashSpeed = 1000f;
     [SerializeField] private float jumpForce = 530f;
-
-    private float timeTillFall = 2f;
-    private float acidX;
-    private float acidY;
-    private float acidFireFireRate = 0.1f;
-    private float attackDelay = 2f;
+   
     private float startScaleX;
 
     //variables used to check if rat is on ground
@@ -49,15 +37,10 @@ public class BossRatScript : MonoBehaviour
     [SerializeField] private Transform groundCheck;
 
     //Bools:
-    public bool IsFacingRight = true;
-    public bool AcidShot = false;
-    public bool AcidRain = false;
-    public bool AcidFire = false;    
+    public bool IsFacingRight = true;     
 
     private bool jump = false;
     private bool charging = false;
-
-    private int invulnerabilityTimer;
 
     private void Start()
     {
@@ -98,7 +81,7 @@ public class BossRatScript : MonoBehaviour
         if (health < 1)
         {
             level1Script.RatAlive = false;
-            playerActionScript.DefeatBoss();
+            PlayerController.DefeatBoss();
             Destroy(gameObject);
         }             
 
@@ -118,19 +101,19 @@ public class BossRatScript : MonoBehaviour
 
     private void updateFacingDirection(bool _charging)
     {
-        if (!_charging)
+        if (_charging)
+            return;
+
+        if (gameObject.transform.position.x < player.transform.position.x)
         {
-            if (gameObject.transform.position.x < player.transform.position.x)
-            {
-                IsFacingRight = true;
-                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-            }
-            else if (gameObject.transform.position.x > player.transform.position.x)
-            {
-                IsFacingRight = false;
-                transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-            }
-        }        
+            IsFacingRight = true;
+            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        }
+        else if (gameObject.transform.position.x > player.transform.position.x)
+        {
+            IsFacingRight = false;
+            transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+        }    
     }
 
     private void ChangeGravityScale()
@@ -166,6 +149,23 @@ public class BossRatScript : MonoBehaviour
             return false;
         }           
     }
+
+    //------------------------------------------------>>
+    #region AttackFunctionality
+
+    [SerializeField] private Transform shootingpoint;
+    [SerializeField] private GameObject acidPrefab;
+
+    public bool AcidShot = false;
+    public bool AcidRain = false;
+    public bool AcidFire = false;
+
+    private int attackType;
+    private int lastAttack;
+
+    private float timeTillFall = 2f;
+    private float acidFireFireRate = 0.1f;
+    private float attackDelay = 2f;
 
     private IEnumerator attack()
     {
@@ -253,7 +253,7 @@ public class BossRatScript : MonoBehaviour
 
         animator.SetBool("TiltNeck", true);
 
-        priorShootingpoint = shootingpoint;
+        Transform priorShootingpoint = shootingpoint;
 
         int shotCounter = 0;
 
@@ -275,16 +275,16 @@ public class BossRatScript : MonoBehaviour
 
         for (int i = 0; i < 10; i++)
         {
-            acidX = Random.Range(0.1f, 5f);
-            acidY = Random.Range(4f, 6f);
+            Vector3 acidPos = new Vector3(Random.Range(0.1f, 5f), Random.Range(4f, 6f), 0);
+            Vector2 fallpoint;
 
             if (IsFacingRight)
             {
-                fallpoint = priorShootingpoint.position + new Vector3(acidX, acidY, 0);
+                fallpoint = priorShootingpoint.position + acidPos;
             }
             else
             {
-                fallpoint = priorShootingpoint.position + new Vector3(-acidX, acidY, 0);
+                fallpoint = priorShootingpoint.position + new Vector3(-acidPos.x, acidPos.y, 0);
             }
 
             Instantiate(acidPrefab, fallpoint, shootingpoint.rotation * Quaternion.Euler(0, 0, 90));
@@ -311,6 +311,9 @@ public class BossRatScript : MonoBehaviour
             jump = true;
         }        
     }
+
+    #endregion
+    //------------------------------------------------<<
 
     private void OnTriggerStay2D(Collider2D collision) 
     {

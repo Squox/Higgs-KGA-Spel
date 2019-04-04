@@ -23,7 +23,10 @@ public class AcidScript : MonoBehaviour
             Destroy(gameObject);
 
         bossRatScript = rat.GetComponent<BossRatScript>();
-        acidRB = GetComponent<Rigidbody2D>();      
+        acidRB = GetComponent<Rigidbody2D>();
+
+        calculateVelocity();
+        StartCoroutine(destroy());
     }
 
     private IEnumerator destroy()

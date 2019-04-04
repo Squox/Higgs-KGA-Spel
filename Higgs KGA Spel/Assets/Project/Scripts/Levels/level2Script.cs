@@ -7,7 +7,6 @@ public class level2Script : MonoBehaviour
 {
     private GameObject player;
     private PlayerController playerController;
-    private Transform playerTF;
     
     private float checkRange = 1f;
     private float musicVolume = 0.5f;
@@ -22,7 +21,6 @@ public class level2Script : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
-        playerTF = player.GetComponent<Transform>();
 
         LevelSetup.SetUpLevel(2, loadingScreen, slider, progressText, audioSource, musicVolume);
         LevelSetup.SetPlayerValues(checkPoints[0]);
@@ -44,13 +42,13 @@ public class level2Script : MonoBehaviour
 
     private void checkIfPlayerCanTakeCheckPoint()
     {
-        if (playerTF != null && checkPoints != null)
+        if (checkPoints != null)
         {
-            if (Utility.IsInRange(playerTF, checkPoints[1].transform, checkRange) && Gamemanager.CheckPointCounter < 1)
+            if (Utility.IsInRange(PlayerPhysics.PlayerPosition, checkPoints[1].transform, checkRange) && Gamemanager.CheckPointCounter < 1)
             {
                 takeCheckpoint(checkPoints[1], 1);
             }
-            else if (Utility.IsInRange(playerTF, checkPoints[2].transform, checkRange) && Gamemanager.CheckPointCounter < 2)
+            else if (Utility.IsInRange(PlayerPhysics.PlayerPosition, checkPoints[2].transform, checkRange) && Gamemanager.CheckPointCounter < 2)
             {
                 takeCheckpoint(checkPoints[2], 2);
             }
