@@ -9,12 +9,14 @@ public class PlayerData
     public int HighestLevel;
     public int Health;
     public float[,] Position = new float[5, 3];
+    public bool MusicOn;
 
     public PlayerData(PlayerController player = null, int level = 0)
     {
         CurrentLevel = Gamemanager.LastLevel;
         HighestLevel = Gamemanager.HighestLevel;
         Health = Gamemanager.PlayerHealth;
+        MusicOn = Audiomanager.MusicOn;
 
         if (player != null && level != 0)
         {            

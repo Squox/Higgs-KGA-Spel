@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class LevelSelectScript : MonoBehaviour
@@ -9,6 +6,15 @@ public class LevelSelectScript : MonoBehaviour
     [SerializeField] private GameObject loadingScreen;
     [SerializeField] private Slider slider;
     [SerializeField] private Text progressText;
+    [SerializeField] private Button lvl1Btn;
+    [SerializeField] private Button lvl2Btn;
+    [SerializeField] private Button lvl3Btn;
+    [SerializeField] private Button lvl4Btn;
+
+    private void Start()
+    {
+        updateLevelButtonColor();
+    }
 
     public void Exit()
     {
@@ -34,5 +40,44 @@ public class LevelSelectScript : MonoBehaviour
     {
         if (Gamemanager.HighestLevel >= 4)
             StartCoroutine(Gamemanager.LoadAsyncronously("Fourth Level", loadingScreen, slider, progressText));
+    }
+
+    private void updateLevelButtonColor()
+    {
+        if (Gamemanager.HighestLevel == 1)
+        {
+            lvl1Btn.GetComponent<Image>().color = Color.green;
+            lvl2Btn.GetComponent<Image>().color = Color.red;
+            lvl3Btn.GetComponent<Image>().color = Color.red;
+            lvl4Btn.GetComponent<Image>().color = Color.red;
+        }
+        else if (Gamemanager.HighestLevel == 2)
+        {
+            lvl1Btn.GetComponent<Image>().color = Color.green;
+            lvl2Btn.GetComponent<Image>().color = Color.green;
+            lvl3Btn.GetComponent<Image>().color = Color.red;
+            lvl4Btn.GetComponent<Image>().color = Color.red;
+        }
+        else if (Gamemanager.HighestLevel == 3)
+        {
+            lvl1Btn.GetComponent<Image>().color = Color.green;
+            lvl2Btn.GetComponent<Image>().color = Color.green;
+            lvl3Btn.GetComponent<Image>().color = Color.green;
+            lvl4Btn.GetComponent<Image>().color = Color.red;
+        }
+        else if (Gamemanager.HighestLevel == 4)
+        {
+            lvl1Btn.GetComponent<Image>().color = Color.green;
+            lvl2Btn.GetComponent<Image>().color = Color.green;
+            lvl3Btn.GetComponent<Image>().color = Color.green;
+            lvl4Btn.GetComponent<Image>().color = Color.green;
+        }
+        else
+        {
+            lvl1Btn.GetComponent<Image>().color = Color.red;
+            lvl2Btn.GetComponent<Image>().color = Color.red;
+            lvl3Btn.GetComponent<Image>().color = Color.red;
+            lvl4Btn.GetComponent<Image>().color = Color.red;
+        }
     }
 }

@@ -29,11 +29,11 @@ public class PlayButtonScript : MonoBehaviour
 
     public void Exit()
     {
-        StartCoroutine(Gamemanager.LoadAsyncronously("Start menu", loadingScreen, slider, progressText));
+        Gamemanager.LoadScene("Start menu");
     }
 
     public void SelectLevel()
     {
-        StartCoroutine(Gamemanager.LoadAsyncronously("Level select", loadingScreen, slider, progressText));
+        Gamemanager.LoadScene("Level select");
     }
 }

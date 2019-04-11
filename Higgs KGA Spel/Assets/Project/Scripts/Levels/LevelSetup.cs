@@ -61,17 +61,25 @@ public static class LevelSetup
             Gamemanager.LastCheckpointPosition = cps[0].transform.position;
             Gamemanager.SavePlayer(playerController, Gamemanager.LastLevel);
         }
-        else if (Gamemanager.PlayerDead || Gamemanager.LastLevel == levelIndex)
+        else if (Gamemanager.LastLevel == levelIndex)
+        {
+            Gamemanager.LoadPlayer(levelIndex);
+            player.transform.position = Gamemanager.SavedPlayerPositions[levelIndex];
+            Gamemanager.PlayerHealth = Gamemanager.PlayerMaxHealth;
+            Gamemanager.SavePlayer(playerController, Gamemanager.LastLevel);
+            Gamemanager.PlayerDead = false;
+        }
+        else if (Gamemanager.PlayerDead)
         {
             player.transform.position = Gamemanager.LastCheckpointPosition;
             Gamemanager.PlayerHealth = Gamemanager.PlayerMaxHealth;
             Gamemanager.SavePlayer(playerController, Gamemanager.LastLevel);
             Gamemanager.PlayerDead = false;
-        }       
+        }
         else
         {
             Gamemanager.LoadPlayer(levelIndex);
-            player.transform.position = Gamemanager.SavedPlayerPosition;
+            player.transform.position = Gamemanager.SavedPlayerPositions[levelIndex];
             PlayerController.Health = Gamemanager.PlayerHealth;
         }
     }

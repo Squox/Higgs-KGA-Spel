@@ -6,7 +6,7 @@ public class Audiomanager : MonoBehaviour
 
     private static AudioSource currentMusic;
 
-    public static bool MusicOn = true;
+    public static bool MusicOn;
 
     private void Awake()
     {

@@ -12,7 +12,7 @@ public class Gamemanager : MonoBehaviour
     public static Text ProgressText;
 
     public static Vector3 LastCheckpointPosition;
-    public static Vector3 SavedPlayerPosition;
+    public static Vector3[] SavedPlayerPositions = new Vector3[4];
 
     public static int LastLevel;
     public static int HighestLevel;
@@ -53,6 +53,8 @@ public class Gamemanager : MonoBehaviour
         }
 
         checkLevel();
+
+        Debug.Log(Audiomanager.MusicOn);
     }
 
     private void checkLevel()
@@ -60,18 +62,22 @@ public class Gamemanager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "First level")
         {
             InLevel = true;
+            LastLevel = 1;
         }
         else if (SceneManager.GetActiveScene().name == "Second level")
         {
             InLevel = true;
+            LastLevel = 2;
         }
         else if (SceneManager.GetActiveScene().name == "Third level")
         {
             InLevel = true;
+            LastLevel = 3;
         }
         else if (SceneManager.GetActiveScene().name == "Fourth level")
         {
             InLevel = true;
+            LastLevel = 4;
         }
         else
         {
@@ -79,41 +85,9 @@ public class Gamemanager : MonoBehaviour
         }
     }
 
-    public static object LevelStringIntConversion(object level)
-    {
-        if (level.GetType() == typeof(int))
-        {
-            if ((int)level == 1)
-                return "First Level";
-            else if ((int)level == 2)
-                return "Second Level";
-            else if ((int)level == 3)
-                return "Third Level";
-            else if ((int)level == 4)
-                return "Fourth Level";
-            else
-                return null;
-        }
-        else if (level.GetType() == typeof(string))
-        {
-            if ((string)level == "First Level")
-                return 1;
-            else if ((string)level == "Second Level")
-                return 2;
-            else if ((string)level == "Third Level")
-                return 3;
-            else if ((string)level == "Fourth Level")
-                return 4;
-            else
-                return null;
-        }
-        else
-            return null;
-    }
-
     public static void SavePlayer(PlayerController player = null, int level = 0)
     {
-        SaveSystem.SavePlayer(player);
+        SaveSystem.SavePlayer(player, level);
     }
 
     public static void LoadPlayer(int level = 0)
@@ -125,10 +99,11 @@ public class Gamemanager : MonoBehaviour
 
         Debug.Log("Loading in Highets level as: " + data.HighestLevel);
 
+        Audiomanager.MusicOn = data.MusicOn;
         LastLevel = data.CurrentLevel;
         HighestLevel = data.HighestLevel;
         PlayerHealth = data.Health;
-        SavedPlayerPosition = new Vector3(data.Position[level,0], data.Position[level,1], data.Position[level,2]);
+        SavedPlayerPositions[level] = new Vector3(data.Position[level,0], data.Position[level,1], data.Position[level,2]);
     }
 
     public static void RestartGame()
@@ -139,6 +114,11 @@ public class Gamemanager : MonoBehaviour
     public static void ExitLevel()
     {
         Instance.StartCoroutine(LoadAsyncronously("Selection menue", LoadingScreen, Slider, ProgressText));
+    }
+
+    public static void LoadScene(string level)
+    {
+        SceneManager.LoadScene(level);
     }
 
     public static IEnumerator LoadAsyncronously(string level, GameObject loadingScreen, Slider slider, Text progressText)

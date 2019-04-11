@@ -21,7 +21,7 @@ public class MainMenu : MonoBehaviour
         }
         else
         {
-            StartCoroutine(Gamemanager.LoadAsyncronously("Selection menue", loadingScreen, slider, progressText));
+            Gamemanager.LoadScene("Selection menue");
         }       
     }
 
@@ -32,6 +32,6 @@ public class MainMenu : MonoBehaviour
     
     public void Settings()
     {
-        StartCoroutine(Gamemanager.LoadAsyncronously("Settings menue", loadingScreen, slider, progressText));
+        Gamemanager.LoadScene("Settings menue");
     }   
 }
