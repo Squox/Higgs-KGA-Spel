@@ -46,15 +46,12 @@ public class Gamemanager : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("From Gamemanager perspective HightsLevel == " + HighestLevel);
         if (PlayerHealth < 1)
         {
             PlayerDead = true;
         }
 
         checkLevel();
-
-        Debug.Log(Audiomanager.MusicOn);
     }
 
     private void checkLevel()
@@ -96,8 +93,6 @@ public class Gamemanager : MonoBehaviour
 
         if (data == null)
             return;
-
-        Debug.Log("Loading in Highets level as: " + data.HighestLevel);
 
         Audiomanager.MusicOn = data.MusicOn;
         LastLevel = data.CurrentLevel;

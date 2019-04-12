@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     private bool isWinning = false;
 
     //variables used to check if player is underneath ceiling
-    private bool ceilingAbove;
+    public static bool CeilingAbove;
     [SerializeField] private float ceilingCheckRadius;
     [SerializeField] private LayerMask whatIsCeiling;
     [SerializeField] private Transform ceilingCheck;
@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate ()
     {
-        ceilingAbove = Physics2D.OverlapCircle(ceilingCheck.position, ceilingCheckRadius, whatIsCeiling);
+        CeilingAbove = Physics2D.OverlapCircle(ceilingCheck.position, ceilingCheckRadius, whatIsCeiling);
         byWall = Physics2D.OverlapCircle(wallCheck.position, wallCheckRadius, whatIsWall);
 
         PlayerPhysics.OrientPlayer();
@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour
             currentShootingpoint = dogedShootingpoint;
             animator.SetBool("IsDoge", true);
         }
-        else if (!ceilingAbove)
+        else if (!CeilingAbove)
         {
             Idle.enabled = true;
             Doged.enabled = false;

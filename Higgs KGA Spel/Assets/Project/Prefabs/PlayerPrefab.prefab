@@ -296,27 +296,27 @@ MonoBehaviour:
     type: 2}
   idleShootingpoint: {fileID: 4171995036575904}
   dogedShootingpoint: {fileID: 4366186929537338}
+  Idle: {fileID: 61386571729774220}
+  Doged: {fileID: 61721860967019496}
+  ceilingCheckRadius: 0.18
+  whatIsCeiling:
+    serializedVersion: 2
+    m_Bits: 1843
+  ceilingCheck: {fileID: 4668075966411192}
+  wallCheckRadius: 0.4
+  whatIsWall:
+    serializedVersion: 2
+    m_Bits: 818
+  wallCheck: {fileID: 4125385532847952}
+  burstFire: 0
   DeathScreen: {fileID: 0}
   PauseScreen: {fileID: 0}
   VictoryScreen: {fileID: 0}
-  Idle: {fileID: 61386571729774220}
-  Doged: {fileID: 61721860967019496}
   LastFadeTime: 0
-  VictoryScreenFadeTime: 40
   fireRate: 7
   empoweredShotDamage: 10
   simpleShotDamage: 1
-  burstFire: 0
-  ceilingCheckRadius: 0.2
-  whatIsCeiling:
-    serializedVersion: 2
-    m_Bits: 1847
-  ceilingCheck: {fileID: 4668075966411192}
-  wallCheckRadius: 0.5
-  whatIsWall:
-    serializedVersion: 2
-    m_Bits: 823
-  wallCheck: {fileID: 4125385532847952}
+  chargeTime: 1
 --- !u!114 &114315736303261416
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -345,7 +345,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveDirection: 0
-  ChargeTimer: 0
 --- !u!212 &212832968761438092
 SpriteRenderer:
   m_ObjectHideFlags: 1

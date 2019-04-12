@@ -119,7 +119,6 @@ public class PlayerInput : MonoBehaviour
             {
                 playerController.PauseScreen.SetActive(false);               
                 Audiomanager.StopMusic();
-                Debug.Log(Gamemanager.LastLevel);
                 Gamemanager.SavePlayer(playerController, Gamemanager.LastLevel);
                 Gamemanager.ExitLevel();
             }

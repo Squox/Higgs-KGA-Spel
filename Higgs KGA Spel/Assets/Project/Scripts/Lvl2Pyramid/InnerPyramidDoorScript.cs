@@ -11,17 +11,18 @@ public class InnerPyramidDoorScript : MonoBehaviour
 
     private float startY;
     private float openSpeed = 100f;
-    private float openPercent = 0.9f;
+    private float openPercent = 1.9f; //Doorsprite is 128 by 64 pixels, thus openpercent has to be doubble.
 
-	// Use this for initialization
-	void Start ()
+	void Awake ()
     {
         startY = transform.position.y;
+
+        Debug.Log(startY);
+
         rb = GetComponent<Rigidbody2D>();
 	}
 	
-	// Update is called once per frame
-	void FixedUpdate ()
+	void Update ()
     {
         if (Open && transform.position.y < startY + openPercent * transform.localScale.y)
             rb.velocity = new Vector2(0f, openSpeed * Time.fixedDeltaTime);

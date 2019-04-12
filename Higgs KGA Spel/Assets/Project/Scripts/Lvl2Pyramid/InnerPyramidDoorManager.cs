@@ -18,4 +18,12 @@ public class InnerPyramidDoorManager : MonoBehaviour
             door.GetComponent<InnerPyramidDoorScript>().Open = !door.GetComponent<InnerPyramidDoorScript>().Open;
         }
     }
+
+    public void InvertPillarDoors()
+    {
+        Doors[6].GetComponent<InnerPyramidDoorScript>().Open = !Doors[6].GetComponent<InnerPyramidDoorScript>().Open;
+        Doors[7].GetComponent<InnerPyramidDoorScript>().Open = !Doors[7].GetComponent<InnerPyramidDoorScript>().Open;
+        Doors[9].GetComponent<InnerPyramidDoorScript>().Open = !Doors[9].GetComponent<InnerPyramidDoorScript>().Open;
+        Doors[10].GetComponent<InnerPyramidDoorScript>().Open = !Doors[10].GetComponent<InnerPyramidDoorScript>().Open;
+    }
 }
