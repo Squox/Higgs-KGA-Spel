@@ -66,15 +66,15 @@ public class level2Script : MonoBehaviour
 
     private void colourCheckpoints()
     {
-        for (int i = 0; i < Gamemanager.CheckPointCounter; i++)
-        {
-            //cp0 has no SpriteRenderer, so it's color must not be set: therefore the "i + 1".
-            if (Gamemanager.DeathCounter < 3)           
-                checkPoints[i + 1].GetComponent<SpriteRenderer>().color = Color.green;
-            else
-                checkPoints[i + 1].GetComponent<SpriteRenderer>().color = Color.red;
+        //for (int i = 0; i < Gamemanager.CheckPointCounter; i++)
+        //{
+        //    //cp0 has no SpriteRenderer, so it's color must not be set: therefore the "i + 1".
+        //    if (Gamemanager.DeathCounter < 3)           
+        //        checkPoints[i + 1].GetComponent<SpriteRenderer>().color = Color.green;
+        //    else
+        //        checkPoints[i + 1].GetComponent<SpriteRenderer>().color = Color.red;
 
-        }
+        //}
     }
 
     #endregion
