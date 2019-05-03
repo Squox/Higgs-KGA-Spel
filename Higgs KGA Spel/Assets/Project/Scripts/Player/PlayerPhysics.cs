@@ -57,7 +57,7 @@ public class PlayerPhysics : MonoBehaviour
         else
             rb.velocity = new Vector2(MoveDirectionX * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
 
-        if (MoveDirectionX != 0 && !PlayerInput.OnLadder && !jumping)
+        if (MoveDirectionX != 0 && !PlayerInput.OnLadder && !jumping && !PlayerController.IsDoged)
             GetComponent<Animator>().SetBool("Moving", true);
         else
             GetComponent<Animator>().SetBool("Moving", false);

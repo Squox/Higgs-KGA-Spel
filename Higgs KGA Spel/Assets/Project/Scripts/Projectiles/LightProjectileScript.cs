@@ -9,11 +9,13 @@ public class LightProjectileScript : MonoBehaviour
 
     private float speed = 300f;
 
-    private bool delaying = true;
+    private bool delaying = true;  
 
 	// Use this for initialization
 	void Start ()
     {
+        tag = "Untagged";
+
         rb = GetComponent<Rigidbody2D>();
 
         rb.velocity = transform.right * speed * Time.fixedDeltaTime;
@@ -28,7 +30,9 @@ public class LightProjectileScript : MonoBehaviour
 
     private IEnumerator delay()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.08f);
+
+        tag = "NoColProjectile";
 
         delaying = false;
     }

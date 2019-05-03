@@ -6,7 +6,7 @@ public class LadderScript : MonoBehaviour
 {
     private bool playerOnLadder;
 
-    private void OnTriggerEnter2D(Collider2D collision) 
+    private void OnTriggerStay2D(Collider2D collision) 
     {
         if (collision.gameObject.tag == "Player")
         {
@@ -25,8 +25,8 @@ public class LadderScript : MonoBehaviour
 
     private IEnumerator stepOffLadder()
     {
-        yield return null;
-        yield return null;
+        yield return new WaitForSeconds(0.1f);
+
         if (playerOnLadder)
             yield break;
         else

@@ -5,6 +5,7 @@ public class TriangleRotateScript : MonoBehaviour
 {
     [SerializeField] private GameObject LightProjectile;
 
+    [SerializeField] private bool RotateOnHit = true;
     private bool delaying = false;
 
 	void Update () {
@@ -69,7 +70,8 @@ public class TriangleRotateScript : MonoBehaviour
 
         yield return new WaitForSeconds(0.2f);
 
-        transform.Rotate(0f, 0f, 90f);
+        if (RotateOnHit)
+            transform.Rotate(0f, 0f, 90f);
 
         delaying = false;
     }
