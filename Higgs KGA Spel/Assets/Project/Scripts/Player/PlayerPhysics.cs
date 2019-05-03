@@ -9,6 +9,7 @@ public class PlayerPhysics : MonoBehaviour
     private static float moveSpeed = 330f;
     private static float climbSpeed = 150f;
     private static float jumpForce = 330f;
+    private static float swimSpeed = 200f;
 
     public static float MoveDirectionX = 0;
     public static float MoveDirectionY = 0;
@@ -18,6 +19,11 @@ public class PlayerPhysics : MonoBehaviour
     private static Rigidbody2D rb;
 
     public static Transform PlayerTransform;
+
+    public static bool InWater = false;
+    [SerializeField] private float waterCheckRadius;
+    [SerializeField] private LayerMask whatIsWater;
+    [SerializeField] private Transform waterCheck;
 
     private static bool isOnGround;
     [SerializeField] private float groundCheckRadius;
@@ -38,7 +44,11 @@ public class PlayerPhysics : MonoBehaviour
 	void FixedUpdate ()
     {
         PlayerTransform = transform;
+
         isOnGround = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
+        InWater = Physics2D.OverlapCircle(waterCheck.position, waterCheckRadius, whatIsWater);
+
+        Debug.Log(InWater);
 
         move();
     }
@@ -57,7 +67,7 @@ public class PlayerPhysics : MonoBehaviour
         else
             rb.velocity = new Vector2(MoveDirectionX * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
 
-        if (MoveDirectionX != 0 && !PlayerInput.OnLadder && !jumping && !PlayerController.IsDoged)
+        if (MoveDirectionX != 0 && !PlayerInput.OnLadder && !jumping && !PlayerController.IsDoged && !InWater && !PlayerController.CeilingAbove)
             GetComponent<Animator>().SetBool("Moving", true);
         else
             GetComponent<Animator>().SetBool("Moving", false);
@@ -79,6 +89,11 @@ public class PlayerPhysics : MonoBehaviour
             rb.gravityScale = 1f;
     }
 
+    public static void Swim()
+    {
+        rb.velocity = new Vector2(rb.velocity.x, swimSpeed * Time.fixedDeltaTime);
+    }
+
     public static void Jump()
     {
         if (isOnGround || PlayerInput.OnLadder)
@@ -95,19 +110,24 @@ public class PlayerPhysics : MonoBehaviour
             moveSpeed = 250f;
             jumpForce = 250f;
 
-            if (doged)
+            if (doged || InWater)
             {
                 moveSpeed = 160f;
                 jumpForce = 160f;
             }
         }
-        else if (doged)
+        else if (doged && !InWater)
         {
             if (!charging)
             {
                 moveSpeed = 250f;
                 jumpForce = 250f;
             }
+        }
+        else if (InWater)
+        {
+            moveSpeed = 160f;
+            jumpForce = 250f;
         }
         else
         {

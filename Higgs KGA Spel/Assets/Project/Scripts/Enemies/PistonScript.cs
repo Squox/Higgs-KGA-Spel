@@ -9,7 +9,7 @@ public class PistonScript : MonoBehaviour
     private bool attacking = false;
 
     private float slamSpeed = -8f;
-    private float retreatSpeed = 1.35f;
+    private float retreatSpeed = 1.3f;
     private float overlap = .25f;
     private float startY;
     private float attackPause = 22f / 60f;

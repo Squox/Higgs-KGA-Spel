@@ -8,6 +8,9 @@ public class Bullet : MonoBehaviour
     
     public float BulletSpeed;
 
+    private float waterMultipier = 1f;
+    private float waterSpeedPercent = 0.5f;
+
     private bool delaying;
 
     [SerializeField] private int damage = 1;
@@ -18,8 +21,11 @@ public class Bullet : MonoBehaviour
 
 	void Start ()
     {
+        if (PlayerPhysics.InWater)
+            waterMultipier = waterSpeedPercent;
+
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = transform.right * BulletSpeed;
+        rb.velocity = transform.right * BulletSpeed * waterMultipier;
         StartCoroutine(destroyBullet());
 
         damage = PlayerController.ShotDamage;
@@ -33,11 +39,11 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag != "Projectile" && collision.gameObject.tag != "NoColProjectile" && collision.gameObject.tag != "Player" && collision.gameObject.tag != "InvulnerableEnemy" && collision.gameObject.tag != "Interactables")
+        if (collision.gameObject.tag != "Projectile" && collision.gameObject.tag != "Water" && collision.gameObject.tag != "NoColProjectile" && collision.gameObject.tag != "Player" && collision.gameObject.tag != "InvulnerableEnemy" && collision.gameObject.tag != "Interactables")
         {
             Instantiate(hitEffect, transform.position, hitEffect.transform.rotation);
 
-            if(collision.gameObject.tag == "Enemy" && !delaying)
+            if (collision.gameObject.tag == "Enemy" && !delaying)
             {
                 collision.gameObject.GetComponent<EnemyController>().TakeDamage(damage);
                 StartCoroutine(doubbleDamagePreventionDelay());

@@ -5,15 +5,20 @@ using Cinemachine;
 
 public class CameraManager : MonoBehaviour
 {
-    public static CameraManager instance;
+    public static CameraManager Instance;
 
     private static int showTimeCounter;
 
     [SerializeField] private static CinemachineVirtualCamera standardCam;
 
+    [SerializeField] private float defaultCamDistance = 3;
+
     private void Awake()
     {
         MakeSingelton();
+
+        standardCam = FindObjectOfType<CinemachineVirtualCamera>();
+        standardCam.m_Lens.OrthographicSize = defaultCamDistance;
     }
 
     // Update is called once per frame
@@ -36,13 +41,13 @@ public class CameraManager : MonoBehaviour
 
     private void MakeSingelton()
     {
-        if (instance != null)
+        if (Instance != null)
         {
             Destroy(gameObject);
         }
         else
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         }
     }

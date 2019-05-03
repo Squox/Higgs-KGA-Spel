@@ -76,17 +76,19 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             PlayerPhysics.Jump();
-        }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
             if (PlayerController.CanExit || PlayerController.CanRestart)
             {
                 playerController.VictoryScreen.SetActive(false);
                 playerController.DeathScreen.SetActive(false);
                 Gamemanager.RestartGame();
             }           
-        }              
+        }    
+        
+        if (Input.GetKey(KeyCode.Space) && PlayerPhysics.InWater)
+        {
+            PlayerPhysics.Swim();
+        }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {

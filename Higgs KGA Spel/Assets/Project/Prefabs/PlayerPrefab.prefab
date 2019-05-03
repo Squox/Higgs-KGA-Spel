@@ -26,6 +26,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1043548905822368
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4471975279918372}
+  m_Layer: 10
+  m_Name: inWater?
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1137545801029448
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,7 +157,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1368115266776336}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 465.43, y: 279.849, z: 0}
+  m_LocalPosition: {x: 465.43, y: 279.89, z: 0}
   m_LocalScale: {x: 1.335, y: 1.335, z: 1.335}
   m_Children:
   - {fileID: 4171995036575904}
@@ -150,6 +165,7 @@ Transform:
   - {fileID: 4366186929537338}
   - {fileID: 4668075966411192}
   - {fileID: 4125385532847952}
+  - {fileID: 4471975279918372}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -165,6 +181,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4274083624062424}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4471975279918372
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1043548905822368}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.038, y: -0.24, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4274083624062424}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4668075966411192
 Transform:
@@ -301,7 +330,7 @@ MonoBehaviour:
   ceilingCheckRadius: 0.18
   whatIsCeiling:
     serializedVersion: 2
-    m_Bits: 1843
+    m_Bits: 1827
   ceilingCheck: {fileID: 4668075966411192}
   wallCheckRadius: 0.4
   whatIsWall:
@@ -328,6 +357,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb7b2d04827149c4a89e815557d06bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waterCheckRadius: 0.8
+  whatIsWater:
+    serializedVersion: 2
+    m_Bits: 16
+  waterCheck: {fileID: 4471975279918372}
   groundCheckRadius: 0.2
   whatIsGround:
     serializedVersion: 2

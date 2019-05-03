@@ -39,7 +39,7 @@ public class LightProjectileScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!delaying && collision.gameObject.tag != "Projectile" && collision.gameObject.tag != "NoColProjectile" && collision.gameObject.tag != "Player" && collision.gameObject.tag != "InvulnerableEnemy" && collision.gameObject.tag != "Interactables")
+        if (!delaying && collision.gameObject.tag != "Projectile" && collision.gameObject.tag != "Glas" && collision.gameObject.tag != "NoColProjectile" && collision.gameObject.tag != "Player" && collision.gameObject.tag != "InvulnerableEnemy" && collision.gameObject.tag != "Interactables")
             Destroy(gameObject);
         if (collision.gameObject.tag == "Player")
             collision.gameObject.GetComponent<PlayerController>().TakeDamage();
