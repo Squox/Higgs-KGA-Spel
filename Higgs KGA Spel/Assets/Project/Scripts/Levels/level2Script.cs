@@ -11,6 +11,8 @@ public class level2Script : MonoBehaviour
     private float checkRange = 1f;
     private float musicVolume = 0.5f;
 
+    [SerializeField] private Sprite[] checkpointSprites;
+
     [SerializeField] private GameObject loadingScreen;
     [SerializeField] private Slider slider;
     [SerializeField] private Text progressText;
@@ -58,7 +60,7 @@ public class level2Script : MonoBehaviour
     private void takeCheckpoint(GameObject cp, int cpIndex)
     {
         Gamemanager.LastCheckpointPosition = cp.transform.position;
-        cp.GetComponent<SpriteRenderer>().color = Color.green;
+        cp.GetComponent<SpriteRenderer>().sprite = checkpointSprites[1];
         Gamemanager.CheckPointCounter = cpIndex;
         Gamemanager.DeathCounter = 0;
         Gamemanager.SavePlayer(playerController, Gamemanager.LastLevel);
@@ -66,15 +68,22 @@ public class level2Script : MonoBehaviour
 
     private void colourCheckpoints()
     {
-        //for (int i = 0; i < Gamemanager.CheckPointCounter; i++)
-        //{
-        //    //cp0 has no SpriteRenderer, so it's color must not be set: therefore the "i + 1".
-        //    if (Gamemanager.DeathCounter < 3)           
-        //        checkPoints[i + 1].GetComponent<SpriteRenderer>().color = Color.green;
-        //    else
-        //        checkPoints[i + 1].GetComponent<SpriteRenderer>().color = Color.red;
-
-        //}
+        for (int i = 0; i < Gamemanager.CheckPointCounter; i++)
+        {
+            //cp0 has no SpriteRenderer, so it's color must not be set: therefore the "i + 1".
+            if (Gamemanager.DeathCounter == 0)
+                checkPoints[i + 1].GetComponent<SpriteRenderer>().sprite = checkpointSprites[0];
+            else if (Gamemanager.DeathCounter == 1)
+                checkPoints[i + 1].GetComponent<SpriteRenderer>().sprite = checkpointSprites[1];
+            else if (Gamemanager.DeathCounter == 2)
+                checkPoints[i + 1].GetComponent<SpriteRenderer>().sprite = checkpointSprites[2];
+            else if (Gamemanager.DeathCounter == 3)
+                checkPoints[i + 1].GetComponent<SpriteRenderer>().sprite = checkpointSprites[3];
+            else if (Gamemanager.DeathCounter == 4)
+                checkPoints[i + 1].GetComponent<SpriteRenderer>().sprite = checkpointSprites[4];
+            else
+                checkPoints[i + 1].GetComponent<SpriteRenderer>().sprite = checkpointSprites[5];
+        }
     }
 
     #endregion
