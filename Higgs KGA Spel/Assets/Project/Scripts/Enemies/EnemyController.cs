@@ -31,6 +31,6 @@ public class EnemyController : MonoBehaviour
 
     public bool IsPlayerInRange(float rangeX, float rangeY = 0)
     {
-        return Utility.IsInRange(PlayerPhysics.PlayerTransform, transform, rangeX, rangeY);
+        return Utility.IsInRange(PlayerPhysics.PlayerTransform.position, transform.position, rangeX, rangeY);
     }
 }

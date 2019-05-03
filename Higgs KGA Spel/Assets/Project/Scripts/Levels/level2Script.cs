@@ -44,11 +44,11 @@ public class level2Script : MonoBehaviour
     {
         if (checkPoints != null)
         {
-            if (Utility.IsInRange(PlayerPhysics.PlayerTransform, checkPoints[1].transform, checkRange) && Gamemanager.CheckPointCounter < 1)
+            if (Utility.IsInRange(PlayerPhysics.PlayerTransform.position, checkPoints[1].transform.position, checkRange) && Gamemanager.CheckPointCounter < 1)
             {
                 takeCheckpoint(checkPoints[1], 1);
             }
-            else if (Utility.IsInRange(PlayerPhysics.PlayerTransform, checkPoints[2].transform, checkRange) && Gamemanager.CheckPointCounter < 2)
+            else if (Utility.IsInRange(PlayerPhysics.PlayerTransform.position, checkPoints[2].transform.position, checkRange) && Gamemanager.CheckPointCounter < 2)
             {
                 takeCheckpoint(checkPoints[2], 2);
             }

@@ -132,14 +132,11 @@ public static class Utility
     /// Checks whether two Transforms are whithin a given distance of each other.
     /// </summary>
     /// <returns>Returns true if the Transforms are in range of each other.</returns>
-    public static bool IsInRange(Transform transform1, Transform transform2, float rangeX, float rangeY = 0)
+    public static bool IsInRange(Vector3 position1, Vector3 position2, float rangeX, float rangeY = 0)
     {
-        if (transform1 == null || transform2 == null)
-            return false;
-
         if (rangeY == 0)
         {
-            if (Mathf.Abs(transform1.position.x - transform2.position.x) < rangeX)
+            if (Mathf.Abs(position1.x - position2.x) < rangeX)
             {
                 return true;
             }
@@ -150,7 +147,7 @@ public static class Utility
         }
         else
         {
-            if (Mathf.Abs(transform1.position.x - transform2.position.x) < rangeX && Mathf.Abs(transform1.position.y - transform2.position.y) < rangeX)
+            if (Mathf.Abs(position1.x - position2.x) < rangeX && Mathf.Abs(position1.y - position2.y) < rangeX)
             {
                 return true;
             }

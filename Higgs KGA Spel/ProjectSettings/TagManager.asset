@@ -28,10 +28,11 @@ TagManager:
   - Heart
   - Projectile
   - Acid
-  - DeathWall
   - Rat
   - ShootingLimit
   - Interactables
+  - NoColProjectile
+  - PhysicsObject
   layers:
   - Default
   - TransparentFX

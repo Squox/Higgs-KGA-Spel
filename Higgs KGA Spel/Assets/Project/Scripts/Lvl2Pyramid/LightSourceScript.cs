@@ -16,12 +16,6 @@ public class LightSourceScript : MonoBehaviour
     {
         StartCoroutine(updateLight());
     }
-	
-	// Update is called once per frame
-	void FixedUpdate ()
-    {
-        
-	}
 
     private IEnumerator updateLight()
     {
