@@ -55,7 +55,12 @@ public class PlayerPhysics : MonoBehaviour
                 rb.velocity = new Vector2(0, 0);
         }
         else
-            rb.velocity = new Vector2(MoveDirectionX * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);       
+            rb.velocity = new Vector2(MoveDirectionX * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
+
+        if (MoveDirectionX != 0 && !PlayerInput.OnLadder && !jumping)
+            GetComponent<Animator>().SetBool("Moving", true);
+        else
+            GetComponent<Animator>().SetBool("Moving", false);
     }
 
     public static void ChangeGravityScale()

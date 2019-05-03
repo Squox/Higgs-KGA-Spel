@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9181,8 +9181,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 503994901}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 99.23, y: 8.5, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalPosition: {x: 99.22, y: 8.3366, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 896489193}
   m_RootOrder: 2
@@ -12833,8 +12833,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 579510905}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 48.19, y: 5.5, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalPosition: {x: 48.22, y: 5.3366, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 896489193}
   m_RootOrder: 1
@@ -27086,6 +27086,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc8289fbe24796c489579547ba3a7486, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  checkpointSprites:
+  - {fileID: 21300000, guid: c0d56e2da518cc6429ef430a8f210bce, type: 3}
+  - {fileID: 21300000, guid: f111094c1319866448edf5a1ddbf5923, type: 3}
+  - {fileID: 21300000, guid: e0c18f7e05a0b26488dc3227a3bf9447, type: 3}
+  - {fileID: 21300000, guid: ca052c0725888e841bbddf80551d2289, type: 3}
+  - {fileID: 21300000, guid: acc500558d4ae624caf62b337164e789, type: 3}
+  - {fileID: 21300000, guid: 1b9b7c75d296a5146b74ca3c499fd6e7, type: 3}
   loadingScreen: {fileID: 621628336}
   slider: {fileID: 1913149739}
   progressText: {fileID: 676078911}
