@@ -9,7 +9,7 @@ public class PistonScript : MonoBehaviour
     private bool attacking = false;
 
     private float slamSpeed = -8f;
-    private float retreatSpeed = 1.35483f;
+    private float retreatSpeed = 1.35f;
     private float overlap = .25f;
     private float startY;
     private float attackPause = 22f / 60f;
@@ -20,6 +20,7 @@ public class PistonScript : MonoBehaviour
 	void Start ()
     {
         rb = GetComponent<Rigidbody2D>();
+
         startY = transform.position.y;
 	}
 	
@@ -48,6 +49,7 @@ public class PistonScript : MonoBehaviour
     private IEnumerator pause()
     {
         yield return new WaitForSeconds(attackPause);
+
         attacking = false;
     }
 
