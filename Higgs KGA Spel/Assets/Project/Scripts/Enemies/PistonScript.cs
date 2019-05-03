@@ -9,7 +9,7 @@ public class PistonScript : MonoBehaviour
     private bool attacking = false;
 
     private float slamSpeed = -8f;
-    private float retreatSpeed = 2f;
+    private float retreatSpeed = 1.35483f;
     private float overlap = .25f;
     private float startY;
     private float attackPause = 22f / 60f;
@@ -26,7 +26,7 @@ public class PistonScript : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if (!attacking)
+        if (!attacking && transform.position.y >= startY )
         {
             rb.velocity = new Vector2(0, slamSpeed);
             attacking = true;
@@ -43,7 +43,7 @@ public class PistonScript : MonoBehaviour
 
             StartCoroutine(pause());
         }
-	}
+    }
 
     private IEnumerator pause()
     {
