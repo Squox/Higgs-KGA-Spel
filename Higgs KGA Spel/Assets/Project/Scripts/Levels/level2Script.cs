@@ -72,17 +72,17 @@ public class level2Script : MonoBehaviour
         {
             //cp0 has no SpriteRenderer, so it's color must not be set: therefore the "i + 1".
             if (Gamemanager.DeathCounter == 0)
-                checkPoints[i + 1].GetComponent<SpriteRenderer>().sprite = checkpointSprites[0];
-            else if (Gamemanager.DeathCounter == 1)
                 checkPoints[i + 1].GetComponent<SpriteRenderer>().sprite = checkpointSprites[1];
-            else if (Gamemanager.DeathCounter == 2)
+            else if (Gamemanager.DeathCounter == 1)
                 checkPoints[i + 1].GetComponent<SpriteRenderer>().sprite = checkpointSprites[2];
-            else if (Gamemanager.DeathCounter == 3)
+            else if (Gamemanager.DeathCounter == 2)
                 checkPoints[i + 1].GetComponent<SpriteRenderer>().sprite = checkpointSprites[3];
-            else if (Gamemanager.DeathCounter == 4)
+            else if (Gamemanager.DeathCounter == 3)
                 checkPoints[i + 1].GetComponent<SpriteRenderer>().sprite = checkpointSprites[4];
-            else
+            else if (Gamemanager.DeathCounter == 4)
                 checkPoints[i + 1].GetComponent<SpriteRenderer>().sprite = checkpointSprites[5];
+            else
+                checkPoints[i + 1].GetComponent<SpriteRenderer>().sprite = checkpointSprites[0];
         }
     }
 

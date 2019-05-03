@@ -22,7 +22,7 @@ public static class LevelSetup
     {
         if (Gamemanager.LastCheckpointPosition == cp0.transform.position)
             Gamemanager.DeathCounter = 0;
-        else if (Gamemanager.DeathCounter > 3)
+        else if (Gamemanager.DeathCounter > 4)
         {
             Gamemanager.LastCheckpointPosition = cp0.transform.position;
             Gamemanager.DeathCounter = 0;
@@ -55,7 +55,7 @@ public static class LevelSetup
             Gamemanager.LastCheckpointPosition = cps[0].transform.position;
             Gamemanager.SavePlayer(playerController, Gamemanager.LastLevel);
         }
-        else if (Gamemanager.LastLevel == levelIndex)
+        else if (Gamemanager.LastLevel == levelIndex && !Gamemanager.PlayerDead)
         {
             Gamemanager.LoadPlayer(levelIndex);
             player.transform.position = Gamemanager.SavedPlayerPositions[levelIndex];
