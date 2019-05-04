@@ -46,8 +46,6 @@ public class PlattformRotateOrbScript : MonoBehaviour
                 plattform.transform.rotation = Quaternion.Euler(0f, 0f, angle1);
                 break;
             }
-
-            Debug.Log(plattform.transform.rotation.eulerAngles.z);
                 
             yield return null;
         }

@@ -22,46 +22,26 @@ public class TriangleRotateScript : MonoBehaviour
             Destroy(collision.gameObject);
 
             if (collision.gameObject.GetComponent<Rigidbody2D>().velocity.x < 0 && collision.gameObject.GetComponent<Rigidbody2D>().velocity.y == 0)
-            {
-                if (transform.rotation.eulerAngles.z == 270)
-                    Instantiate(LightProjectile, collision.gameObject.transform.position, Quaternion.Euler(0f, 0f, 270f));
-                else if (transform.rotation.eulerAngles.z == 0)
-                    Instantiate(LightProjectile, collision.gameObject.transform.position, Quaternion.Euler(0f, 0f, 90f));
-                else
-                    Instantiate(LightProjectile, collision.gameObject.transform.position, Quaternion.Euler(0f, 0f, 0f));
-            }
+                InstantiateLight(270f, collision.gameObject.transform.position);
             else if (collision.gameObject.GetComponent<Rigidbody2D>().velocity.x > 0 && collision.gameObject.GetComponent<Rigidbody2D>().velocity.y == 0)
-            {
-                if (transform.rotation.eulerAngles.z == 90)
-                    Instantiate(LightProjectile, collision.gameObject.transform.position, Quaternion.Euler(0f, 0f, 90f));
-                else if (transform.rotation.eulerAngles.z == 180)
-                    Instantiate(LightProjectile, collision.gameObject.transform.position, Quaternion.Euler(0f, 0f, 270f));
-                else
-                    Instantiate(LightProjectile, collision.gameObject.transform.position, Quaternion.Euler(0f, 0f, 180f));
-            }
+                InstantiateLight(90f, collision.gameObject.transform.position);
             else if (collision.gameObject.GetComponent<Rigidbody2D>().velocity.y < 0 && collision.gameObject.GetComponent<Rigidbody2D>().velocity.x == 0)
-            {
-                Debug.Log(transform.rotation.eulerAngles.z);
-                if (transform.rotation.eulerAngles.z == 0)
-                    Instantiate(LightProjectile, collision.gameObject.transform.position, Quaternion.Euler(0f, 0f, 0f));
-                else if (transform.rotation.eulerAngles.z == 90)
-                    Instantiate(LightProjectile, collision.gameObject.transform.position, Quaternion.Euler(0f, 0f, 180f));
-                else
-                    Instantiate(LightProjectile, collision.gameObject.transform.position, Quaternion.Euler(0f, 0f, 90f));
-            }
+                InstantiateLight(0f, collision.gameObject.transform.position);
             else if (collision.gameObject.GetComponent<Rigidbody2D>().velocity.y > 0 && collision.gameObject.GetComponent<Rigidbody2D>().velocity.x == 0)
-            {
-                Debug.Log(transform.rotation.eulerAngles.z);
-                if (transform.rotation.eulerAngles.z == 180)
-                    Instantiate(LightProjectile, collision.gameObject.transform.position, Quaternion.Euler(0f, 0f, 180f));
-                else if (transform.rotation.eulerAngles.z == 270)
-                    Instantiate(LightProjectile, collision.gameObject.transform.position, Quaternion.Euler(0f, 0f, 0f));
-                else
-                    Instantiate(LightProjectile, collision.gameObject.transform.position, Quaternion.Euler(0f, 0f, 270f));
-            }
+                InstantiateLight(180f, collision.gameObject.transform.position);
 
             StartCoroutine(delay());
         }
+    }
+
+    private void InstantiateLight(float angle, Vector3 position)
+    {
+        if (transform.rotation.eulerAngles.z == angle)
+            Instantiate(LightProjectile, position, Quaternion.Euler(0f, 0f, angle));
+        else if (transform.rotation.eulerAngles.z == angle + 90f || (angle + 90f == 360f && transform.rotation.eulerAngles.z == 0f))
+            Instantiate(LightProjectile, position, Quaternion.Euler(0f, 0f, angle + 180f));
+        else
+            Instantiate(LightProjectile, position, Quaternion.Euler(0f, 0f, angle + 90f));
     }
 
     private IEnumerator delay()

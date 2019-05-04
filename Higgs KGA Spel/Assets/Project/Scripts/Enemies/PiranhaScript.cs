@@ -18,6 +18,10 @@ public class PiranhaScript : MonoBehaviour
     private float swimRange = 0.8f;
     private float swimSpeed = 2f;
     private float jumpPause = 160f / 60f;
+    private float speedRandomizationMultiplier = 0.2f;
+
+    private const float defaultSwimSpeed = 2f;
+    private const float maxSpeedDivergence = 1f;
 
     private int health = 3;
 
@@ -106,6 +110,11 @@ public class PiranhaScript : MonoBehaviour
         {
             transform.rotation = Quaternion.Euler(transform.rotation.x, 0, transform.rotation.z);
         }
+
+        if (Mathf.Abs(swimSpeed) < defaultSwimSpeed - maxSpeedDivergence || Mathf.Abs(swimSpeed) > defaultSwimSpeed + maxSpeedDivergence)
+            swimSpeed = defaultSwimSpeed;
+
+        swimSpeed += Random.Range(-speedRandomizationMultiplier, speedRandomizationMultiplier);
 
         rb.velocity = new Vector2(swimSpeed, rb.velocity.y);
     }

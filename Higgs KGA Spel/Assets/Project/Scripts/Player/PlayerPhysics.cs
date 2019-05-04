@@ -48,8 +48,6 @@ public class PlayerPhysics : MonoBehaviour
         isOnGround = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
         InWater = Physics2D.OverlapCircle(waterCheck.position, waterCheckRadius, whatIsWater);
 
-        Debug.Log(InWater);
-
         move();
     }
 
