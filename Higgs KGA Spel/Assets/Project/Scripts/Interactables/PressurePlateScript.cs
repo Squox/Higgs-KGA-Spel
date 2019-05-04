@@ -11,6 +11,8 @@ public class PressurePlateScript : MonoBehaviour
     private float pushSpeed = 0.5f;
     private float depth = 0.3f;
 
+    [SerializeField] private bool stayPressed = true;
+
     public bool Active = false;
     public bool Pressed = false;
 
@@ -29,9 +31,7 @@ public class PressurePlateScript : MonoBehaviour
         if (Active)
         {
             if (transform.position.y > endY)
-            {
                 rb.velocity = new Vector2(0, -pushSpeed);
-            }
             else
             {
                 rb.velocity = new Vector2(0, 0);
@@ -43,21 +43,21 @@ public class PressurePlateScript : MonoBehaviour
             Pressed = false;
 
             if (transform.position.y < startY)
-            {
                 rb.velocity = new Vector2(0, pushSpeed);
-            }
             else if (transform.position.y > startY)
-            {
                 transform.position = new Vector2(transform.position.x, startY);
-            }
         }
 	}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "PhysicsObject")
-        {
             Active = true;
-        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if ((collision.gameObject.tag == "Player" || collision.gameObject.tag == "PhysicsObject") && !stayPressed)
+            Active = false;
     }
 }

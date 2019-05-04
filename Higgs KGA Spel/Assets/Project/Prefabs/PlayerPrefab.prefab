@@ -330,12 +330,12 @@ MonoBehaviour:
   ceilingCheckRadius: 0.18
   whatIsCeiling:
     serializedVersion: 2
-    m_Bits: 1827
+    m_Bits: 513
   ceilingCheck: {fileID: 4668075966411192}
   wallCheckRadius: 0.4
   whatIsWall:
     serializedVersion: 2
-    m_Bits: 818
+    m_Bits: 802
   wallCheck: {fileID: 4125385532847952}
   burstFire: 0
   DeathScreen: {fileID: 0}

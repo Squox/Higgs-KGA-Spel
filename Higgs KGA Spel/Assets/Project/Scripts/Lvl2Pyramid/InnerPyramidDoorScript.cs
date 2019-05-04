@@ -17,8 +17,6 @@ public class InnerPyramidDoorScript : MonoBehaviour
     {
         startY = transform.position.y;
 
-        Debug.Log(startY);
-
         rb = GetComponent<Rigidbody2D>();
 	}
 	
